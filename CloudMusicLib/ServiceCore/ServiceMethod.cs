@@ -12,6 +12,6 @@ namespace CloudMusicLib.ServiceCore
             Command = command;
         }
 
-        public abstract Task<TOutType> Invoke(TArgType[] args, params object[] extraArgs=null);
+        public abstract Task<TOutType> Invoke(TArgType[] args, params object[] extraArgs);
     }
 }
