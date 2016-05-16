@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using CloudMusicLib.ServiceCore;
 namespace CloudMusicLib.SoundCloudService
 {
-     public class SoundCloudService : ICloudService
-    {
-        public bool IsAuthorizationRequired    { get { return false; } }
-
-        public string ServiceName           { get { return "SoundCloud"; } }
-
-        public bool Authorization(string user, string password)
+     public class SoundCloudService : CloudService
+     {
+        public string ClientId;
+        public string SecretId;
+        public string UserToken;
+        /*
+        static SoundCloudService()
         {
-            throw new NotImplementedException();
+           CloudMan.RegisterService(new SoundCloudService());
         }
+        */
+         public SoundCloudService() : base("SoundCloud", false)
+         {
+            base.AddMethod(new ScAuthorizationMethod(this));
+            base.AddMethod(new ScInitMethod(this));
+         }    
     }
 }

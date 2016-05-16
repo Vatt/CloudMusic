@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    enum Enpoints
+    enum ScApiEnum
     {
-        Host
+        Authorization,//  /oauth2/token
+        Me,
     }
 }

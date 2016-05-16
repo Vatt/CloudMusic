@@ -2,8 +2,10 @@
 
 namespace CloudMusicLib.ServiceCore
 {
-    internal enum ServiceCommands :byte
+    public enum ServiceCommands :byte
     {
+
+        Init,
         Authorization,
 
         FullSearch,

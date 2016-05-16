@@ -3,15 +3,21 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.ServiceCore
 {
-    internal abstract class ServiceMethod<TArgType,TOutType>
+    public abstract class ServiceMethod
     {
         public readonly ServiceCommands Command;
-
-        protected ServiceMethod(ServiceCommands command)
+        protected readonly CloudService Service;
+        protected ServiceMethod(CloudService service, ServiceCommands command)
         {
             Command = command;
+            Service = service;
         }
 
-        public abstract Task<TOutType> Invoke(TArgType[] args, params object[] extraArgs);
+        public abstract TOutType Invoke<TOutType, TArgType>(params TArgType[] args) where TOutType:class;
+
+        public virtual Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args) where TOutType : class
+        {
+            return new Task<TOutType>(()=>Invoke<TOutType,TArgType>());
+        }
     }
 }
