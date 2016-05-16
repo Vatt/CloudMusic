@@ -10,7 +10,8 @@ namespace CloudMusicLib.SoundCloudService
         public static readonly Dictionary<ScApiEnum, string> ApiDictionary = new Dictionary<ScApiEnum, string>
         {
             { ScApiEnum.Authorization, "https://api.soundcloud.com/oauth2/token?client_id={0}&client_secret={1}&grant_type=password&username={2}&password={3}"},
-            { ScApiEnum.Me,             ""},
+            { ScApiEnum.RefreshToken,  "https://api.soundcloud.com/oauth2/token&client_id={0}&client_secret={1}&grant_type=refresh_token&refresh_token={2}"},
+            { ScApiEnum.MePlaylists,   ""},
 
         };
     }

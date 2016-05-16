@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
 
-namespace CloudMusicLib.SoundCloudService
+namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 {
     class ScAuthorizationMethod:ServiceMethod
     {
@@ -38,8 +38,7 @@ namespace CloudMusicLib.SoundCloudService
             var req = new HttpRequestMessage(HttpMethod.Post, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            return response.Content.ReadAsStringAsync() as TOutType;
-
+            return await response.Content.ReadAsStringAsync() as TOutType;
         }
     }
 }

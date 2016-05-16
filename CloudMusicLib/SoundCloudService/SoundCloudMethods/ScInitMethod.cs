@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
 
-namespace CloudMusicLib.SoundCloudService
+namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 {
     class ScInitMethod:ServiceMethod
     {

@@ -44,10 +44,11 @@
     <Compile Include="ServiceCore\ServiceCommands.cs" />
     <Compile Include="ServiceCore\ServiceMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundCloudService\ScAuthorizationMethod.cs" />
+    <Compile Include="SoundCloudService\SoundCloudMethods\ScAuthorizationMethod.cs" />
     <Compile Include="SoundCloudService\ScApiEnum.cs" />
     <Compile Include="SoundCloudService\ScBase.cs" />
-    <Compile Include="SoundCloudService\ScInitMethod.cs" />
+    <Compile Include="SoundCloudService\SoundCloudMethods\ScInitMethod.cs" />
+    <Compile Include="SoundCloudService\SoundCloudMethods\ScGetUserPlaylistMethod.cs" />
     <Compile Include="SoundCloudService\SoundCloudService.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
-﻿using System.Net.Http;
-using CloudMusicLib.ServiceCore;
+﻿using CloudMusicLib.ServiceCore;
+using CloudMusicLib.SoundCloudService.SoundCloudMethods;
 namespace CloudMusicLib.SoundCloudService
 {
      public class SoundCloudService : CloudService
@@ -17,6 +17,7 @@ namespace CloudMusicLib.SoundCloudService
          {
             base.AddMethod(new ScAuthorizationMethod(this));
             base.AddMethod(new ScInitMethod(this));
+            base.AddMethod(new ScGetUserPlaylistMethod(this));
          }    
     }
 }

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
 using CloudMusicLib.SoundCloudService;
 
@@ -24,16 +18,13 @@ namespace Test
                                                               "109f016fa8b98246e0e5156074389ff1",
                                                               "08b584be83dd9825488004bcee50e3b6");
 
-            var data =   CloudMan.InvokeCommand<string, string>("SoundCloud", ServiceCommands.Authorization,
-                                                                 "gamover-90@hotmail.com", "gam2106");
+            var data =  await  CloudMan.InvokeCommandAsync<string, string>("SoundCloud", ServiceCommands.Authorization,
+                                                                           "gamover-90@hotmail.com", "gam2106");
 
-            Writer(data);
+            Console.WriteLine(data);
+          //  var MePlaylist = await CloudMan.InvokeCommandAsync<string, string>("SoundCloud",ServiceCommands.GetUserPlaylists);
         }
 
-        static void Writer(string str)
-        {
-            Console.WriteLine(str);
-        }
     }
     
 }

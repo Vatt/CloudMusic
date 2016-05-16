@@ -9,6 +9,7 @@ namespace CloudMusicLib.SoundCloudService
     enum ScApiEnum
     {
         Authorization,//  /oauth2/token
-        Me,
+        RefreshToken,
+        MePlaylists,
     }
 }
