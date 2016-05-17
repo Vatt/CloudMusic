@@ -36,14 +36,16 @@
   <ItemGroup>
     <Compile Include="CoreLibrary\CloudAlbum.cs" />
     <Compile Include="CoreLibrary\CloudArtist.cs" />
+    <Compile Include="ServiceCore\ICloudConnection.cs" />
     <Compile Include="ServiceCore\CloudHttpHelper.cs" />
     <Compile Include="ServiceCore\CloudMan.cs" />
-    <Compile Include="CoreLibrary\CloudPlaylist.cs" />
+    <Compile Include="CoreLibrary\CloudTracklist.cs" />
     <Compile Include="CoreLibrary\CloudTrack.cs" />
     <Compile Include="ServiceCore\CloudService.cs" />
     <Compile Include="ServiceCore\ServiceCommands.cs" />
     <Compile Include="ServiceCore\ServiceMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SoundCloudService\ScConnection.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScAuthorizationMethod.cs" />
     <Compile Include="SoundCloudService\ScApiEnum.cs" />
     <Compile Include="SoundCloudService\ScBase.cs" />

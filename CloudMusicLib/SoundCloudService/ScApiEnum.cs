@@ -10,6 +10,8 @@ namespace CloudMusicLib.SoundCloudService
     {
         Authorization,//  /oauth2/token
         RefreshToken,
+        Me,
         MePlaylists,
+        MeTracks,
     }
 }

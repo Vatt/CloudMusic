@@ -4,6 +4,7 @@ namespace CloudMusicLib.ServiceCore
     public abstract class CloudService
     {
         public readonly string ServiceName;
+        public ICloudConnection Connection;
         public bool IsAuthorizationRequired{ get; }
         public Dictionary<ServiceCommands, ServiceMethod> _commands;
 
@@ -20,6 +21,11 @@ namespace CloudMusicLib.ServiceCore
         public bool IsSupportedCommand(ServiceCommands inCommand)
         {
             return _commands.ContainsKey(inCommand);
+        }
+
+        public bool IsConnected()
+        {
+            return Connection.IsConnected();
         }
 
     }

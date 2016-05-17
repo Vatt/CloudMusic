@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.CoreLibrary
 {
-    class CloudPlaylist
+    public class CloudTracklist
     {
+        public IList<CloudTrack> TracklistData;
     }
 }

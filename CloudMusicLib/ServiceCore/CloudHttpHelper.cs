@@ -16,9 +16,9 @@ namespace CloudMusicLib.ServiceCore
             _client = new HttpClient();
         }
 
-        public static  Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
+        public static async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
-            return _client.SendAsync(request);
+            return await _client.SendAsync(request);
         }
     }
 }

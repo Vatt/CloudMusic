@@ -6,18 +6,12 @@ namespace CloudMusicLib.SoundCloudService
      {
         public string ClientId;
         public string SecretId;
-        public string UserToken;
-        /*
-        static SoundCloudService()
-        {
-           CloudMan.RegisterService(new SoundCloudService());
-        }
-        */
-         public SoundCloudService() : base("SoundCloud", false)
+        public SoundCloudService() : base("SoundCloud", false)
          {
+            base.Connection = new ScConnection(this);
             base.AddMethod(new ScAuthorizationMethod(this));
             base.AddMethod(new ScInitMethod(this));
             base.AddMethod(new ScGetUserPlaylistMethod(this));
-         }    
+         }
     }
 }

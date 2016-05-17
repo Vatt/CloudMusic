@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.ServiceCore
 {
+    public class DummyArgType { }
+    public class DummyOutType { }
     public abstract class ServiceMethod
     {
         public readonly ServiceCommands Command;
