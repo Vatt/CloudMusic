@@ -3,7 +3,7 @@ using CloudMusicLib.ServiceCore;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    class ScConnection:ICloudConnection
+    public class ScConnection:ICloudConnection
     {
         private string _accessToken; 
         private string _refreshToken; 

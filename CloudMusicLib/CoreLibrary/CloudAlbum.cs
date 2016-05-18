@@ -5,8 +5,9 @@ namespace CloudMusicLib.CoreLibrary
 {
     public class CloudAlbum
     {
-        public CloudTracklist AlbumData;
-        public CloudArtist AlbumArtist;
-        public Uri AlbumImage;
+        public string AlbumName { get; set; }
+        public CloudTracklist AlbumData { get; set; }
+        public CloudArtist AlbumArtist { get; set; }
+        public Uri AlbumImage { get; set; }
     }
 }

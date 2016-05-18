@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
+using Newtonsoft.Json.Linq;
 
 namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 {
@@ -19,14 +20,15 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override async  Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
         {
-            var ownerCon = Service.Connection as ScConnection;
-            var owner = Service as SoundCloudService;
-            string urlStr = ScBase.ApiDictionary[ScApiEnum.MePlaylists];
+            var ownerCon = ScApi.GetServiceConnection();
+            var owner = ScApi.ScService;
+            string urlStr = ScApi.ApiDictionary[ScApiEnum.MePlaylists];
             string url = String.Format(urlStr, ownerCon.GetId(),owner.ClientId);
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            return await response.Content.ReadAsStringAsync() as TOutType;
+            var playlists = ScParser.ParsePlaylistsJson(JArray.Parse(await response.Content.ReadAsStringAsync()));
+            return playlists as TOutType;
         }
     }
 }

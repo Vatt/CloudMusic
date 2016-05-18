@@ -9,5 +9,20 @@ namespace CloudMusicLib.CoreLibrary
     public class CloudTracklist
     {
         public IList<CloudTrack> TracklistData;
+
+        public CloudTracklist()
+        {
+            TracklistData = new List<CloudTrack>();
+        }
+
+        public override string ToString()
+        {
+            string data="";
+            foreach (var cloudTrack in TracklistData)
+            {
+                data += cloudTrack.ToString();
+            }
+            return data;
+        }
     }
 }

@@ -18,15 +18,10 @@ namespace CloudMusicLib.ServiceCore
         {
             _commands.Add(inMethod.Command,inMethod);
         }
-        public bool IsSupportedCommand(ServiceCommands inCommand)
-        {
-            return _commands.ContainsKey(inCommand);
-        }
 
-        public bool IsConnected()
-        {
-            return Connection.IsConnected();
-        }
+        public bool IsSupportedCommand(ServiceCommands inCommand) => _commands.ContainsKey(inCommand);
+
+        public bool IsConnected() => Connection.IsConnected();
 
     }
 }

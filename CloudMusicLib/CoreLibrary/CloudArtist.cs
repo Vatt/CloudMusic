@@ -5,6 +5,7 @@ namespace CloudMusicLib.CoreLibrary
 {
     public class CloudArtist
     {
+        public string ArtistName { get; set;}
         IList<CloudAlbum> _albums;
     }
 }

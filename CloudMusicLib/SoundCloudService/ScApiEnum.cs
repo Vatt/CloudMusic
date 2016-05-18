@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    enum ScApiEnum
+    public enum ScApiEnum
     {
         Authorization,//  /oauth2/token
         RefreshToken,
+
         Me,
         MePlaylists,
         MeTracks,
+
+        TracksSearch,
     }
 }
