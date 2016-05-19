@@ -12,6 +12,7 @@ namespace CloudMusicLib.SoundCloudService
             base.AddMethod(new ScAuthorizationMethod(this));
             base.AddMethod(new ScInitMethod(this));
             base.AddMethod(new ScGetUserPlaylistMethod(this));
+            base.AddMethod(new ScTracksSearch(this));
 
          }
     }

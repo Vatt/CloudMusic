@@ -8,6 +8,7 @@ namespace CloudMusicLib.CoreLibrary
 {
     public class CloudPlaylist
     {
+        public string ServiceSource;
         public string Name { get; set; }
         public CloudTracklist Data;
 

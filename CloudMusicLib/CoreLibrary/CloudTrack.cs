@@ -20,7 +20,7 @@ namespace CloudMusicLib.CoreLibrary
                           "AlbumName: " + AlbumName + "\n" +
                           "ServiceSource: " + ServiceSource + "\n" +
                           "TrackImage: " + TrackImage + "\n" +
-                          "TrackSourceData: " + SourceData + "\n";
+                          "TrackSourceData: " + SourceData + "\n\n";
             return data;
         }
     }

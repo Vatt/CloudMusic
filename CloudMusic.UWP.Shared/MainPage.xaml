@@ -1,13 +1,13 @@
 ﻿<Page
-    x:Class="CloudMusic.MainPage"
+    x:Class="CloudMusic.UWP.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:CloudMusic"
+    xmlns:local="using:CloudMusic.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+        <MediaElement x:Name="Player" Source="https://api.soundcloud.com/tracks/131642811/stream?client_id=109f016fa8b98246e0e5156074389ff1" AreTransportControlsEnabled="True" />
     </Grid>
 </Page>

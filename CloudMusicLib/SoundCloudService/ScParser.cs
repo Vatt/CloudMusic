@@ -16,20 +16,20 @@ namespace CloudMusicLib.SoundCloudService
             var service = "SoundCloud";
             var name =   (string) json["title"];
             var artist = (string) json["username"];
-            var source = new Uri(json["stream_url"].ToString() );
+            var source = new Uri(json["stream_url"] + "?client_id="+ ScApi.ScService.ClientId);
             Uri image = null;
             string imageStr = json["artwork_url"].ToString();
-            if (imageStr.Length != 0)
+            if (imageStr.Length > 0)
             {
                 image = new Uri(imageStr.Replace("large", "small"));
-            }
+            }           
             CloudTrack track = new CloudTrack
             {
                 ServiceSource = service,
                 TrackName = name,
                 ArtistName = artist,
                 SourceData = source,
-                TrackImage = image
+                TrackImage = image,
             };
             return track;
         }
@@ -38,7 +38,7 @@ namespace CloudMusicLib.SoundCloudService
         {
             CloudPlaylist playlist = new CloudPlaylist();
             CloudTracklist tracklist = new CloudTracklist();
-//            JArray json= JArray.Parse(jsonData);
+            playlist.ServiceSource = "SoundCloud";
             playlist.Name = (string)json["title"];
             foreach (var track in json["tracks"])
             {
@@ -56,6 +56,16 @@ namespace CloudMusicLib.SoundCloudService
                 data.Add(ParsePlaylistJson(playlist));
             }
             return data;
+        }
+
+        public static CloudTracklist ParseTackListJson(JArray json)
+        {
+            CloudTracklist tracklist = new CloudTracklist();
+            foreach (var track in json)
+            {
+                tracklist.TracklistData.Add(ParseTrackJson(track));
+            }
+            return tracklist;
         }
     }
 }

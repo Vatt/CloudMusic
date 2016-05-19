@@ -12,6 +12,7 @@ namespace CloudMusicLib.ServiceCore
         SearchByTracks,
         SearchByArtists,
         SearchByAlbums,
+        SearchByPlaylists,
 
         GetUserPlaylists,
         GetUserTraks,

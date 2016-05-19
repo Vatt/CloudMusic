@@ -34,6 +34,13 @@ namespace Test
             {
                 Console.WriteLine(cloudPlaylist.ToString());
             }
+            var SearchData =
+                await
+                    CloudMan.InvokeCommandAsync<CloudTracklist, string>("SoundCloud", ServiceCommands.SearchByTracks,
+                        "Alb Ein");
+
+            Console.WriteLine("Search by Alb ein: ");
+            Console.WriteLine(SearchData.ToString());
 
         }
 

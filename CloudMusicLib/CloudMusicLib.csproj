@@ -53,6 +53,7 @@
     <Compile Include="SoundCloudService\ScApi.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScInitMethod.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScGetUserPlaylistMethod.cs" />
+    <Compile Include="SoundCloudService\SoundCloudMethods\ScTracksSearch.cs" />
     <Compile Include="SoundCloudService\SoundCloudService.cs" />
   </ItemGroup>
   <ItemGroup>
