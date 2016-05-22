@@ -9,7 +9,11 @@
     <Import_RootNamespace>CloudMusic.UWP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)MainPage.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\Tracklist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -18,8 +22,19 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\PlaylistsCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ServicesCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TracklistCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\NotificationBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ServiceViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TrackViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlaylistViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\Tracklist.xaml.cs">
+      <DependentUpon>Tracklist.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -27,9 +42,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
   </ItemGroup>
 </Project>

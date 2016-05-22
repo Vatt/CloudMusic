@@ -19,7 +19,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
         {
-            throw new NotImplementedException();
+            return InvokeAsync<TOutType, TArgType>(args).Result;
         }
 
         public override async Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args)

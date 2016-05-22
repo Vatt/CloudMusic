@@ -14,7 +14,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
         {
-            var owner = ScApi.ScService;
+            var owner = base.Service as SoundCloudService;
             owner.ClientId = args[0].ToString();
             owner.SecretId = args[1].ToString();
             return default (TOutType);

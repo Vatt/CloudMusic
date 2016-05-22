@@ -16,7 +16,22 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override TOutType Invoke<TOutType, TArgType>( params TArgType[] args)
         {
-            InvokeAsync<TOutType, TArgType>(args).Wait();
+            var owner = ScApi.ScService;
+            var ownerConnection = ScApi.GetServiceConnection();
+            string accessTok; string refreshTok;
+            int expiresIn; string idConn;
+            if (ownerConnection == null)
+            {
+                ownerConnection = new ScConnection(owner);
+            }
+            JObject jsonAuth = JObject.Parse(ScApi.GetAuthDataJson(args[0], args[1]).Result);
+            accessTok = (string)jsonAuth["access_token"];
+            refreshTok = (string)jsonAuth["refresh_token"];
+            expiresIn = (int)jsonAuth["expires_in"];
+
+            JObject jsonMe = JObject.Parse(ScApi.GetMeInfoJson(accessTok).Result);
+            idConn = (string)jsonMe["id"];
+            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn, idConn);
             return default(TOutType);
         }
 

@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 namespace CloudMusicLib.ServiceCore
 {
     public abstract class CloudService
     {
         public readonly string ServiceName;
         public ICloudConnection Connection;
+        public Uri ServiceIcon;
         public bool IsAuthorizationRequired{ get; }
         public Dictionary<ServiceCommands, ServiceMethod> _commands;
 

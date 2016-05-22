@@ -1,4 +1,5 @@
-﻿using CloudMusicLib.ServiceCore;
+﻿using System;
+using CloudMusicLib.ServiceCore;
 using CloudMusicLib.SoundCloudService.SoundCloudMethods;
 namespace CloudMusicLib.SoundCloudService
 {
@@ -13,6 +14,9 @@ namespace CloudMusicLib.SoundCloudService
             base.AddMethod(new ScInitMethod(this));
             base.AddMethod(new ScGetUserPlaylistMethod(this));
             base.AddMethod(new ScTracksSearch(this));
+            base.ServiceIcon = new Uri("http://icons.iconarchive.com/icons/danleech/simple/48/soundcloud-icon.png");
+
+            ScApi.Init(this);
 
          }
     }

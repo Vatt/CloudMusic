@@ -26,16 +26,10 @@ namespace CloudMusicLib.SoundCloudService
 
         static ScApi()
         {
-            CreateSounCloud();
-        }       
-        public static void CreateSounCloud()
-        {
-            if (ScService == null)
-            {
-                ScService = new SoundCloudService();
-                CloudMan.RegisterService(ScService);
-            }
+           
         }
+
+        public static void Init(SoundCloudService service) => ScService = service;
 
         public static ScConnection GetServiceConnection() => ScService.Connection as ScConnection;     
                

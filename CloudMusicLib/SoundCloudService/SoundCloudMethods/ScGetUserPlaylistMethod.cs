@@ -15,12 +15,23 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
         {
-            return InvokeAsync<TOutType, TArgType>(args).Result;
+            //return InvokeAsync<TOutType, TArgType>(args).Result;
+            var ownerCon = ScApi.GetServiceConnection();
+            if (!ownerCon.IsConnected()) { return default(TOutType); }
+            var owner = ScApi.ScService;
+            string urlStr = ScApi.ApiDictionary[ScApiEnum.MePlaylists];
+            string url = String.Format(urlStr, ownerCon.GetId(), owner.ClientId);
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = CloudHttpHelper.SendAsync(req).Result;
+            var playlists = ScParser.ParsePlaylistsJson(JArray.Parse(response.Content.ReadAsStringAsync().Result));
+            return playlists as TOutType;
         }
 
         public override async  Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
         {
             var ownerCon = ScApi.GetServiceConnection();
+            if (!ownerCon.IsConnected()) {  return default(TOutType);}
             var owner = ScApi.ScService;
             string urlStr = ScApi.ApiDictionary[ScApiEnum.MePlaylists];
             string url = String.Format(urlStr, ownerCon.GetId(),owner.ClientId);

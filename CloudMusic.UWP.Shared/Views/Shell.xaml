@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="CloudMusic.UWP.Views.Shell"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CloudMusic.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels ="using:CloudMusic.UWP.ViewModels"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Name="ServiceDataTemplate" x:DataType="viewModels:ServiceViewModel">
+            <Image  Source="{x:Bind ServiceIcon.AbsoluteUri}" Width="48" Height="48" Stretch="Fill"/>
+        </DataTemplate>    
+    </Page.Resources>
+    
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition x:Name = "ServicesColumn"  Width="48" />
+            <ColumnDefinition x:Name = "Workflow" Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ListView Grid.Column="0" 
+                  x:Name="ServicesView" 
+                  IsItemClickEnabled="True"
+                  ItemsSource = "{x:Bind ShellWM.Services}"
+                  ItemTemplate= "{StaticResource ServiceDataTemplate}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>   
+        <!--    <MediaElement x:Name="Player" Source="https://api.soundcloud.com/tracks/131642811/stream?client_id=109f016fa8b98246e0e5156074389ff1" AreTransportControlsEnabled="True" />-->
+    </Grid>
+</Page>
