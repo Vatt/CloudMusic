@@ -10,7 +10,7 @@ namespace CloudMusic.UWP.Models
 {
     public class PlaylistsCollection:ObservableCollection<PlaylistViewModel>
     {
-        private IList<CloudPlaylist> _original;
+        public IList<CloudPlaylist> _original;
         public PlaylistsCollection(IList<CloudPlaylist> lists )
         {
             _original = lists;
@@ -18,6 +18,16 @@ namespace CloudMusic.UWP.Models
             {
                 base.Add(new PlaylistViewModel(cloudPlaylist));
             }
+        }
+
+        public override string ToString()
+        {
+            string data = "";
+            foreach (var cloudPlaylist in _original)
+            {
+                data += cloudPlaylist.ToString();
+            }
+            return data;
         }
     }
 }

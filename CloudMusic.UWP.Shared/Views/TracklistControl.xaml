@@ -1,0 +1,37 @@
+﻿<UserControl
+    x:Class="CloudMusic.UWP.Views.TracklistControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CloudMusic.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels ="using:CloudMusic.UWP.ViewModels"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ListView IsItemClickEnabled="True">
+            <ListView.Resources>
+                <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
+                    <StackPanel Orientation="Horizontal">
+                        <!--<Image Source =  "{x:Bind TrackImage.AbsoluteUri}"/>-->
+                        <TextBlock Text= "{x:Bind TrackName}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.Name>TracklistView</ListView.Name>
+            <ListView.ItemTemplate>
+                <StaticResource ResourceKey="TrackListDataTemplate" />
+            </ListView.ItemTemplate>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                    <Setter Property="Padding" Value="0" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <!--<ListViewItem>TestItem1</ListViewItem>-->
+        </ListView>    
+    </Grid>
+</UserControl>
+
+ 
+

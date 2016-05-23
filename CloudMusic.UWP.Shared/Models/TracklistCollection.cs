@@ -11,6 +11,10 @@ namespace CloudMusic.UWP.Models
     {
         private CloudTracklist _original;
 
+        public TracklistCollection() : base()
+        {
+        }
+
         public TracklistCollection(CloudTracklist list)
         {
             _original = list;

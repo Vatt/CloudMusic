@@ -13,7 +13,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\Tracklist.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\TracklistControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\PlaylistsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ServicesCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TracklistCollection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\NotificationBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ServiceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
@@ -33,8 +34,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\Tracklist.xaml.cs">
-      <DependentUpon>Tracklist.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\TracklistControl.xaml.cs">
+      <DependentUpon>TracklistControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

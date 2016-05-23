@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using CloudMusic.UWP.Models;
 using CloudMusicLib.ServiceCore;
 
 
@@ -23,10 +24,13 @@ namespace CloudMusic.UWP.Views
     public sealed partial class Shell : Page
     {
         public ShellViewModel ShellWM;
+        public Frame WorkFlow;
         public Shell()
-        {            
-            ShellWM = new ShellViewModel();
+        {                       
             this.InitializeComponent();
+   //         WorkFlow = this.WorkflowFrame;
+            ShellWM = new ShellViewModel(null);
+
         }
     }
 }
