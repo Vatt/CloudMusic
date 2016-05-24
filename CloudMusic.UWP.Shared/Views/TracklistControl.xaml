@@ -15,7 +15,7 @@
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
                     <StackPanel Orientation="Horizontal">
-                        <!--<Image Source =  "{x:Bind TrackImage.AbsoluteUri}"/>-->
+                        <Image Source =  "{x:Bind TrackImage.AbsoluteUri}"/>
                         <TextBlock Text= "{x:Bind TrackName}"/>
                     </StackPanel>
                 </DataTemplate>
