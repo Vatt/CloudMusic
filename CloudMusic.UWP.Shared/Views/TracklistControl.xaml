@@ -6,11 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels ="using:CloudMusic.UWP.ViewModels"
+    xmlns:converters ="using:CloudMusic.UWP.Models.Converters"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView IsItemClickEnabled="True" 
-                  ItemsSource="{x:Bind TrackListData}">
+                  ItemsSource="{x:Bind TrackListData, Mode=OneWay }">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
                     <StackPanel Orientation="Horizontal">

@@ -32,11 +32,11 @@
             </ListView.ItemContainerStyle>
         </ListView>
         <Frame Grid.Column="1" x:Name="WorkflowFrame"  Width="auto" Height="auto">
-            <local:TracklistControl TrackListData="{x:Bind ShellWM.UserPlaylists[2].tracklist}"
+            <!--<local:TracklistControl TrackListData="{x:Bind ShellWM.UserPlaylists[2].tracklist}"
                                 Width="auto" Height="auto"
                                 Grid.Column="1">
 
-            </local:TracklistControl>
+            </local:TracklistControl>-->
         </Frame>
  
  

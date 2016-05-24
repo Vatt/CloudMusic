@@ -39,8 +39,7 @@ namespace CloudMusic.UWP.Views
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
-                Debug.WriteLine(value.ToString());
-                Debug.WriteLine(TrackListData.ToString());
+                //this.TracklistView.ItemsSource = value;
                 SetValue(TrackListDataProperty,value);
             }
         }

@@ -20,14 +20,14 @@ namespace CloudMusic.UWP.ViewModels
         {
             Services = new ServicesCollection();
             ShellInit();
-           // WorkflowFrame = workflow;
-            //UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists) );
+            WorkflowFrame = workflow;
+            WorkflowFrame.Navigate(typeof(PlaylistsView), UserPlaylists);
         }
 
         public void ShellInit()
         {
             UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
-            Debug.WriteLine(UserPlaylists.ToString());
+          //  Debug.WriteLine(UserPlaylists.ToString());
             
         }
     }

@@ -9,6 +9,10 @@
     <Import_RootNamespace>CloudMusic.UWP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\PlaylistsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\Shell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -22,6 +26,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Converters\ObjectToTracklist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PlaylistsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ServicesCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TracklistCollection.cs" />
@@ -31,6 +36,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TrackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlaylistViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PlaylistsView.xaml.cs">
+      <DependentUpon>PlaylistsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
