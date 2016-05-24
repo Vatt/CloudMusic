@@ -17,7 +17,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition x:Name = "ServicesColumn"  Width="48" />
-            <ColumnDefinition x:Name = "WorkflowColumn" Width="200"/>
+            <ColumnDefinition x:Name = "WorkflowColumn" Width="auto"/>
         </Grid.ColumnDefinitions>
         <ListView Grid.Column="0" 
                   x:Name="ServicesView" 
@@ -31,13 +31,14 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <!--<Frame Grid.Column="1" x:Name="WorkflowFrame">
-        </Frame>-->
-        <local:TracklistControl TrackListData="{x:Bind ShellWM.UserPlaylists[2].tracklist}"
-                                    Width="200" Height="auto"
-                                    Grid.Column="1">
-                
-        </local:TracklistControl>   
+        <Frame Grid.Column="1" x:Name="WorkflowFrame"  Width="auto" Height="auto">
+            <local:TracklistControl TrackListData="{x:Bind ShellWM.UserPlaylists[2].tracklist}"
+                                Width="auto" Height="auto"
+                                Grid.Column="1">
+
+            </local:TracklistControl>
+        </Frame>
+ 
  
             <!--    <MediaElement x:Name="Player" Source="https://api.soundcloud.com/tracks/131642811/stream?client_id=109f016fa8b98246e0e5156074389ff1" AreTransportControlsEnabled="True" />-->
     </Grid>

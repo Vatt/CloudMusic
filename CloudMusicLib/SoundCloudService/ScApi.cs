@@ -33,7 +33,7 @@ namespace CloudMusicLib.SoundCloudService
 
         public static ScConnection GetServiceConnection() => ScService.Connection as ScConnection;     
                
-        public static async Task<string> GetAuthDataJson(object user, object password)
+        public static async Task<string> GetAuthDataJsonAsync(object user, object password)
         {
             var authUrlStr = ApiDictionary[ScApiEnum.Authorization];
             var cliendId = ScService.ClientId;
@@ -46,7 +46,7 @@ namespace CloudMusicLib.SoundCloudService
             return await responseAuth.Content.ReadAsStringAsync();
         }
 
-        public static async Task<string> GetMeInfoJson(string accessTok)
+        public static async Task<string> GetMeInfoJsonAsync(string accessTok)
         {
             var meUrlStr = ApiDictionary[ScApiEnum.Me];
             var meUrl = String.Format(meUrlStr, accessTok);
@@ -54,6 +54,28 @@ namespace CloudMusicLib.SoundCloudService
             reqMe.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var responseMe = await CloudHttpHelper.SendAsync(reqMe);
             return await responseMe.Content.ReadAsStringAsync();
+        }
+        public static string  GetAuthDataJson(object user, object password)
+        {
+            var authUrlStr = ApiDictionary[ScApiEnum.Authorization];
+            var cliendId = ScService.ClientId;
+            var secretId = ScService.SecretId;
+            object[] formatArgs = { cliendId, secretId, user, password };
+            string urlAuth = String.Format(authUrlStr, formatArgs);
+            var reqAuth = new HttpRequestMessage(HttpMethod.Post, urlAuth);
+            reqAuth.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var responseAuth = CloudHttpHelper.Send(reqAuth);
+            return  responseAuth.Content.ReadAsStringAsync().Result;
+        }
+
+        public static string GetMeInfoJson(string accessTok)
+        {
+            var meUrlStr = ApiDictionary[ScApiEnum.Me];
+            var meUrl = String.Format(meUrlStr, accessTok);
+            var reqMe = new HttpRequestMessage(HttpMethod.Get, meUrl);
+            reqMe.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var responseMe = CloudHttpHelper.Send(reqMe);
+            return responseMe.Content.ReadAsStringAsync().Result;
         }
     }
 }

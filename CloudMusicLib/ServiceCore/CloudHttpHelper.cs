@@ -20,5 +20,10 @@ namespace CloudMusicLib.ServiceCore
         {
             return await _client.SendAsync(request);
         }
+
+        public static HttpResponseMessage Send(HttpRequestMessage requset)
+        {
+            return _client.SendAsync(requset).Result;
+        }
     }
 }

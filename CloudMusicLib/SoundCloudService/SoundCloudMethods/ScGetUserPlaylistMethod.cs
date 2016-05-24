@@ -23,7 +23,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             string url = String.Format(urlStr, ownerCon.GetId(), owner.ClientId);
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = CloudHttpHelper.SendAsync(req).Result;
+            var response = CloudHttpHelper.Send(req);
             var playlists = ScParser.ParsePlaylistsJson(JArray.Parse(response.Content.ReadAsStringAsync().Result));
             return playlists as TOutType;
         }

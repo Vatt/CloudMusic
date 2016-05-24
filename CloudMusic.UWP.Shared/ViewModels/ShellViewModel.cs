@@ -14,20 +14,20 @@ namespace CloudMusic.UWP.ViewModels
     public class ShellViewModel:NotificationBase
     {
         public ServicesCollection Services;
-        public PlaylistsCollection UserPlaylists;
+        public PlaylistsCollection UserPlaylists { get; set; }
         public Frame WorkflowFrame;
         public ShellViewModel(Frame workflow)
         {
             Services = new ServicesCollection();
             ShellInit();
-            WorkflowFrame = workflow;
+           // WorkflowFrame = workflow;
             //UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists) );
         }
 
-        public async void ShellInit()
+        public void ShellInit()
         {
-            UserPlaylists = new PlaylistsCollection(await CloudMan.InvokeCommandAsync<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
-           // Debug.WriteLine(UserPlaylists.ToString());
+            UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
+            Debug.WriteLine(UserPlaylists.ToString());
             
         }
     }

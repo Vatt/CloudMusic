@@ -25,11 +25,14 @@ namespace CloudMusic.UWP.Views
     {
         public ShellViewModel ShellWM;
         public Frame WorkFlow;
+        public TracklistCollection list;
         public Shell()
-        {                       
+        {
+            ShellWM = new ShellViewModel(null);
+            list = ShellWM.UserPlaylists[2].tracklist;
             this.InitializeComponent();
    //         WorkFlow = this.WorkflowFrame;
-            ShellWM = new ShellViewModel(null);
+            
 
         }
     }

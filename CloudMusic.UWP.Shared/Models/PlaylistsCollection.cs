@@ -27,6 +27,7 @@ namespace CloudMusic.UWP.Models
             {
                 data += cloudPlaylist.ToString();
             }
+            if (_original == null) data = "PlaylistsCollection is null!";
             return data;
         }
     }

@@ -9,7 +9,8 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <ListView IsItemClickEnabled="True">
+        <ListView IsItemClickEnabled="True" 
+                  ItemsSource="{x:Bind TrackListData}">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
                     <StackPanel Orientation="Horizontal">
