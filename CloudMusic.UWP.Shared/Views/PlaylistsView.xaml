@@ -23,8 +23,6 @@
                   ItemClick="OnPlayListNameClick"
                   IsItemClickEnabled="True"
                   />
-        <local:TracklistControl x:Name ="PlaylistData" Width="auto" Height="auto" Grid.Column="1" 
-                                 />
-        <!--TrackListData="{x:Bind Playlists[1].tracklist}"-->
-    </Grid>
+        <local:TracklistControl x:Name ="PlaylistData" Width="800" Height="auto" Grid.Column="1" />
+ </Grid>
 </Page>

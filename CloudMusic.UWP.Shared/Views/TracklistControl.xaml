@@ -11,7 +11,8 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <ListView IsItemClickEnabled="True" 
-                  ItemsSource="{x:Bind TrackListData, Mode=OneWay }">
+                  ItemsSource="{x:Bind TrackListData, Mode=OneWay }"
+                  ItemClick="OnTrackClick">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
                     <StackPanel Orientation="Horizontal">
@@ -31,7 +32,8 @@
                 </Style>
             </ListView.ItemContainerStyle>
             <!--<ListViewItem>TestItem1</ListViewItem>-->
-        </ListView>    
+        </ListView>
+        <MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="True" Height="130"/>
     </Grid>
 </UserControl>
 

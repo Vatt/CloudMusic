@@ -24,16 +24,11 @@ namespace CloudMusic.UWP.Views
     public sealed partial class Shell : Page
     {
         public ShellViewModel ShellWM;
-        public Frame WorkFlow;
-        public TracklistCollection list;
         public Shell()
         {
             this.InitializeComponent();
             ShellWM = new ShellViewModel(this.WorkflowFrame);
-            list = ShellWM.UserPlaylists[2].tracklist;
-            
-   //         WorkFlow = this.WorkflowFrame;
-            
+                        
 
         }
     }

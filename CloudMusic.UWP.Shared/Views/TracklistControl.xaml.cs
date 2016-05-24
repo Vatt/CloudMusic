@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CloudMusic.UWP.Models;
+using CloudMusic.UWP.ViewModels;
 using CloudMusicLib.CoreLibrary;
 using CloudMusicLib.ServiceCore;
 
@@ -43,9 +44,35 @@ namespace CloudMusic.UWP.Views
                 SetValue(TrackListDataProperty,value);
             }
         }
+
+        public static readonly DependencyProperty SelectedTrackProperty =
+            DependencyProperty.Register("SelectedTrack", typeof(TrackViewModel), typeof(TracklistControl),
+                                        new PropertyMetadata(new TrackViewModel(null)));
+
+        public TrackViewModel SelectedTrack
+        {
+            get
+            {
+                return (TrackViewModel)GetValue(SelectedTrackProperty);
+            }
+            set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                //this.TracklistView.ItemsSource = value;
+                SetValue(SelectedTrackProperty, value);
+            }
+        }
+
+
         public TracklistControl()
         {
             this.InitializeComponent();        
+        }
+
+        private void OnTrackClick(object sender, ItemClickEventArgs e)
+        {
+            var track = (TrackViewModel)e.ClickedItem;
+            this.SelectedTrack = track;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace CloudMusic.UWP.ViewModels
         public bool NoTrackImage;
         public TrackViewModel(CloudTrack inTrack)
         {
+            if (inTrack == null) return;
             Track = inTrack;
             TrackName  = Track.TrackName;
             ArtistName = Track.ArtistName;
