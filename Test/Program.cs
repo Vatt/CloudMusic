@@ -37,10 +37,9 @@ namespace Test
             }
             var SearchData =
                 await
-                    CloudMan.InvokeCommandAsync<CloudTracklist, string>("SoundCloud", ServiceCommands.SearchByTracks,
-                        "Alb Ein");
+                    CloudMan.SearchTracksAsync("Seceqtrique");
 
-            Console.WriteLine("Search by Alb ein: ");
+            Console.WriteLine("Search by Seceqtrique: ");
             Console.WriteLine(SearchData.ToString());
 
         }

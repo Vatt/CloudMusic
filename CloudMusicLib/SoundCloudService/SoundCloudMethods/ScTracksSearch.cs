@@ -19,7 +19,16 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 
         public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
         {
-            return InvokeAsync<TOutType, TArgType>(args).Result;
+            var owner = ScApi.ScService;
+            string urlStr = ScApi.ApiDictionary[ScApiEnum.TracksSearch];
+            string url = String.Format(urlStr, args[0], owner.ClientId);
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = CloudHttpHelper.Send(req);
+            CloudTracklist data = ScParser.ParseTackListJson(
+                                    JArray.Parse(response.Content.ReadAsStringAsync().Result)
+                                  );
+            return data as TOutType;
         }
 
         public override async Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args)

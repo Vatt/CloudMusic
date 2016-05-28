@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Name="PlaylistNamesDataTemplate" x:DataType="viewModels:PlaylistViewModel">
-            <TextBlock Text="{x:Bind PlaylistName}"/>
+            <TextBlock Text="{x:Bind PlaylistName}" Padding="2" />
         </DataTemplate>
     </Page.Resources>
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -22,7 +22,10 @@
                   ItemsSource="{x:Bind Playlists}"
                   ItemClick="OnPlayListNameClick"
                   IsItemClickEnabled="True"
+                  Width="auto"
+                  HorizontalAlignment="Left"
                   />
-        <local:TracklistControl x:Name ="PlaylistData" Width="800" Height="auto" Grid.Column="1" />
+        <local:TracklistControl x:Name ="PlaylistData" Width="auto" Height="auto" Grid.Column="1"  
+                                HorizontalAlignment="Left"/>
  </Grid>
 </Page>

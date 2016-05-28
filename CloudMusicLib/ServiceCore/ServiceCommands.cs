@@ -8,7 +8,6 @@ namespace CloudMusicLib.ServiceCore
         Init,
         Authorization,
 
-        FullSearch,
         SearchByTracks,
         SearchByArtists,
         SearchByAlbums,

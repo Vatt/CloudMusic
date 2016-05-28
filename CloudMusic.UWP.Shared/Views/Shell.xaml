@@ -13,33 +13,36 @@
             <Image  Source="{x:Bind ServiceIcon.AbsoluteUri}" Width="48" Height="48" Stretch="Fill"/>
         </DataTemplate>    
     </Page.Resources>
-    
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name = "ServicesColumn"  Width="48" />
-            <ColumnDefinition x:Name = "WorkflowColumn" Width="auto"/>
-        </Grid.ColumnDefinitions>
-        <ListView Grid.Column="0" 
+    <SplitView x:Name="SplitView" IsPaneOpen="{x:Bind ShellWM.IsServicesSplitViewPaneOpened, Mode=TwoWay}"
+               OpenPaneLength="48" DisplayMode="Inline"> 
+        <SplitView.Pane>
+            <Grid>
+                <ListView 
                   x:Name="ServicesView" 
                   IsItemClickEnabled="True"
                   ItemsSource = "{x:Bind ShellWM.Services}"
                   ItemTemplate= "{StaticResource ServiceDataTemplate}">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="ListViewItem">
-                    <Setter Property="HorizontalContentAlignment" Value="Left" />
-                    <Setter Property="Padding" Value="0" />
-                </Style>
-            </ListView.ItemContainerStyle>
-        </ListView>
-        <Frame Grid.Column="1" x:Name="WorkflowFrame"  Width="auto" Height="auto">
-            <!--<local:TracklistControl TrackListData="{x:Bind ShellWM.UserPlaylists[2].tracklist}"
-                                Width="auto" Height="auto"
-                                Grid.Column="1">
-
-            </local:TracklistControl>-->
-        </Frame>
- 
- 
-            <!--    <MediaElement x:Name="Player" Source="https://api.soundcloud.com/tracks/131642811/stream?client_id=109f016fa8b98246e0e5156074389ff1" AreTransportControlsEnabled="True" />-->
-    </Grid>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                            <Setter Property="Padding" Value="0" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
+            </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Frame x:Name="WorkflowFrame"   Grid.Column="0"                
+                           Width="auto"
+                           Height="auto"
+                           HorizontalAlignment="Left">
+                </Frame>
+            </Grid>
+        </SplitView.Content>
+        </SplitView>
 </Page>
+

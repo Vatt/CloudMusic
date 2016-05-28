@@ -9,13 +9,15 @@
     xmlns:converters ="using:CloudMusic.UWP.Models.Converters"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          Width="auto"
+          Height="auto">
         <ListView IsItemClickEnabled="True" 
                   ItemsSource="{x:Bind TrackListData, Mode=OneWay }"
                   ItemClick="OnTrackClick">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Padding="2">
                         <Image Source =  "{x:Bind TrackImage.AbsoluteUri}"/>
                         <TextBlock Text= "{x:Bind TrackName}"/>
                     </StackPanel>
@@ -33,7 +35,8 @@
             </ListView.ItemContainerStyle>
             <!--<ListViewItem>TestItem1</ListViewItem>-->
         </ListView>
-        <MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="True" Height="130"/>
+        <MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" />
+        <!--AreTransportControlsEnabled="True" Height="130"-->
     </Grid>
 </UserControl>
 

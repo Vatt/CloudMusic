@@ -13,21 +13,26 @@ namespace CloudMusic.UWP.ViewModels
 {
     public class ShellViewModel:NotificationBase
     {
-        public ServicesCollection Services;
+        public bool IsServicesSplitViewPaneOpened;
+        public ServicesCollection Services { get; set; }
         public PlaylistsCollection UserPlaylists { get; set; }
         public Frame WorkflowFrame;
         public ShellViewModel(Frame workflow)
         {
+
+            IsServicesSplitViewPaneOpened = true;
             Services = new ServicesCollection();
             ShellInit();
             WorkflowFrame = workflow;
-            WorkflowFrame.Navigate(typeof(PlaylistsView), UserPlaylists);
+            //WorkflowFrame.Navigate(typeof(PlaylistsView), UserPlaylists);
+            WorkflowFrame.Navigate(typeof(Search));
         }
 
         public void ShellInit()
         {
             UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
-          //  Debug.WriteLine(UserPlaylists.ToString());
+            var tracklist = CloudMan.SearchTracks("Seceqtrique");
+            //Debug.WriteLine(tracklist.ToString());
             
         }
     }

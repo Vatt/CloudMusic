@@ -1,0 +1,42 @@
+﻿<Page
+    x:Class="CloudMusic.UWP.Views.Search"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CloudMusic.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="using:CloudMusic.UWP.ViewModels"
+    mc:Ignorable="d">
+    <SplitView IsPaneOpen="{x:Bind SearchVm.IsSearchPaneOpened, Mode=TwoWay}" DisplayMode="Inline">
+        <SplitView.Pane>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="SearchBox" Height="auto"/>
+                    <RowDefinition x:Name="SearchOptionBox" Height="auto"/>
+                </Grid.RowDefinitions>
+                <TextBox x:Name="SearchTextBox" Grid.Row="0" PlaceholderText="Поиск..." 
+                         Text="{x:Bind SearchVm.SearchTemplate, Mode=TwoWay}"
+                         TextChanged="{x:Bind SearchVm.RunSearch}"/>
+                         <!--KeyDown="SearchTextBox_KeyDown"-->
+                         
+                <ListView x:Name="SearchOptionsView" Grid.Row="1" 
+                          IsItemClickEnabled="False" Width="auto"
+                          HorizontalAlignment="Left">
+                    <ListView.Items>
+                        <ToggleSwitch Header="Поиск по трекам"       VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByTracks, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по исполнителям" VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByArtists, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по альбомам"     VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByAlbums, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по плейлистам"   VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByPlaylists, Mode=TwoWay}"/>
+                    </ListView.Items>
+                </ListView>
+            </Grid>
+        </SplitView.Pane>
+        <SplitView.Content>
+            <Grid>
+                <Pivot x:Name="SearchResultPivot">
+     
+                </Pivot>
+            </Grid>
+        </SplitView.Content>
+    </SplitView>
+</Page>
