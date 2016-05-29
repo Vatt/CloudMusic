@@ -27,7 +27,7 @@ namespace CloudMusic.UWP.Views
         public Search()
         {
             this.InitializeComponent();
-            SearchVm = new SearchViewModel(this.SearchResultPivot);
+            SearchVm = new SearchViewModel(this.SearchResultPivot,this.SearchTextBox);
         }
         private void SearchTextBox_KeyDown(object sender, KeyRoutedEventArgs e)
         {

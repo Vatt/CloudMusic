@@ -24,9 +24,11 @@ namespace CloudMusic.UWP.ViewModels
         public bool IsSearchPaneOpened { get; set; }
 
         private Pivot _searchResultPivot;
-        public SearchViewModel(Pivot inPivot)
+        private TextBox _searchBox;
+        public SearchViewModel(Pivot inPivot, TextBox inTBox)
         {
             _searchResultPivot = inPivot;
+            _searchBox = inTBox;
             IsSearchPaneOpened = true;
             SearchByTracks = true;
         }
@@ -36,7 +38,7 @@ namespace CloudMusic.UWP.ViewModels
             _searchResultPivot.Items.Clear();
             if (SearchByTracks)
             {
-                tracksTask =  CloudMan.SearchTracksAsync(SearchTemplate);
+                tracksTask =  CloudMan.SearchTracksAsync(_searchBox.Text);
                 MakeSearchTracksPivotItem(await tracksTask);
             }
            

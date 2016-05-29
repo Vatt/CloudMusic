@@ -15,9 +15,10 @@
                     <RowDefinition x:Name="SearchOptionBox" Height="auto"/>
                 </Grid.RowDefinitions>
                 <TextBox x:Name="SearchTextBox" Grid.Row="0" PlaceholderText="Поиск..." 
-                         Text="{x:Bind SearchVm.SearchTemplate, Mode=TwoWay}"
-                         TextChanged="{x:Bind SearchVm.RunSearch}"/>
-                         <!--KeyDown="SearchTextBox_KeyDown"-->
+                         KeyUp="SearchTextBox_KeyDown"
+                         />
+                <!--Text="{x:Bind SearchVm.SearchTemplate, Mode=TwoWay}"-->         
+                <!--KeyDown="SearchTextBox_KeyDown"-->
                          
                 <ListView x:Name="SearchOptionsView" Grid.Row="1" 
                           IsItemClickEnabled="False" Width="auto"
