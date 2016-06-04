@@ -1,8 +1,11 @@
 ﻿using CloudMusicLib.CoreLibrary;
 using CloudMusicLib.ServiceCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,12 +27,28 @@ namespace CloudMusicLib.SoundCloudService
 
         public override List<CloudPlaylist> LoadNextIfPossible()
         {
-            throw new NotImplementedException();
+            if (_nextPageRef == null) return new List<CloudPlaylist>();
+            var req = new HttpRequestMessage(HttpMethod.Get, _nextPageRef);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = CloudHttpHelper.Send(req);
+            var result = ScParser.ParsePlaylistsJson(
+                                    JObject.Parse(response.Content.ReadAsStringAsync().Result)
+                                  );
+            _nextPageRef = result._nextPageRef;
+            return result.Result;
         }
 
-        public override Task<List<CloudPlaylist>> LoadNextIfPossibleAsync()
+        public async override Task<List<CloudPlaylist>> LoadNextIfPossibleAsync()
         {
-            throw new NotImplementedException();
+            if (_nextPageRef == null) return new List<CloudPlaylist>();
+            var req = new HttpRequestMessage(HttpMethod.Get, _nextPageRef);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = CloudHttpHelper.Send(req);
+            var result = ScParser.ParsePlaylistsJson(
+                                     JObject.Parse(await response.Content.ReadAsStringAsync())
+                                  );
+            _nextPageRef = result._nextPageRef;
+            return result.Result;
         }
     }
 }

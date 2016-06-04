@@ -31,10 +31,12 @@ namespace CloudMusic.UWP.ViewModels
             _searchBox = inTBox;
             IsSearchPaneOpened = true;
             SearchByTracks = true;
+            SearchByPlaylists = true;
         }
         public async void RunSearch()
         {
             Task<CloudTracklist> tracksTask=null;
+            Task<CloudPlaylistList> playlistsTask= null;
             _searchResultPivot.Items.Clear();
             GC.Collect();
             if (SearchByTracks)
@@ -42,7 +44,12 @@ namespace CloudMusic.UWP.ViewModels
                 tracksTask =  CloudMan.SearchTracksAsync(_searchBox.Text);
                 MakeSearchTracksPivotItem(await tracksTask);
             }
-           
+            if (SearchByPlaylists)
+            {
+                playlistsTask = CloudMan.SearchPlaylistsAsync(_searchBox.Text);
+                MakeSearchPlaylistsPivotItem(await playlistsTask);
+            }
+
         }
         public void MakeSearchTracksPivotItem(CloudTracklist inList)
         {
@@ -51,6 +58,13 @@ namespace CloudMusic.UWP.ViewModels
             newControl.TrackListData = new TracklistCollection(inList);
             newItem.Header = "Треки";
             newItem.Content =newControl;
+            _searchResultPivot.Items.Add(newItem);
+        }
+        public void MakeSearchPlaylistsPivotItem(CloudPlaylistList inList)
+        {
+            PivotItem newItem = new PivotItem();
+            newItem.Header = "Плейлисты";
+            newItem.Content = new PlaylistsView();
             _searchResultPivot.Items.Add(newItem);
         }
     }

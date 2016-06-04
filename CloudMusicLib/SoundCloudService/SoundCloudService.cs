@@ -14,6 +14,7 @@ namespace CloudMusicLib.SoundCloudService
             base.AddMethod(new ScInitMethod(this));
             base.AddMethod(new ScGetUserPlaylistMethod(this));
             base.AddMethod(new ScTracksSearch(this));
+            base.AddMethod(new ScPlaylistsSearchMethod(this));
             base.ServiceIcon = new Uri("http://icons.iconarchive.com/icons/danleech/simple/48/soundcloud-icon.png");
 
             ScApi.Init(this);

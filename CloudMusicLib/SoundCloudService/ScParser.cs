@@ -48,16 +48,22 @@ namespace CloudMusicLib.SoundCloudService
             return playlist;
         }
 
-        public static List<CloudPlaylist> ParsePlaylistsJson(JArray json)
+        public static ScPlaylistsResult ParsePlaylistsJson(JObject json)
         {
             List<CloudPlaylist> data = new List<CloudPlaylist>();
+            JArray playlists = (JArray)json["collection"];
             string next = "";
             JToken tok;
-            foreach (var playlist in json)
+            if (json.TryGetValue("next_href", out tok))
+            {
+
+                next = (string)json["next_href"];
+            }
+            foreach (var playlist in playlists)
             {
                 data.Add(ParsePlaylistJson(playlist));
             }
-            return data;
+            return new ScPlaylistsResult(ServiceCore.ResultType.Ok, data, next);
         }
 
         public static ScServiceTracksResult ParseTackListJson(JObject json)

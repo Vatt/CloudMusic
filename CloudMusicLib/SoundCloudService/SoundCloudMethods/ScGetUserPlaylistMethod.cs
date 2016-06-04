@@ -24,9 +24,8 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
-            var playlists = ScParser.ParsePlaylistsJson(JArray.Parse(response.Content.ReadAsStringAsync().Result));
-            var result = new ScPlaylistsResult(ResultType.Ok, playlists,"");
-            return result.ToServiceResult() as ServiceResult<TOutType>;
+            var playlists = ScParser.ParsePlaylistsJson(JObject.Parse(response.Content.ReadAsStringAsync().Result));
+            return playlists.ToServiceResult() as ServiceResult<TOutType>;
         }
 
         public override async  Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
@@ -39,9 +38,8 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            var playlists = ScParser.ParsePlaylistsJson(JArray.Parse(await response.Content.ReadAsStringAsync()));
-            var result = new ScPlaylistsResult(ResultType.Ok, playlists,"");
-            return result.ToServiceResult() as ServiceResult<TOutType>;
+            var playlists = ScParser.ParsePlaylistsJson(JObject.Parse(await response.Content.ReadAsStringAsync()));
+            return playlists.ToServiceResult() as ServiceResult<TOutType>;
         }
     }
 }

@@ -58,7 +58,6 @@ namespace CloudMusic.UWP.Views
             set
             {
                 if (value == null) throw new ArgumentNullException(nameof(value));
-                //this.TracklistView.ItemsSource = value;
                 SetValue(SelectedTrackProperty, value);
             }
         }

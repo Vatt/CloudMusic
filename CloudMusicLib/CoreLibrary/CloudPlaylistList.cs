@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.CoreLibrary
 {
-    class CloudPlaylistList : CloudGenericList<CloudPlaylist>
+    public class CloudPlaylistList : CloudGenericList<CloudPlaylist>
     {
         public CloudPlaylistList(CloudListMode mode):base(mode)
         { }

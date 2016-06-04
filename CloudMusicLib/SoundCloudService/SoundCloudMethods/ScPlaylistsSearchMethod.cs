@@ -31,7 +31,16 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
         }
         public override async Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
         {
-            throw new NotImplementedException();
+            var owner = ScApi.ScService;
+            string urlStr = ScApi.ApiDictionary[ScApiEnum.PlaylistsSearch];
+            string url = String.Format(urlStr, args[0], owner.ClientId);
+            var req = new HttpRequestMessage(HttpMethod.Get, url);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await CloudHttpHelper.SendAsync(req);
+            string jsonData = await response.Content.ReadAsStringAsync();
+
+            var result = ScParser.ParseTackListJson(JObject.Parse(jsonData));
+            return result.ToServiceResult() as ServiceResult<TOutType>;
         }
     }
 }
