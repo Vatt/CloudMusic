@@ -50,13 +50,14 @@
     <Compile Include="ServiceCore\ServiceResultCollection.cs" />
     <Compile Include="SoundCloudService\ScConnection.cs" />
     <Compile Include="SoundCloudService\ScParser.cs" />
-    <Compile Include="SoundCloudService\ScPlaylistsSearachResult.cs" />
+    <Compile Include="SoundCloudService\ScPlaylistsResult.cs" />
     <Compile Include="SoundCloudService\ScServiceTracksResult.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScAuthorizationMethod.cs" />
     <Compile Include="SoundCloudService\ScApiEnum.cs" />
     <Compile Include="SoundCloudService\ScApi.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScInitMethod.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScGetUserPlaylistMethod.cs" />
+    <Compile Include="SoundCloudService\SoundCloudMethods\ScPlaylistsSearchMethod.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScTracksSearch.cs" />
     <Compile Include="SoundCloudService\SoundCloudService.cs" />
   </ItemGroup>

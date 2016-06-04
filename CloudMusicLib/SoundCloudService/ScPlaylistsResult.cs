@@ -8,16 +8,18 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    public class ScPlaylistsSearachResult : ServiceResultCollection<CloudPlaylist>
+    public class ScPlaylistsResult : ServiceResultCollection<CloudPlaylist>
     {
-        public ScPlaylistsSearachResult(ResultType type, List<CloudPlaylist> result) : base("SoundCloud", type, result)
+        private string _nextPageRef;
+        public ScPlaylistsResult(ResultType type, List<CloudPlaylist> result, string nextPage) : base("SoundCloud", type, result)
         {
             base.IsIncrementalLoadingEnabled = true;
+            _nextPageRef = nextPage;
         }
 
         public override bool HasMore()
         {
-            throw new NotImplementedException();
+            return _nextPageRef != null;
         }
 
         public override List<CloudPlaylist> LoadNextIfPossible()

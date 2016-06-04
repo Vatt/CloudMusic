@@ -93,5 +93,13 @@ namespace CloudMusicLib.ServiceCore
             }
             return tracklist;
         }
+        public static async Task<List<CloudPlaylist>> SearchPlaylistsAsync(string template)
+        {
+
+        }
+        public static List<CloudPlaylist> SearchPlaylistsAsync(string template)
+        {
+
+        }
     }
 }

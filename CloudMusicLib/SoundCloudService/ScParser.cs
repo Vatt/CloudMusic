@@ -51,6 +51,8 @@ namespace CloudMusicLib.SoundCloudService
         public static List<CloudPlaylist> ParsePlaylistsJson(JArray json)
         {
             List<CloudPlaylist> data = new List<CloudPlaylist>();
+            string next = "";
+            JToken tok;
             foreach (var playlist in json)
             {
                 data.Add(ParsePlaylistJson(playlist));

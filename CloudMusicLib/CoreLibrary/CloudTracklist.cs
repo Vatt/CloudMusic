@@ -81,6 +81,7 @@ namespace CloudMusicLib.CoreLibrary
         public List<CloudTrack> LoadMoreIfPossible()
         {
             List<CloudTrack> items = new List<CloudTrack>(0);
+            if (Mode == TracklistMode.Constant) return items;
             foreach(var result in _serviceResultData.Values)
             {
                 if (result.IsIncrementalLoadingEnabled)
@@ -95,6 +96,7 @@ namespace CloudMusicLib.CoreLibrary
         public async Task<List<CloudTrack>> LoadMoreIfPossibleAsync()
         {
             List<CloudTrack> items = new List<CloudTrack>(0);
+            if (Mode == TracklistMode.Constant) return items;
             foreach (var result in _serviceResultData.Values)
             {
                 if (result.IsIncrementalLoadingEnabled)

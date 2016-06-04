@@ -16,5 +16,6 @@ namespace CloudMusicLib.SoundCloudService
         MeTracks,
 
         TracksSearch,
+        PlaylistsSearch,
     }
 }
