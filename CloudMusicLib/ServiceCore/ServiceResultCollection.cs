@@ -20,5 +20,7 @@ namespace CloudMusicLib.ServiceCore
             return this;
         }
         public abstract List<T> LoadNextIfPossible();
+        public abstract Task<List<T>> LoadNextIfPossibleAsync();
+        public abstract bool HasMore();
     }
 }

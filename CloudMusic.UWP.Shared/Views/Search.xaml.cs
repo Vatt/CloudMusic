@@ -33,7 +33,7 @@ namespace CloudMusic.UWP.Views
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                SearchVm.RunSearch();
+                 SearchVm.RunSearch();
             }
         }
     }

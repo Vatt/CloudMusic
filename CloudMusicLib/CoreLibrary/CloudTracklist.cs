@@ -92,5 +92,27 @@ namespace CloudMusicLib.CoreLibrary
             }
             return items;
         }
+        public async Task<List<CloudTrack>> LoadMoreIfPossibleAsync()
+        {
+            List<CloudTrack> items = new List<CloudTrack>(0);
+            foreach (var result in _serviceResultData.Values)
+            {
+                if (result.IsIncrementalLoadingEnabled)
+                {
+                    items.AddRange(await result.LoadNextIfPossibleAsync());
+                    MergeOther(result.ServiceName, items);
+
+                }
+            }
+            return items;
+        }
+        public bool HaveMore()
+        {
+            foreach(var result in _serviceResultData.Values)
+            {
+                if (result.HasMore()) return true;
+            }
+            return false;
+        }
     }
 }

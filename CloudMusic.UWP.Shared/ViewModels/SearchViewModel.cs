@@ -36,8 +36,9 @@ namespace CloudMusic.UWP.ViewModels
         {
             Task<CloudTracklist> tracksTask=null;
             _searchResultPivot.Items.Clear();
+            GC.Collect();
             if (SearchByTracks)
-            {
+            {                
                 tracksTask =  CloudMan.SearchTracksAsync(_searchBox.Text);
                 MakeSearchTracksPivotItem(await tracksTask);
             }

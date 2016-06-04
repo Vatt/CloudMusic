@@ -32,12 +32,7 @@ namespace CloudMusic.UWP.Models
         {
             get
             {
-               var items = _original.LoadMoreIfPossible();
-               foreach (var item in items)
-                {
-                    base.Add(new TrackViewModel(item));
-                }
-               return items.Count>0?true:false;
+                return _original.HaveMore();
             }
         }
 

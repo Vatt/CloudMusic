@@ -13,12 +13,13 @@ namespace CloudMusicLib.SoundCloudService
 {
     public class ScServiceTracksResult : ServiceResultCollection<CloudTrack>
     {
-        private string _nextPageRef;
+        public string _nextPageRef;
         public ScServiceTracksResult(ResultType type,List<CloudTrack> result,string nextPage) : base("SoundCloud", type,result)
         {
             base.IsIncrementalLoadingEnabled = true;
             _nextPageRef = nextPage;
         }
+        public override bool HasMore() => _nextPageRef != null;
         public override List<CloudTrack> LoadNextIfPossible()
         {
             if (_nextPageRef==null) return new List<CloudTrack>();
@@ -27,6 +28,18 @@ namespace CloudMusicLib.SoundCloudService
             var response = CloudHttpHelper.Send(req);
             var result = ScParser.ParseTackListJson(
                                     JObject.Parse(response.Content.ReadAsStringAsync().Result)
+                                  );
+            _nextPageRef = result._nextPageRef;
+            return result.Result;
+        }
+        public async  override Task<List<CloudTrack>> LoadNextIfPossibleAsync()
+        {
+            if (_nextPageRef == null) return new List<CloudTrack>();
+            var req = new HttpRequestMessage(HttpMethod.Get, _nextPageRef);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await CloudHttpHelper.SendAsync(req);
+            var result = ScParser.ParseTackListJson(
+                                    JObject.Parse(await response.Content.ReadAsStringAsync())
                                   );
             _nextPageRef = result._nextPageRef;
             return result.Result;
