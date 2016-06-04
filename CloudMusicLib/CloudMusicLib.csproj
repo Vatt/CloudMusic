@@ -36,7 +36,9 @@
   <ItemGroup>
     <Compile Include="CoreLibrary\CloudAlbum.cs" />
     <Compile Include="CoreLibrary\CloudArtist.cs" />
+    <Compile Include="CoreLibrary\CloudGenericList.cs" />
     <Compile Include="CoreLibrary\CloudPlaylist.cs" />
+    <Compile Include="CoreLibrary\CloudPlaylistList.cs" />
     <Compile Include="ServiceCore\ICloudConnection.cs" />
     <Compile Include="ServiceCore\CloudHttpHelper.cs" />
     <Compile Include="ServiceCore\CloudMan.cs" />

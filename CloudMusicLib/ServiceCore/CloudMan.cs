@@ -75,7 +75,7 @@ namespace CloudMusicLib.ServiceCore
 
         public async static Task<CloudTracklist> SearchTracksAsync(string template)
         {
-            var tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Dynamic);
+            var tracklist = new CloudTracklist(CloudListMode.Dynamic);
             var data = await InvokeCommandAsync<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
             foreach (var result in data)
             {
@@ -85,7 +85,7 @@ namespace CloudMusicLib.ServiceCore
         }
         public static CloudTracklist SearchTracks(string template)
         {
-            var tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Dynamic);
+            var tracklist = new CloudTracklist(CloudListMode.Dynamic);
             var data = InvokeCommand<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
             foreach (var result in data)
             {
@@ -93,7 +93,7 @@ namespace CloudMusicLib.ServiceCore
             }
             return tracklist;
         }
-        public static async Task<List<CloudPlaylist>> SearchPlaylistsAsync(string template)
+        /*public static async Task<List<CloudPlaylist>> SearchPlaylistsAsync(string template)
         {
 
         }
@@ -101,5 +101,6 @@ namespace CloudMusicLib.ServiceCore
         {
 
         }
+        */
     }
 }

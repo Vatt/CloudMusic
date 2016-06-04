@@ -37,12 +37,12 @@ namespace CloudMusicLib.SoundCloudService
         public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
             CloudPlaylist playlist = new CloudPlaylist();
-            CloudTracklist tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Constant);
+            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
             playlist.ServiceSource = "SoundCloud";
             playlist.Name = (string)json["title"];
             foreach (var track in json["tracks"])
             {
-                tracklist.TracklistData.Add(ParseTrackJson(JObject.Parse(track.ToString())));
+                tracklist.ListData.Add(ParseTrackJson(JObject.Parse(track.ToString())));
             }
             playlist.Data = tracklist;
             return playlist;

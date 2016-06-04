@@ -14,7 +14,7 @@ namespace CloudMusicLib.CoreLibrary
 
         public CloudPlaylist()
         {
-            Data = new CloudTracklist(CloudTracklist.TracklistMode.Constant);
+            Data = new CloudTracklist(CloudListMode.Constant);
         }
         public override string ToString()
         {

@@ -22,7 +22,7 @@ namespace CloudMusic.UWP.Models
         public TracklistCollection(CloudTracklist list)
         {
             _original = list;
-            foreach (var track in _original.TracklistData)
+            foreach (var track in _original.ListData)
             {
                 base.Add(new TrackViewModel(track));
             }
