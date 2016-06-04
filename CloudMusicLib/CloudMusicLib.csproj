@@ -50,7 +50,7 @@
     <Compile Include="ServiceCore\ServiceResultCollection.cs" />
     <Compile Include="SoundCloudService\ScConnection.cs" />
     <Compile Include="SoundCloudService\ScParser.cs" />
-    <Compile Include="SoundCloudService\ScPlaylistsResult.cs" />
+    <Compile Include="SoundCloudService\ScPlaylistsSearachResult.cs" />
     <Compile Include="SoundCloudService\ScServiceTracksResult.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScAuthorizationMethod.cs" />
     <Compile Include="SoundCloudService\ScApiEnum.cs" />

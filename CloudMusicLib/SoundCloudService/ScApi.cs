@@ -18,7 +18,7 @@ namespace CloudMusicLib.SoundCloudService
             { ScApiEnum.Me,            "https://api.soundcloud.com/me?oauth_token={0}"},
             { ScApiEnum.MePlaylists,   "https://api.soundcloud.com/users/{0}/playlists?client_id={1}"},
             { ScApiEnum.MeTracks,      "https://api.soundcloud.com/users/{0}/tracks?client_id={1}"},
-            { ScApiEnum.TracksSearch,  "https://api.soundcloud.com/tracks?q={0}&linked_partitioning=1&client_id={1}&limit=200" },
+            { ScApiEnum.TracksSearch,  "https://api.soundcloud.com/tracks?q={0}&linked_partitioning=1&client_id={1}&limit=50" },
 
         };
 
