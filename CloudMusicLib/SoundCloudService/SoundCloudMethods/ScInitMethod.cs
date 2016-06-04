@@ -12,12 +12,13 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
         public ScInitMethod(SoundCloudService service) : base(service, ServiceCommands.Init)
         {}
 
-        public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
+        public override ServiceResult<TOutType> Invoke<TOutType, TArgType>(params TArgType[] args)
         {
             var owner = base.Service as SoundCloudService;
             owner.ClientId = args[0].ToString();
             owner.SecretId = args[1].ToString();
-            return default (TOutType);
+            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, default(TOutType));
+            return result;
         }
     }
 }

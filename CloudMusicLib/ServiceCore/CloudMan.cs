@@ -1,4 +1,5 @@
 ﻿using CloudMusicLib.CoreLibrary;
+using CloudMusicLib.SoundCloudService;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,60 +28,69 @@ namespace CloudMusicLib.ServiceCore
         {
             return _services.Values.ToList();
         }
-        public async static Task<IList<TOutType>> InvokeCommandAsync<TOutType, TArgType>(ServiceCommands command, params TArgType[] args) where TOutType : class
+        //TODO: вернуть словарь - имя сервиса:результат
+        public async static Task<Dictionary<string, ServiceResult<TOutType>>> InvokeCommandAsync<TOutType, TArgType>(ServiceCommands command, params TArgType[] args) where TOutType : class
         {
-            var data = new List<TOutType>();
+            var data = new Dictionary<string, ServiceResult<TOutType>>();
             foreach (var service in _services.Values)
             {
                 if(service.IsSupportedCommand(command))
                 {
-                    data.Add(await service._commands[command].InvokeAsync<TOutType, TArgType>(args) as  TOutType);
+                    data.Add(service.ServiceName, await service._commands[command].InvokeAsync<TOutType, TArgType>(args));
                 }
             }
             return data;
         }
-
-        public static IList<TOutType> InvokeCommand<TOutType, TArgType>(ServiceCommands command, params TArgType[] args) where TOutType : class
+        public static Dictionary<string, ServiceResult<TOutType>> InvokeCommand<TOutType, TArgType>(ServiceCommands command, params TArgType[] args) where TOutType : class
         {
-            var data = new List<TOutType>();
+            var data = new Dictionary<string, ServiceResult<TOutType>>();
             foreach (var service in _services.Values)
             {
                 if (service.IsSupportedCommand(command))
                 {
-                    data.Add(service._commands[command].Invoke<TOutType, TArgType>(args) as TOutType);
+                    data.Add(service.ServiceName,service._commands[command].Invoke<TOutType, TArgType>(args));
                 }
             }
             return data;
         }
 
-        public static Task<TOutType> InvokeCommandAsync<TOutType, TArgType>(string serviceName, ServiceCommands command, params TArgType[] args) where TOutType : class
+        public static async  Task<ServiceResult<TOutType>> InvokeCommandAsync<TOutType, TArgType>(string serviceName, ServiceCommands command, params TArgType[] args) where TOutType : class
         {
+            ServiceResult<TOutType> result = new ServiceResult<TOutType>(serviceName, ResultType.Err, null);
             if (_services[serviceName].IsSupportedCommand(command))
             {
-                return _services[serviceName]._commands[command].InvokeAsync<TOutType, TArgType>(args);
+                return await _services[serviceName]._commands[command].InvokeAsync<TOutType, TArgType>(args);
             }
-            return default(Task<TOutType>);
+            return result;
         }
-        public static TOutType InvokeCommand<TOutType, TArgType>(string serviceName, ServiceCommands command, params TArgType[] args) where TOutType : class
+        public static ServiceResult<TOutType> InvokeCommand<TOutType, TArgType>(string serviceName, ServiceCommands command, params TArgType[] args) where TOutType : class
         {
-            TOutType result = default(TOutType);
+            ServiceResult<TOutType>  result = new ServiceResult<TOutType>(serviceName,ResultType.Err,null);
             if (_services[serviceName].IsSupportedCommand(command))
             {
-                result = _services[serviceName]._commands[command].Invoke<TOutType, TArgType>(args);
+                return  _services[serviceName]._commands[command].Invoke<TOutType, TArgType>(args);
             }
             return result;
         }
 
         public async static Task<CloudTracklist> SearchTracksAsync(string template)
         {
-            var tracklist = new CloudTracklist();
-            tracklist.MergeOther(await InvokeCommandAsync<CloudTracklist, string>(ServiceCommands.SearchByTracks, template));
+            var tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Dynamic);
+            var data = await InvokeCommandAsync<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
+            foreach (var result in data)
+            {
+                tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+            }
             return tracklist;
         }
         public static CloudTracklist SearchTracks(string template)
         {
-            var tracklist = new CloudTracklist();
-            tracklist.MergeOther(InvokeCommand<CloudTracklist, string>(ServiceCommands.SearchByTracks, template));
+            var tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Dynamic);
+            var data = InvokeCommand<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
+            foreach (var result in data)
+            {
+                tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+            }
             return tracklist;
         }
     }

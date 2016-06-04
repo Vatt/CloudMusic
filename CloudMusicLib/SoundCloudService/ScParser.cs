@@ -37,7 +37,7 @@ namespace CloudMusicLib.SoundCloudService
         public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
             CloudPlaylist playlist = new CloudPlaylist();
-            CloudTracklist tracklist = new CloudTracklist();
+            CloudTracklist tracklist = new CloudTracklist(CloudTracklist.TracklistMode.Constant);
             playlist.ServiceSource = "SoundCloud";
             playlist.Name = (string)json["title"];
             foreach (var track in json["tracks"])
@@ -48,9 +48,9 @@ namespace CloudMusicLib.SoundCloudService
             return playlist;
         }
 
-        public static IList<CloudPlaylist> ParsePlaylistsJson(JArray json)
+        public static List<CloudPlaylist> ParsePlaylistsJson(JArray json)
         {
-            IList<CloudPlaylist> data = new List<CloudPlaylist>();
+            List<CloudPlaylist> data = new List<CloudPlaylist>();
             foreach (var playlist in json)
             {
                 data.Add(ParsePlaylistJson(playlist));
@@ -58,14 +58,22 @@ namespace CloudMusicLib.SoundCloudService
             return data;
         }
 
-        public static CloudTracklist ParseTackListJson(JArray json)
+        public static ScServiceTracksResult ParseTackListJson(JObject json)
         {
-            CloudTracklist tracklist = new CloudTracklist();
-            foreach (var track in json)
-            {
-                tracklist.TracklistData.Add(ParseTrackJson(track));
+            List<CloudTrack> tracklist = new List<CloudTrack>();
+            JArray tracks = (JArray)json["collection"];
+            string next = "";
+            JToken tok;
+            if (json.TryGetValue("next_href",out tok))
+            { 
+
+                next = (string)json["next_href"];
             }
-            return tracklist;
+            foreach (var track in tracks)
+            {
+                tracklist.Add(ParseTrackJson(track));
+            }
+            return new ScServiceTracksResult(ServiceCore.ResultType.Ok,tracklist,next);
         }
     }
 }

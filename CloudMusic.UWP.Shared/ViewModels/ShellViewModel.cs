@@ -30,10 +30,11 @@ namespace CloudMusic.UWP.ViewModels
 
         public void ShellInit()
         {
-            UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
-            var tracklist = CloudMan.SearchTracks("Seceqtrique");
+            // UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
+            //var tracklist = CloudMan.SearchTracks("Seceqtrique");
+            var tracklist = CloudMan.SearchTracks("Numb");
             //Debug.WriteLine(tracklist.ToString());
-            
+
         }
     }
 }

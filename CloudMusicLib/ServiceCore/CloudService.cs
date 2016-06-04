@@ -8,6 +8,7 @@ namespace CloudMusicLib.ServiceCore
         public ICloudConnection Connection;
         public Uri ServiceIcon;
         public bool IsAuthorizationRequired{ get; }
+        public bool IsIncrementalLoadingSupported { get; }
         public Dictionary<ServiceCommands, ServiceMethod> _commands;
 
         protected CloudService(string name, bool isAuthorizationRequired)

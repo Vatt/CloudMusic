@@ -15,9 +15,9 @@ namespace CloudMusicLib.ServiceCore
             Service = service;
         }
 
-        public abstract TOutType Invoke<TOutType, TArgType>(params TArgType[] args) where TOutType:class;
+        public abstract ServiceResult<TOutType> Invoke<TOutType, TArgType>(params TArgType[] args) where TOutType:class;
 
-        public virtual Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args) where TOutType : class
+        public virtual Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args) where TOutType : class
         {
             return Task.Factory.StartNew(() => Invoke<TOutType, TArgType>());
         }

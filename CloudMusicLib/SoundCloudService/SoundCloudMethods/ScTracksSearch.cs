@@ -17,7 +17,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
         {
         }
 
-        public override TOutType Invoke<TOutType, TArgType>(params TArgType[] args)
+        public override ServiceResult<TOutType> Invoke<TOutType, TArgType>(params TArgType[] args)
         {
             var owner = ScApi.ScService;
             string urlStr = ScApi.ApiDictionary[ScApiEnum.TracksSearch];
@@ -25,13 +25,12 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
-            CloudTracklist data = ScParser.ParseTackListJson(
-                                    JArray.Parse(response.Content.ReadAsStringAsync().Result)
-                                  );
-            return data as TOutType;
+            string jsonData = response.Content.ReadAsStringAsync().Result;
+            var result = ScParser.ParseTackListJson(JObject.Parse(jsonData));
+            return result.ToServiceResult() as ServiceResult<TOutType>;
         }
 
-        public override async Task<TOutType> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
+        public override async Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
         {
             var owner = ScApi.ScService;
             string urlStr = ScApi.ApiDictionary[ScApiEnum.TracksSearch];
@@ -39,10 +38,10 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            CloudTracklist data = ScParser.ParseTackListJson(
-                                    JArray.Parse(await response.Content.ReadAsStringAsync())
+            var result = ScParser.ParseTackListJson(
+                                    JObject.Parse(await response.Content.ReadAsStringAsync())
                                   );
-            return data as TOutType;
+            return result.ToServiceResult() as ServiceResult<TOutType>;
         }
     }
 }
