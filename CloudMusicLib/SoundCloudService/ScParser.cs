@@ -117,7 +117,7 @@ namespace CloudMusicLib.SoundCloudService
             return new ScPlaylistsResult(ServiceCore.ResultType.Ok, data, next);
         }
 
-        public static ScServiceTracksResult ParseTrackListJson(JObject json)
+        public static ScTracksResult ParseTrackListJson(JObject json)
         {
             List<CloudTrack> tracklist = new List<CloudTrack>();
             JArray tracks = (JArray)json["collection"];
@@ -136,7 +136,7 @@ namespace CloudMusicLib.SoundCloudService
                     tracklist.Add(tryParse);
                 }
             }
-            return new ScServiceTracksResult(ServiceCore.ResultType.Ok,tracklist,next);
+            return new ScTracksResult(ServiceCore.ResultType.Ok,tracklist,next);
         }
     }
 }

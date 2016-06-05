@@ -45,6 +45,7 @@
     <Compile Include="CoreLibrary\CloudTracklist.cs" />
     <Compile Include="CoreLibrary\CloudTrack.cs" />
     <Compile Include="ServiceCore\CloudService.cs" />
+    <Compile Include="ServiceCore\ILazyLoad.cs" />
     <Compile Include="ServiceCore\ServiceCommands.cs" />
     <Compile Include="ServiceCore\ServiceMethod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="SoundCloudService\ScConnection.cs" />
     <Compile Include="SoundCloudService\ScParser.cs" />
     <Compile Include="SoundCloudService\ScPlaylistsResult.cs" />
-    <Compile Include="SoundCloudService\ScServiceTracksResult.cs" />
+    <Compile Include="SoundCloudService\ScTracksResult.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScAuthorizationMethod.cs" />
     <Compile Include="SoundCloudService\ScApiEnum.cs" />
     <Compile Include="SoundCloudService\ScApi.cs" />

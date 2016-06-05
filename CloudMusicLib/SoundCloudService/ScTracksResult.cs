@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    public class ScServiceTracksResult : ServiceResultCollection<CloudTrack>
+    public class ScTracksResult : ServiceResultCollection<CloudTrack>
     {
         public string _nextPageRef;
-        public ScServiceTracksResult(ResultType type,List<CloudTrack> result,string nextPage) : base("SoundCloud", type,result)
+        public ScTracksResult(ResultType type,List<CloudTrack> result,string nextPage) : base("SoundCloud", type,result)
         {
             base.IsIncrementalLoadingEnabled = true;
             _nextPageRef = nextPage;
