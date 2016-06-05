@@ -12,7 +12,12 @@ namespace CloudMusicLib.ServiceCore
         public ServiceResultCollection(string serviceName, ResultType type, List<T> result) : base(serviceName, type,result)
         {
         }
-        public ServiceResultCollection(ServiceResult<List<T>> result) : base(result.ServiceName, result.Type, result.Result)
+        public ServiceResultCollection(string serviceName, ResultType type,ResultMode mode, List<T> result) 
+            : base(serviceName, type,mode, result)
+        {
+        }
+        public ServiceResultCollection(ServiceResult<List<T>> result) 
+            : base(result.ServiceName, result.Type,result.Mode, result.Result)
         {
         }
         public ServiceResult<List<T>> ToServiceResult()
