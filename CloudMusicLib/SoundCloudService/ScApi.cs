@@ -18,8 +18,8 @@ namespace CloudMusicLib.SoundCloudService
             { ScApiEnum.Me,              "https://api.soundcloud.com/me?oauth_token={0}"},
             { ScApiEnum.MePlaylists,     "https://api.soundcloud.com/users/{0}/playlists?client_id={1}"},
             { ScApiEnum.MeTracks,        "https://api.soundcloud.com/users/{0}/tracks?client_id={1}"},
-            { ScApiEnum.TracksSearch,    "https://api.soundcloud.com/tracks?q={0}&linked_partitioning=1&client_id={1}&limit=50" },
-            { ScApiEnum.PlaylistsSearch, "https://api.soundcloud.com/playlists?q={0}&limit=50&linked_partitioning=1&client_id={1}"},
+            { ScApiEnum.TracksSearch,    "https://api.soundcloud.com/tracks?q={0}&linked_partitioning=1&client_id={1}&limit=50&filter=public" },
+            { ScApiEnum.PlaylistsSearch, "https://api.soundcloud.com/playlists?q={0}&limit=50&linked_partitioning=1&client_id={1}&filter=public"},
 
         };
 
@@ -77,6 +77,20 @@ namespace CloudMusicLib.SoundCloudService
             reqMe.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var responseMe = CloudHttpHelper.Send(reqMe);
             return responseMe.Content.ReadAsStringAsync().Result;
+        }
+        public static string GetPlaylistTracksJson(string urlRefTracklist)
+        {
+            var req = new HttpRequestMessage(HttpMethod.Get, urlRefTracklist+"?client_id="+ScService.ClientId);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = CloudHttpHelper.Send(req);
+            return response.Content.ReadAsStringAsync().Result;
+        }
+        public static async Task<string> GetPlaylistTracksJsonAsync(string urlRefTracklist)
+        {
+            var req = new HttpRequestMessage(HttpMethod.Get, urlRefTracklist + "?client_id=" + ScService.ClientId);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            var response = await CloudHttpHelper.SendAsync(req);
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }

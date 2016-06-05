@@ -26,7 +26,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var response = CloudHttpHelper.Send(req);
             string jsonData = response.Content.ReadAsStringAsync().Result;
 
-            var result = ScParser.ParseTackListJson(JObject.Parse(jsonData));
+            var result = ScParser.ParsePlaylistsJson(JObject.Parse(jsonData));
             return result.ToServiceResult() as ServiceResult<TOutType>;
         }
         public override async Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
@@ -39,7 +39,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var response = await CloudHttpHelper.SendAsync(req);
             string jsonData = await response.Content.ReadAsStringAsync();
 
-            var result = ScParser.ParseTackListJson(JObject.Parse(jsonData));
+            var result = await ScParser.ParsePlaylistsJsonAsync(JObject.Parse(jsonData));
             return result.ToServiceResult() as ServiceResult<TOutType>;
         }
     }

@@ -26,7 +26,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
             string jsonData = response.Content.ReadAsStringAsync().Result;
-            var result = ScParser.ParseTackListJson(JObject.Parse(jsonData));
+            var result = ScParser.ParseTrackListJson(JObject.Parse(jsonData));
             return result.ToServiceResult() as ServiceResult<TOutType>;
         }
 
@@ -38,7 +38,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            var result = ScParser.ParseTackListJson(
+            var result = ScParser.ParseTrackListJson(
                                     JObject.Parse(await response.Content.ReadAsStringAsync())
                                   );
             return result.ToServiceResult() as ServiceResult<TOutType>;

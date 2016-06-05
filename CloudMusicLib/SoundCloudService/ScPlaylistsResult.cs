@@ -31,9 +31,17 @@ namespace CloudMusicLib.SoundCloudService
             var req = new HttpRequestMessage(HttpMethod.Get, _nextPageRef);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
-            var result = ScParser.ParsePlaylistsJson(
-                                    JObject.Parse(response.Content.ReadAsStringAsync().Result)
-                                  );
+            ScPlaylistsResult result = null;
+            var jsonStr = response.Content.ReadAsStringAsync().Result;
+            try
+            {
+                var json = JObject.Parse(jsonStr);
+                result = ScParser.ParsePlaylistsJson(json);
+            }
+            catch (Exception) { }
+            
+
+            if (result==null) return new List<CloudPlaylist>();
             _nextPageRef = result._nextPageRef;
             return result.Result;
         }
@@ -43,10 +51,16 @@ namespace CloudMusicLib.SoundCloudService
             if (_nextPageRef == null) return new List<CloudPlaylist>();
             var req = new HttpRequestMessage(HttpMethod.Get, _nextPageRef);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = CloudHttpHelper.Send(req);
-            var result = ScParser.ParsePlaylistsJson(
-                                     JObject.Parse(await response.Content.ReadAsStringAsync())
-                                  );
+            var response = await CloudHttpHelper.SendAsync(req);
+            var jsonStr = await response.Content.ReadAsStringAsync();
+            ScPlaylistsResult result = null;
+            try
+            {
+                var json = JObject.Parse(jsonStr);
+                result = await ScParser.ParsePlaylistsJsonAsync(json);
+            }
+            catch (Exception) { }
+            if (result == null) return new List<CloudPlaylist>();
             _nextPageRef = result._nextPageRef;
             return result.Result;
         }

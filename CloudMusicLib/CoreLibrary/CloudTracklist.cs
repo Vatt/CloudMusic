@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.CoreLibrary
 {
+    //TODO: сделать ленивую загрузку
     public class CloudTracklist:CloudGenericList<CloudTrack>
     {
        

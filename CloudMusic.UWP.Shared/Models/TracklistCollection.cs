@@ -32,6 +32,7 @@ namespace CloudMusic.UWP.Models
         {
             get
             {
+                if (_original == null) return false;
                 return _original.HaveMore();
             }
         }

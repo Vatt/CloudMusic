@@ -24,7 +24,7 @@ namespace CloudMusic.UWP.ViewModels
             Services = new ServicesCollection();
             ShellInit();
             WorkflowFrame = workflow;
-            //WorkflowFrame.Navigate(typeof(PlaylistsView), UserPlaylists);
+            //WorkflowFrame.Navigate(typeof(PlaylistsControl), UserPlaylists);
             WorkflowFrame.Navigate(typeof(Search));
         }
 
@@ -32,7 +32,7 @@ namespace CloudMusic.UWP.ViewModels
         {
             // UserPlaylists = new PlaylistsCollection(CloudMan.InvokeCommand<IList<CloudPlaylist>, DummyArgType>("SoundCloud", ServiceCommands.GetUserPlaylists));
             //var tracklist = CloudMan.SearchTracks("Seceqtrique");
-            var tracklist = CloudMan.SearchTracks("Numb");
+//            var tracklist = CloudMan.SearchTracks("Numb");
             //Debug.WriteLine(tracklist.ToString());
 
         }

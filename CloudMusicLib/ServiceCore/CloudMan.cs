@@ -96,7 +96,7 @@ namespace CloudMusicLib.ServiceCore
         public static async Task<CloudPlaylistList> SearchPlaylistsAsync(string template)
         {
             var playlists = new CloudPlaylistList(CloudListMode.Dynamic);
-            var data = await InvokeCommandAsync<List<CloudPlaylist>, string>(ServiceCommands.SearchByTracks, template);
+            var data = await InvokeCommandAsync<List<CloudPlaylist>, string>(ServiceCommands.SearchByPlaylists, template);
             foreach (var result in data)
             {
                 playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
@@ -106,7 +106,7 @@ namespace CloudMusicLib.ServiceCore
         public static CloudPlaylistList SearchPlaylists(string template)
         {
             var playlists = new CloudPlaylistList(CloudListMode.Dynamic);
-            var data = InvokeCommand<List<CloudPlaylist>, string>(ServiceCommands.SearchByTracks, template);
+            var data = InvokeCommand<List<CloudPlaylist>, string>(ServiceCommands.SearchByPlaylists, template);
             foreach (var result in data)
             {
                 playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);

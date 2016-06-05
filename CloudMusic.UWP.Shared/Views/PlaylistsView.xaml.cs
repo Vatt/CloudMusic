@@ -23,21 +23,28 @@ namespace CloudMusic.UWP.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PlaylistsView : Page
+    public sealed partial class PlaylistsControl : UserControl
     {
-        public PlaylistsCollection Playlists;
-        public PlaylistsView()
+        public static readonly DependencyProperty PlaylistsProperty =
+            DependencyProperty.Register("Playlists", typeof(PlaylistsCollection), typeof(PlaylistsCollection),
+                                        new PropertyMetadata(new PlaylistsCollection()));
+
+        public PlaylistsCollection Playlists
+        {
+            get
+            {
+                return (PlaylistsCollection)GetValue(PlaylistsProperty);
+            }
+            set
+            {
+                if (value == null) throw new ArgumentNullException(nameof(value));
+                SetValue(PlaylistsProperty, value);
+            }
+        }
+        public PlaylistsControl()
         {
             this.InitializeComponent();
         }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            Playlists = (PlaylistsCollection) e.Parameter;
-            base.OnNavigatedTo(e);
-        }
-
-
         private void OnPlayListNameClick(object sender, ItemClickEventArgs e)
         {
             var playlistVm = (PlaylistViewModel) e.ClickedItem;

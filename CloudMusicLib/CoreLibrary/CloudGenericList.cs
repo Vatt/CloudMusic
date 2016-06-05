@@ -23,9 +23,9 @@ namespace CloudMusicLib.CoreLibrary
         {
             Mode = mode;
             _serviceResultData = servicesData;
-            foreach (var tracklist in _serviceResultData)
+            foreach (var item in _serviceResultData)
             {
-                ListData.AddRange(tracklist.Value.Result);
+                ListData.AddRange(item.Value.Result);
             }
         }
         protected void MergeOther(string serviceName, List<T> others)

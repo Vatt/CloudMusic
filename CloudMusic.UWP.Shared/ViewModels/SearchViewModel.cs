@@ -36,9 +36,8 @@ namespace CloudMusic.UWP.ViewModels
         public async void RunSearch()
         {
             Task<CloudTracklist> tracksTask=null;
-            Task<CloudPlaylistList> playlistsTask= null;
+            CloudPlaylistList playlistsTask= null;
             _searchResultPivot.Items.Clear();
-            GC.Collect();
             if (SearchByTracks)
             {                
                 tracksTask =  CloudMan.SearchTracksAsync(_searchBox.Text);
@@ -46,8 +45,8 @@ namespace CloudMusic.UWP.ViewModels
             }
             if (SearchByPlaylists)
             {
-                playlistsTask = CloudMan.SearchPlaylistsAsync(_searchBox.Text);
-                MakeSearchPlaylistsPivotItem(await playlistsTask);
+                playlistsTask = await CloudMan.SearchPlaylistsAsync(_searchBox.Text);
+                MakeSearchPlaylistsPivotItem(playlistsTask);
             }
 
         }
@@ -63,8 +62,10 @@ namespace CloudMusic.UWP.ViewModels
         public void MakeSearchPlaylistsPivotItem(CloudPlaylistList inList)
         {
             PivotItem newItem = new PivotItem();
+            PlaylistsControl newControl = new PlaylistsControl();
+            newControl.Playlists = new PlaylistsCollection(inList);
             newItem.Header = "Плейлисты";
-            newItem.Content = new PlaylistsView();
+            newItem.Content = newControl;
             _searchResultPivot.Items.Add(newItem);
         }
     }
