@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMusicLib.ServiceCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,25 @@ namespace CloudMusicLib.CoreLibrary
     {
         public string ServiceSource;
         public string Name { get; set; }
-        public CloudTracklist Data;
-
+        private LazyLoad<CloudTracklist> LazyData;
+        public CloudTracklist Data
+        {
+            get
+            {
+                return LazyData.Data;
+            }
+            set
+            {
+                LazyData.IntenseSet(value);               
+            }
+        }
+        public CloudPlaylist(LazyLoad<CloudTracklist> lazy)
+        {
+            LazyData = lazy;
+        }
         public CloudPlaylist()
         {
-            Data = new CloudTracklist(CloudListMode.Constant);
+            LazyData.IntenseSet(new CloudTracklist(CloudListMode.Constant));
         }
         public override string ToString()
         {

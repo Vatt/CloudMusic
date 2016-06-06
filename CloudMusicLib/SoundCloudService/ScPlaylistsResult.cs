@@ -57,7 +57,7 @@ namespace CloudMusicLib.SoundCloudService
             try
             {
                 var json = JObject.Parse(jsonStr);
-                result = await ScParser.ParsePlaylistsJsonAsync(json);
+                result = ScParser.ParsePlaylistsJson(json);
             }
             catch (Exception) { }
             if (result == null) return new List<CloudPlaylist>();

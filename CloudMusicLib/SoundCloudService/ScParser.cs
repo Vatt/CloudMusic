@@ -45,7 +45,7 @@ namespace CloudMusicLib.SoundCloudService
             };
             return track;
         }
-
+        /*
         public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
             CloudPlaylist playlist = new CloudPlaylist();
@@ -64,25 +64,27 @@ namespace CloudMusicLib.SoundCloudService
             playlist.Data = tracklist;
             return playlist;
         }
-        public static async Task<CloudPlaylist> ParsePlaylistJsonAsync(JToken json)
+        */
+        public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
-            CloudPlaylist playlist = new CloudPlaylist();
-            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
-            playlist.ServiceSource = "SoundCloud";
+            string tracksRefStr = json["tracks_uri"].ToString() + "?client_id=" + ScApi.ScService.ClientId;
+            CloudPlaylist playlist = new CloudPlaylist(new ScLazyTracklist(tracksRefStr));
+           // CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
+            playlist.ServiceSource = ScApi.ScService.ServiceName;
             playlist.Name = (string)json["title"];
             //JArray.Parse(await ScApi.GetPlaylistTracksJsonAsync((string)json["tracks_uri"])))
-            foreach (var track in  json["tracks"])
-            {
-                var tryParse = ParseTrackJson(JObject.Parse(track.ToString()));
-                if (tryParse != null)
-                {
-                    tracklist.ListData.Add(tryParse);
-                }
-            }
-            playlist.Data = tracklist;
-            return playlist;
+            //foreach (var track in  json["tracks"])
+            //{
+            //    var tryParse = ParseTrackJson(JObject.Parse(track.ToString()));
+            //    if (tryParse != null)
+            //    {
+            //        tracklist.ListData.Add(tryParse);
+            //    }
+            //}
+            //playlist.Data = tracklist;
+              return playlist;
         }
-        public static async Task<ScPlaylistsResult> ParsePlaylistsJsonAsync(JObject json)
+       /* public static async Task<ScPlaylistsResult> ParsePlaylistsJsonAsync(JObject json)
         {
             List<CloudPlaylist> data = new List<CloudPlaylist>();
             JArray playlists = (JArray)json["collection"];
@@ -95,10 +97,10 @@ namespace CloudMusicLib.SoundCloudService
             }
             foreach (var playlist in playlists)
             {
-                data.Add(await ParsePlaylistJsonAsync(playlist));
+                data.Add(ParsePlaylistJson(playlist));
             }
             return new ScPlaylistsResult(ServiceCore.ResultType.Ok, data, next);
-        }
+        }*/
         public static ScPlaylistsResult ParsePlaylistsJson(JObject json)
         {
             List<CloudPlaylist> data = new List<CloudPlaylist>();

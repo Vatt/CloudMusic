@@ -10,7 +10,7 @@ namespace CloudMusicLib.CoreLibrary
     public enum CloudListMode { Constant, Dynamic }
     public abstract class CloudGenericList<T>
     {
-        public List<T> ListData { get; }
+        public List<T> ListData { get; protected set; }
         protected Dictionary<string, ServiceResultCollection<T>> _serviceResultData;
         protected CloudListMode Mode;
         public CloudGenericList(CloudListMode mode)
@@ -28,8 +28,12 @@ namespace CloudMusicLib.CoreLibrary
                 ListData.AddRange(item.Value.Result);
             }
         }
-        protected void MergeOther(string serviceName, List<T> others)
+        public  void MergeOther(string serviceName, List<T> others)
         {
+            if (!_serviceResultData.ContainsKey(serviceName)||Mode != CloudListMode.Dynamic)
+            {
+                throw new Exception("CloudGenericList<" + typeof(T) + "> MergeOther(string , List) расширяется напрямую не имея существующий результат или имея динамический режим");
+            }
             _serviceResultData[serviceName].Result.AddRange(others);
             ListData.AddRange(others);
         }

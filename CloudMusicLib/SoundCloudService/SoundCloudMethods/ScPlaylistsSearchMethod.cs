@@ -39,7 +39,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var response = await CloudHttpHelper.SendAsync(req);
             string jsonData = await response.Content.ReadAsStringAsync();
 
-            var result = await ScParser.ParsePlaylistsJsonAsync(JObject.Parse(jsonData));
+            var result = ScParser.ParsePlaylistsJson(JObject.Parse(jsonData));
             return result.ToServiceResult() as ServiceResult<TOutType>;
         }
     }
