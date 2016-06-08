@@ -12,20 +12,9 @@ namespace CloudMusicLib.ServiceCore
     public abstract class LazyLoad<TValueType>
     {
         private TValueType _data;
-        public TValueType Data
+        public TValueType GetData()
         {
-            protected set
-            {
-                _data = value;
-            }
-            get
-            {
-                if (_data == null)
-                {
-                    _data = Create();
-                }
-                return _data;
-            }
+            return GetDataAsync().Result;
         }
         public async Task<TValueType> GetDataAsync()
         {

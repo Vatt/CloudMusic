@@ -68,8 +68,8 @@ namespace CloudMusicLib.SoundCloudService
         */
         public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
-            string tracksRefStr = json["tracks_uri"].ToString() + "?client_id=" + ScApi.ScService.ClientId;
-            LazyLoad < CloudTracklist > lazyTracklist = new ScLazyTracklist(tracksRefStr);
+            string tracksRefStr = json["tracks_uri"].ToString() + "?client_id=" + ScApi.ScService.ClientId + "&limit=50&linked_partitioning=1";
+            ScLazyTracklist lazyTracklist = new ScLazyTracklist(tracksRefStr);
             CloudPlaylist playlist = new CloudPlaylist(lazyTracklist);
            // CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
             playlist.ServiceSource = ScApi.ScService.ServiceName;
@@ -125,7 +125,7 @@ namespace CloudMusicLib.SoundCloudService
         {
             List<CloudTrack> tracklist = new List<CloudTrack>();
             JArray tracks = (JArray)json["collection"];
-            string next = "";
+            string next = null;
             JToken tok;
             if (json.TryGetValue("next_href",out tok))
             { 

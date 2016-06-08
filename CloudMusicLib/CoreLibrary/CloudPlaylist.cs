@@ -13,17 +13,11 @@ namespace CloudMusicLib.CoreLibrary
         public string ServiceSource;
         public string Name { get; set; }
         private LazyLoad<CloudTracklist> LazyData;
-        public CloudTracklist Data
+        public void SetTracklist(CloudTracklist tracklist)
         {
-            get
-            {
-                return LazyData.Data;
-            }
-            set
-            {
-                LazyData.IntenseSet(value);               
-            }
+            LazyData.IntenseSet(tracklist);
         }
+
         public CloudPlaylist(LazyLoad<CloudTracklist> lazy)
         {
             LazyData = lazy;
@@ -32,10 +26,14 @@ namespace CloudMusicLib.CoreLibrary
         {
             LazyData.IntenseSet(new CloudTracklist(CloudListMode.Constant));
         }
-        public override string ToString()
+        public async Task<CloudTracklist> GetTrackListDataAsync()
         {
-            string data = "Playlist: " + Name + "\n" + Data.ToString();
-            return data;
+            return await LazyData.GetDataAsync();
         }
+        //public  override string ToString()
+        //{
+        //    string data = "Playlist: " + Name + "\n" + LazyData.GetDataAsync().Result.ToString();
+        //    return data;
+        //}
     }
 }

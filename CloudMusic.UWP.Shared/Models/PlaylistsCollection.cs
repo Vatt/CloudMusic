@@ -38,18 +38,18 @@ namespace CloudMusic.UWP.Models
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            var dispatcher = Window.Current.Dispatcher;
+            var dispatcher = Window.Current.Dispatcher;            
             return Task.Run(async () =>
             {
+                var items = await _original.LoadMoreIfPossibleAsync();
                 try
                 {
                     uint Length = 0;
-                    var itemsTask = _original.LoadMoreIfPossibleAsync();
+                    
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadStarted);
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                        async() =>
+                        () =>
                         {
-                            var items = await itemsTask;
                             foreach (var item in items)
                             {
                                 base.Add(new PlaylistViewModel(item));

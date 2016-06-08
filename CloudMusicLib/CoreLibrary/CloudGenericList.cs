@@ -45,7 +45,7 @@ namespace CloudMusicLib.CoreLibrary
                 {
                     if (!_serviceResultData.ContainsKey(item.Key))
                     {
-                        _serviceResultData[item.Key].Result = item.Value.Result;
+                        _serviceResultData.Add(item.Key,item.Value);
                     }
                     else
                     {
@@ -61,7 +61,7 @@ namespace CloudMusicLib.CoreLibrary
             {
                 if (!_serviceResultData.ContainsKey(result.ServiceName))
                 {
-                    _serviceResultData[result.ServiceName] = result;
+                    _serviceResultData.Add(result.ServiceName,result);
                 }
                 else
                 {

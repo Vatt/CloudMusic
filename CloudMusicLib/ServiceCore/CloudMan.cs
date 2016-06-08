@@ -79,7 +79,10 @@ namespace CloudMusicLib.ServiceCore
             var data = await InvokeCommandAsync<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
             foreach (var result in data)
             {
-                tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+                if (result.Value.Type == ResultType.Ok)
+                {
+                    tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+                }
             }
             return tracklist;
         }
@@ -89,7 +92,10 @@ namespace CloudMusicLib.ServiceCore
             var data = InvokeCommand<List<CloudTrack>, string>(ServiceCommands.SearchByTracks, template);
             foreach (var result in data)
             {
-                tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+                if (result.Value.Type == ResultType.Ok)
+                {
+                    tracklist.MergeOther(result.Value as ServiceResultCollection<CloudTrack>);
+                }
             }
             return tracklist;
         }
@@ -99,7 +105,9 @@ namespace CloudMusicLib.ServiceCore
             var data = await InvokeCommandAsync<List<CloudPlaylist>, string>(ServiceCommands.SearchByPlaylists, template);
             foreach (var result in data)
             {
-                playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                if (result.Value.Type == ResultType.Ok) { 
+                    playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                }
             }
             return playlists;
         }
@@ -109,7 +117,10 @@ namespace CloudMusicLib.ServiceCore
             var data = InvokeCommand<List<CloudPlaylist>, string>(ServiceCommands.SearchByPlaylists, template);
             foreach (var result in data)
             {
-                playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                if (result.Value.Type == ResultType.Ok)
+                {
+                    playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                }
             }
             return playlists;
         }

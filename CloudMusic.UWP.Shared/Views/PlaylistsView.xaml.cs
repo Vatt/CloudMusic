@@ -45,10 +45,10 @@ namespace CloudMusic.UWP.Views
         {
             this.InitializeComponent();
         }
-        private void OnPlayListNameClick(object sender, ItemClickEventArgs e)
+        private async  void OnPlayListNameClick(object sender, ItemClickEventArgs e)
         {
             var playlistVm = (PlaylistViewModel) e.ClickedItem;
-            this.PlaylistData.TrackListData = playlistVm.tracklist;
+            this.PlaylistData.TrackListData = await playlistVm.GetTracklistAsync();
             this.PlaylistData.UpdateLayout();
         }
     }

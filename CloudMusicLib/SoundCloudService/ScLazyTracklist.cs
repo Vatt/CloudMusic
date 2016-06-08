@@ -11,25 +11,25 @@ using System.Threading.Tasks;
 
 namespace CloudMusicLib.SoundCloudService
 {
-    class ScLazyTracklist : LazyLoad<CloudTracklist>
+    public class ScLazyTracklist : LazyLoad<CloudTracklist>
     {
         private Uri _refToTracklist;
-        public ScLazyTracklist(string uriStr):base()
+        public ScLazyTracklist(string uriStr)
         {
             _refToTracklist = new Uri(uriStr);
         }
         protected override async Task<CloudTracklist> CreateAsync()
         {
-            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
+            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Dynamic);
             var req = new HttpRequestMessage(HttpMethod.Get, _refToTracklist);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
-            var result = ScParser.ParseTrackListJson(
-                                    JObject.Parse(await response.Content.ReadAsStringAsync())
-                                  );
+            var responseData = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(responseData);
+            var result = ScParser.ParseTrackListJson(json);
             if (result.Type == ResultType.Ok)
             {
-                tracklist.MergeOther(ScApi.ScService.ServiceName, result.Result);
+                tracklist.MergeOther(result);
                 return tracklist;
             }
             else
