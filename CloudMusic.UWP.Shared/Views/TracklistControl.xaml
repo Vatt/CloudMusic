@@ -17,9 +17,16 @@
                   ItemClick="OnTrackClick">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
-                    <StackPanel Orientation="Horizontal" Padding="2">
-                        <Image Source =  "{x:Bind TrackImage.AbsoluteUri}"/>
-                        <TextBlock Text= "{x:Bind TrackName}"/>
+                    <StackPanel Orientation="Horizontal" Padding="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="48"/>
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <Image Source =  "{x:Bind TrackImage.AbsoluteUri}" Grid.Column="0"/>
+                            <TextBlock Text= "{x:Bind TrackName}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </Grid>
+                        
                     </StackPanel>
                 </DataTemplate>
             </ListView.Resources>
@@ -33,7 +40,6 @@
                     <Setter Property="Padding" Value="0" />
                 </Style>
             </ListView.ItemContainerStyle>
-            <!--<ListViewItem>TestItem1</ListViewItem>-->
         </ListView>
         <MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" />
         <!--AreTransportControlsEnabled="True" Height="130"-->

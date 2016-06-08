@@ -12,12 +12,24 @@ namespace CloudMusic.UWP.ViewModels
     public class PlaylistViewModel:NotificationBase
     {
         public string PlaylistName { get; }
+        public Uri PlaylistImage { get; }
+        public bool NoPlaylistImage { get; }
         private TracklistCollection tracklist { get; set; }
         public CloudPlaylist _original;
         public PlaylistViewModel(CloudPlaylist playlist)
         {
+            _original = playlist;
             PlaylistName = playlist.Name;
-            _original = playlist;    
+            if (playlist.Image==null)
+            {
+                NoPlaylistImage = true;
+            }else
+            {
+                NoPlaylistImage = false;
+                PlaylistImage = playlist.Image;
+            }
+
+               
         }
         public async Task<TracklistCollection> GetTracklistAsync()
         {

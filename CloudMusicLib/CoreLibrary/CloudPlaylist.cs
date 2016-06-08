@@ -12,6 +12,7 @@ namespace CloudMusicLib.CoreLibrary
     {
         public string ServiceSource;
         public string Name { get; set; }
+        public Uri    Image { get; set; }
         private LazyLoad<CloudTracklist> LazyData;
         public void SetTracklist(CloudTracklist tracklist)
         {
@@ -30,10 +31,10 @@ namespace CloudMusicLib.CoreLibrary
         {
             return await LazyData.GetDataAsync();
         }
-        //public  override string ToString()
-        //{
-        //    string data = "Playlist: " + Name + "\n" + LazyData.GetDataAsync().Result.ToString();
-        //    return data;
-        //}
+        public  override string ToString()
+        {
+            string data = "Playlist: " + Name + "\n" + GetTrackListDataAsync().Result.ToString();
+            return data;
+        }
     }
 }

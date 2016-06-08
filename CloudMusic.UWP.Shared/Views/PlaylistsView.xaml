@@ -10,7 +10,16 @@
     <Page x:Name="PlaylistPage">
         <Page.Resources>
             <DataTemplate x:Name="PlaylistNamesDataTemplate" x:DataType="viewModels:PlaylistViewModel">
-                <TextBlock Text="{x:Bind PlaylistName}" Padding="2" />
+                <StackPanel Orientation="Horizontal" Padding="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image   Source="{x:Bind PlaylistImage.AbsoluteUri}" Grid.Column="0"/>
+                        <TextBlock Text="{x:Bind PlaylistName}" Padding="2"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
             </DataTemplate>
         </Page.Resources>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
