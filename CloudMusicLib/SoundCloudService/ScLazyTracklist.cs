@@ -14,7 +14,7 @@ namespace CloudMusicLib.SoundCloudService
     class ScLazyTracklist : LazyLoad<CloudTracklist>
     {
         private Uri _refToTracklist;
-        public ScLazyTracklist(string uriStr)
+        public ScLazyTracklist(string uriStr):base()
         {
             _refToTracklist = new Uri(uriStr);
         }
@@ -23,7 +23,7 @@ namespace CloudMusicLib.SoundCloudService
             CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
             var req = new HttpRequestMessage(HttpMethod.Get, _refToTracklist);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var response = await CloudHttpHelper.SendAsync(req);
+            var response = CloudHttpHelper.Send(req);
             var result = ScParser.ParseTrackListJson(
                                     JObject.Parse(await response.Content.ReadAsStringAsync())
                                   );
@@ -35,6 +35,33 @@ namespace CloudMusicLib.SoundCloudService
             else
             {
                 throw new Exception("ScLazyTracklist returned Error");
+            }
+        }
+        protected override CloudTracklist Create()
+        {
+            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
+            var req = new HttpRequestMessage(HttpMethod.Get, _refToTracklist);
+            req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ScTracksResult result = null; 
+            var response = CloudHttpHelper.Send(req);
+            try
+            {
+                result = ScParser.ParseTrackListJson(
+                                        JObject.Parse(response.Content.ReadAsStringAsync().Result)
+                                      );
+            }catch(Exception e)
+            {
+                result = new ScTracksResult(ResultType.Err, null, null);
+            }
+            if (result.Type == ResultType.Ok)
+            {
+                tracklist.MergeOther(ScApi.ScService.ServiceName, result.Result);
+                return tracklist;
+            }
+            else
+            {
+                return tracklist;
+                //throw new Exception("ScLazyTracklist returned Error");
             }
         }
     }

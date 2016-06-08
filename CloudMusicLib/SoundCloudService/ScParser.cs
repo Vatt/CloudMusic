@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloudMusicLib.CoreLibrary;
 using Newtonsoft.Json.Linq;
+using CloudMusicLib.ServiceCore;
 
 namespace CloudMusicLib.SoundCloudService
 {
@@ -68,7 +69,8 @@ namespace CloudMusicLib.SoundCloudService
         public static CloudPlaylist ParsePlaylistJson(JToken json)
         {
             string tracksRefStr = json["tracks_uri"].ToString() + "?client_id=" + ScApi.ScService.ClientId;
-            CloudPlaylist playlist = new CloudPlaylist(new ScLazyTracklist(tracksRefStr));
+            LazyLoad < CloudTracklist > lazyTracklist = new ScLazyTracklist(tracksRefStr);
+            CloudPlaylist playlist = new CloudPlaylist(lazyTracklist);
            // CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
             playlist.ServiceSource = ScApi.ScService.ServiceName;
             playlist.Name = (string)json["title"];

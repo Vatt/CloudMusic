@@ -22,7 +22,7 @@ namespace CloudMusicLib.ServiceCore
             {
                 if (_data == null)
                 {
-                    _data = CreateAsync().Result;
+                    _data = Create();
                 }
                 return _data;
             }
@@ -34,6 +34,10 @@ namespace CloudMusicLib.ServiceCore
                 _data = await CreateAsync();
             }
             return _data;
+        }
+        protected virtual TValueType Create()
+        {
+            return CreateAsync().Result;
         }
         protected abstract Task<TValueType> CreateAsync();
         public void IntenseSet(TValueType data)

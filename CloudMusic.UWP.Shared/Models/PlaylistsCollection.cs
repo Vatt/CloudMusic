@@ -44,11 +44,12 @@ namespace CloudMusic.UWP.Models
                 try
                 {
                     uint Length = 0;
+                    var itemsTask = _original.LoadMoreIfPossibleAsync();
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadStarted);
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                        () =>
+                        async() =>
                         {
-                            var items = _original.LoadMoreIfPossible();
+                            var items = await itemsTask;
                             foreach (var item in items)
                             {
                                 base.Add(new PlaylistViewModel(item));
