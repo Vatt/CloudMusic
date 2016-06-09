@@ -16,7 +16,7 @@ namespace CloudMusicLib.SoundCloudService
             { ScApiEnum.Authorization,   "https://api.soundcloud.com/oauth2/token?client_id={0}&client_secret={1}&grant_type=password&username={2}&password={3}"},
             { ScApiEnum.RefreshToken,    "https://api.soundcloud.com/oauth2/token&client_id={0}&client_secret={1}&grant_type=refresh_token&refresh_token={2}"},
             { ScApiEnum.Me,              "https://api.soundcloud.com/me?oauth_token={0}"},
-            { ScApiEnum.MePlaylists,     "https://api.soundcloud.com/users/{0}/playlists?client_id={1}"},
+            { ScApiEnum.MePlaylists,     "https://api.soundcloud.com/users/{0}/playlists?client_id={1}&client_id={1}&limit=50&linked_partitioning=1"},
             { ScApiEnum.MeTracks,        "https://api.soundcloud.com/users/{0}/tracks?client_id={1}"},
             { ScApiEnum.TracksSearch,    "https://api.soundcloud.com/tracks?q={0}&linked_partitioning=1&client_id={1}&limit=50&filter=public" },
             { ScApiEnum.PlaylistsSearch, "https://api.soundcloud.com/playlists?q={0}&limit=50&linked_partitioning=1&client_id={1}&filter=public"},
@@ -43,7 +43,7 @@ namespace CloudMusicLib.SoundCloudService
             string urlAuth = String.Format(authUrlStr, formatArgs);
             var reqAuth = new HttpRequestMessage(HttpMethod.Post, urlAuth);
             reqAuth.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            var responseAuth = await CloudHttpHelper.SendAsync(reqAuth);
+            var responseAuth =   CloudHttpHelper.Send(reqAuth);
             return await responseAuth.Content.ReadAsStringAsync();
         }
 

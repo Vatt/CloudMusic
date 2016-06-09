@@ -36,7 +36,6 @@ namespace CloudMusic.UWP
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            CloudManInit();
         }
 
         /// <summary>
@@ -111,14 +110,5 @@ namespace CloudMusic.UWP
             deferral.Complete();
         }
 
-        private  async void CloudManInit()
-        {
-           CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Init,
-                                                         "109f016fa8b98246e0e5156074389ff1",
-                                                         "08b584be83dd9825488004bcee50e3b6");
-           CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Authorization,
-                                                                   "gamover-90@hotmail.com", "gam2106");
-
-        }
     }
 }

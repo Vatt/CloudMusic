@@ -124,6 +124,33 @@ namespace CloudMusicLib.ServiceCore
             }
             return playlists;
         }
-        
+
+        public static async Task<CloudPlaylistList> GetUserPlaylistsAsync()
+        {
+            var playlists = new CloudPlaylistList(CloudListMode.Dynamic);
+            var data = await InvokeCommandAsync<List<CloudPlaylist>, DummyArgType>(ServiceCommands.GetUserPlaylists);
+            foreach (var result in data)
+            {
+                if (result.Value.Type == ResultType.Ok)
+                {
+                    playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                }
+            }
+            return playlists;
+        }
+        public static CloudPlaylistList GetUserPlaylists()
+        {
+            var playlists = new CloudPlaylistList(CloudListMode.Dynamic);
+            var data = InvokeCommand<List<CloudPlaylist>, DummyArgType>(ServiceCommands.GetUserPlaylists);
+            foreach (var result in data)
+            {
+                if (result.Value.Type == ResultType.Ok)
+                {
+                    playlists.MergeOther(result.Value as ServiceResultCollection<CloudPlaylist>);
+                }
+            }
+            return playlists;
+        }
+
     }
 }

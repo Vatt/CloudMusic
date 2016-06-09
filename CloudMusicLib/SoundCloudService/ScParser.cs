@@ -99,5 +99,46 @@ namespace CloudMusicLib.SoundCloudService
             }
             return new ScTracksResult(ServiceCore.ResultType.Ok,tracklist,next);
         }
+
+        /*
+         * * Потому что соундклоуд уебки, без единой выдачи плейлиста, по прямой ссылке треклист в полном виде и без ссылки на полный,
+         * * при поисковой выдаче треклист треклист в обрезаном виде + ссылка на полный треклист.
+         * * Для парсера плейлистов по прямой ссылке
+         */
+        public static ScPlaylistsResult ParsePlaylistsJsonDirect(JObject json)
+        {
+            List<CloudPlaylist> data = new List<CloudPlaylist>();
+            JArray playlists = (JArray)json["collection"];
+            foreach (var playlist in playlists)
+            {
+                data.Add(ParsePlaylistJsonDirect(playlist));
+            }
+            return new ScPlaylistsResult(ServiceCore.ResultType.Ok, data, null);
+        }
+        /*
+         * * Потому что соундклоуд уебки, без единой выдачи плейлиста, по прямой ссылке треклист в полном виде и без ссылки на полный,
+         * * при поисковой выдаче треклист треклист в обрезаном виде + ссылка на полный треклист.
+         * * Для парсера плейлиста по прямой ссылке
+         */
+        public static CloudPlaylist ParsePlaylistJsonDirect(JToken json)
+        {
+            CloudPlaylist playlist = new CloudPlaylist();
+            CloudTracklist tracklist = new CloudTracklist(CloudListMode.Constant);
+            List<CloudTrack> list = new List<CloudTrack>();
+            playlist.ServiceSource = ScApi.ScService.ServiceName;
+            var tracks = (JArray)json["tracks"];
+            playlist.Name = (string)json["title"];
+            string imageStr = (string)json["artwork_url"];
+            if (imageStr != null)
+            {
+                playlist.Image = new Uri(imageStr.Replace("large", "badge"));
+            }
+            foreach(var track in tracks)
+            {
+                list.Add(ParseTrackJson(track));
+            }
+            tracklist.MergeOther("SoundCload", list);
+            return playlist;
+        }
     }
 }

@@ -29,6 +29,7 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
+                <AppBarButton VerticalAlignment="Bottom" Icon="Find" Width="48" Height="48" Click="{x:Bind ShellWM.ToggleSearch}"/>
             </Grid>
         </SplitView.Pane>
         <SplitView.Content>

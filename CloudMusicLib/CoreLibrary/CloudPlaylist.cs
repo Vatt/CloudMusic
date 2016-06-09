@@ -25,6 +25,7 @@ namespace CloudMusicLib.CoreLibrary
         }
         public CloudPlaylist()
         {
+            LazyData = new Intense<CloudTracklist>() as LazyLoad<CloudTracklist>;
             LazyData.IntenseSet(new CloudTracklist(CloudListMode.Constant));
         }
         public async Task<CloudTracklist> GetTrackListDataAsync()

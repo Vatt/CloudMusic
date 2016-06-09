@@ -11,7 +11,7 @@ namespace CloudMusicLib.ServiceCore
      */
     public abstract class LazyLoad<TValueType>
     {
-        private TValueType _data;
+        TValueType _data;
         public TValueType GetData()
         {
             return GetDataAsync().Result;
@@ -32,6 +32,17 @@ namespace CloudMusicLib.ServiceCore
         public void IntenseSet(TValueType data)
         {
             _data = data;
+        }
+    }
+    public class Intense<TValueType> : LazyLoad<TValueType>
+    {
+        public Intense()
+        {
+            IntenseSet(default(TValueType));
+        }
+        protected override Task<TValueType> CreateAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

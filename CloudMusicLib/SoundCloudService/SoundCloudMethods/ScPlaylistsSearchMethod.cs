@@ -32,7 +32,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             }
             catch (Exception e)
             {
-                return new ScTracksResult(ResultType.Err, null, null) as ServiceResult<TOutType>;
+                return new ScPlaylistsResult(ResultType.Err, null, null) as ServiceResult<TOutType>;
             }
         }
         public override async Task<ServiceResult<TOutType>> InvokeAsync<TOutType, TArgType>(params TArgType[] args)
@@ -50,7 +50,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
                 return result.ToServiceResult() as ServiceResult<TOutType>;
             }catch(Exception e)
             {
-                return new ScTracksResult(ResultType.Err, null, null) as ServiceResult<TOutType>;
+                return new ScPlaylistsResult(ResultType.Err, null, null) as ServiceResult<TOutType>;
             }
         }
     }
