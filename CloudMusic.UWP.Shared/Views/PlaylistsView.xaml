@@ -34,7 +34,15 @@
                       ItemClick="OnPlayListNameClick"
                       IsItemClickEnabled="True"
                       Width="auto"
-                      HorizontalAlignment="Left"/>
+                      HorizontalAlignment="Left">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Height" Value="48"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
             <local:TracklistControl x:Name ="PlaylistData" Width="auto" Height="auto" Grid.Column="1"  
                                     HorizontalAlignment="Left"/>
         </Grid>
