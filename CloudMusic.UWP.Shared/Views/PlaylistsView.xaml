@@ -24,7 +24,7 @@
         </Page.Resources>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="PlaylistNames"/>
+                <ColumnDefinition x:Name="PlaylistNames" Width="400"/>
                 <ColumnDefinition x:Name="PlaylistTracks"/>
             </Grid.ColumnDefinitions>
 
