@@ -17,7 +17,9 @@ namespace CloudMusic.UWP.Models
     {
         public CloudPlaylistList _original;
         public PlaylistsCollection() : base()
-        { }
+        {
+            //_original = new CloudPlaylistList(CloudListMode.Constant);
+        }
         public PlaylistsCollection(CloudPlaylistList lists)
         {
             _original = lists;

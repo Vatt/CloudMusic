@@ -9,7 +9,7 @@
     <Import_RootNamespace>CloudMusic.UWP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\PlaylistsView.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\PlaylistsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -41,8 +41,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ShellViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TrackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlaylistViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\PlaylistsView.xaml.cs">
-      <DependentUpon>PlaylistsView.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PlaylistsControl.xaml.cs">
+      <DependentUpon>PlaylistsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\Search.xaml.cs">
       <DependentUpon>Search.xaml</DependentUpon>
