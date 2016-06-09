@@ -27,14 +27,14 @@
                 <ColumnDefinition x:Name="PlaylistNames"  Width="400"/>
                 <ColumnDefinition x:Name="PlaylistTracks" Width="auto"/>
             </Grid.ColumnDefinitions>
+
             <ListView Grid.Column="0"
                       ItemTemplate="{StaticResource PlaylistNamesDataTemplate}" 
                       ItemsSource="{x:Bind Playlists}"
                       ItemClick="OnPlayListNameClick"
                       IsItemClickEnabled="True"
                       Width="auto"
-                      HorizontalAlignment="Left"
-                      />
+                      HorizontalAlignment="Left"/>
             <local:TracklistControl x:Name ="PlaylistData" Width="auto" Height="auto" Grid.Column="1"  
                                     HorizontalAlignment="Left"/>
         </Grid>
