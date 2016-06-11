@@ -1,0 +1,30 @@
+﻿<UserControl
+    x:Class="CloudMusic.UWP.Views.SettingControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CloudMusic.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    mc:Ignorable="d">
+
+    <Grid Width="400" HorizontalAlignment="Left">
+        <StackPanel Orientation="Vertical">
+            <StackPanel x:Name="UserPasswordPanel" Orientation="Vertical" Height="auto" Width="auto" 
+                            Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+                <TextBox x:Name="UserTextBlock" Text="{x:Bind VM.Login, Mode=TwoWay}" PlaceholderText="Логин"/>
+                <TextBox x:Name="PasswordTextBlock" Text="{x:Bind VM.Password, Mode=TwoWay}" PlaceholderText="Пароль"/>
+            </StackPanel>
+            <StackPanel x:Name="IfAuthorizedPane" Orientation="Horizontal" Height="auto" Width="auto" 
+                        Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal" Height="auto">
+                    <AppBarButton Icon="Clear" Width="40" Height="40"  
+                                      VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                      VerticalContentAlignment="Center"/>
+                    <TextBlock Text="{x:Bind VM.MessageIfAuthorized, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+
+
+</UserControl>

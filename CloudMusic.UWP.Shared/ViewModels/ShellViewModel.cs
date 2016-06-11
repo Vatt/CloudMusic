@@ -16,7 +16,6 @@ namespace CloudMusic.UWP.ViewModels
     {
         public bool IsServicesSplitViewPaneOpened;
         public ServicesCollection Services { get; set; }
-        public PlaylistsCollection UserPlaylists { get; set; }
         public Frame WorkflowFrame;
 
 
@@ -27,7 +26,7 @@ namespace CloudMusic.UWP.ViewModels
             Services = new ServicesCollection();
             ShellInit();
             WorkflowFrame = workflow;
-            WorkflowFrame.Navigate(typeof(PlaylistsControl), UserPlaylists);
+            ToggleFavorites();
            
         }
 
@@ -38,8 +37,8 @@ namespace CloudMusic.UWP.ViewModels
                                                           "109f016fa8b98246e0e5156074389ff1",
                                                           "08b584be83dd9825488004bcee50e3b6");
             CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Authorization,
-                                                                    "gamover-90@hotmail.com", "gam2106");
-            UserPlaylists = new PlaylistsCollection( CloudMan.GetUserPlaylists() );
+                                                         "gamover-90@hotmail.com", "gam2106");
+            
             //var tracklist = CloudMan.SearchTracks("Seceqtrique");
 //            var tracklist = CloudMan.SearchTracks("Numb");
             //Debug.WriteLine(tracklist.ToString());
@@ -48,6 +47,14 @@ namespace CloudMusic.UWP.ViewModels
         public void ToggleSearch()
         {
             WorkflowFrame.Navigate(typeof(Search));
+        }
+        public void ToggleFavorites()
+        {
+            WorkflowFrame.Navigate(typeof(UserData));
+        }
+        public void ToggleSettings()
+        {
+            WorkflowFrame.Navigate(typeof(SettingsView));
         }
     }
 }

@@ -138,6 +138,7 @@ namespace CloudMusicLib.SoundCloudService
                 list.Add(ParseTrackJson(track));
             }
             tracklist.MergeOther("SoundCload", list);
+            playlist.SetTracklist(tracklist);
             return playlist;
         }
     }

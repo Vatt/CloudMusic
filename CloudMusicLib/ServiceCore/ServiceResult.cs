@@ -16,11 +16,20 @@ namespace CloudMusicLib.ServiceCore
         public string ServiceName { get; set; }
         public T Result { get; set; }
         public ResultType Type { get; set; }
+        public string Text { get; set; }
         public ServiceResult(string serviceName,ResultType type,T result)
         {
             ServiceName = serviceName;
             Result = result;
             Type = type;
+            Text = "";
+        }
+        public ServiceResult(string serviceName, ResultType type,string text, T result)
+        {
+            ServiceName = serviceName;
+            Result = result;
+            Type = type;
+            Text = text;
         }
     }
 }

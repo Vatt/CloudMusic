@@ -6,8 +6,16 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels ="using:CloudMusic.UWP.ViewModels"
+    NavigationCacheMode="Enabled"
     mc:Ignorable="d">
-
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+    
+    
+    
     <Page.Resources>
         <DataTemplate x:Name="ServiceDataTemplate" x:DataType="viewModels:ServiceViewModel">
             <Image  Source="{x:Bind ServiceIcon.AbsoluteUri}" Width="48" Height="48" Stretch="Fill"/>
@@ -29,7 +37,15 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
-                <AppBarButton VerticalAlignment="Bottom" Icon="Find" Width="48" Height="48" Click="{x:Bind ShellWM.ToggleSearch}"/>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Bottom" >
+                    <AppBarButton  Width="48" Height="48" Click="{x:Bind ShellWM.ToggleFavorites}">
+                        <AppBarButton.Icon>
+                            <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE006;"/>
+                        </AppBarButton.Icon>    
+                    </AppBarButton>
+                    <AppBarButton  Icon="Find" Width="48" Height="48" Click="{x:Bind ShellWM.ToggleSearch}"/>
+                    <AppBarButton  Icon="Setting"  Width="48" Height="48" Click="{x:Bind ShellWM.ToggleSettings}"/>
+                </StackPanel>
             </Grid>
         </SplitView.Pane>
         <SplitView.Content>

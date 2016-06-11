@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
 using Newtonsoft.Json.Linq;
+using CloudMusicLib.CoreLibrary;
 
 namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
 {
@@ -24,17 +25,28 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             {
                 ownerConnection = new ScConnection(owner);
             }
-            JObject jsonAuth = JObject.Parse(ScApi.GetAuthDataJsonAsync(args[0], args[1]).Result);
+            string jsonStr = ScApi.GetAuthDataJsonAsync(args[0], args[1]).Result;
+            JObject jsonAuth = JObject.Parse(jsonStr);
             JToken errorValue;
             if (jsonAuth.TryGetValue("error",out errorValue))
             {
-                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, default(TOutType));
+                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err,$"Error: {errorValue.ToString()}", default(TOutType));
             }
             accessTok = (string)jsonAuth["access_token"];
             refreshTok = (string)jsonAuth["refresh_token"];
-            expiresIn = (int)jsonAuth["expires_in"];
-
+            expiresIn = (int)jsonAuth["expires_in"];            
             JObject jsonMe = JObject.Parse(ScApi.GetMeInfoJson(accessTok));
+            CloudUser user = new CloudUser();
+            user.UserName = (string)jsonMe["username"];
+            if ((string)jsonMe["first_name"] != null)
+            {
+                user.FirstName = (string)jsonMe["first_name"];
+            }
+            if ((string)jsonMe["last_name"] != null)
+            {
+                user.LastName = (string)jsonMe["last_name"];
+            }
+            owner.SetUser(user);
             idConn = (string)jsonMe["id"];
             ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn, idConn);
             var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, default(TOutType));
@@ -51,12 +63,29 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             {
                 ownerConnection = new ScConnection(owner);
             }
-            JObject jsonAuth = JObject.Parse(await ScApi.GetAuthDataJsonAsync(args[0],args[1]));          
+            string jsonStr = await ScApi.GetAuthDataJsonAsync(args[0], args[1]);
+            JObject jsonAuth = JObject.Parse(jsonStr);
+            JToken errorValue;
+            if (jsonAuth.TryGetValue("error", out errorValue))
+            {
+                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, $"Error: {errorValue.ToString()}", default(TOutType));
+            }
             accessTok = (string) jsonAuth["access_token"];
             refreshTok = (string) jsonAuth["refresh_token"];
             expiresIn = (int) jsonAuth["expires_in"];
 
-            JObject jsonMe = JObject.Parse(await ScApi.GetMeInfoJsonAsync(accessTok));           
+            JObject jsonMe = JObject.Parse(await ScApi.GetMeInfoJsonAsync(accessTok));
+            CloudUser user = new CloudUser();
+            user.UserName = (string)jsonMe["username"];
+            if ((string)jsonMe["first_name"] != null)
+            {
+                user.FirstName = (string)jsonMe["first_name"];
+            }
+            if ((string)jsonMe["last_name"] != null)
+            {
+                user.LastName = (string)jsonMe["last_name"];
+            }
+            owner.SetUser(user);
             idConn = (string) jsonMe["id"];
             ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn, idConn);
             var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, default(TOutType));

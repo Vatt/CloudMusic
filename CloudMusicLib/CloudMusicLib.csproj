@@ -39,6 +39,7 @@
     <Compile Include="CoreLibrary\CloudGenericList.cs" />
     <Compile Include="CoreLibrary\CloudPlaylist.cs" />
     <Compile Include="CoreLibrary\CloudPlaylistList.cs" />
+    <Compile Include="CoreLibrary\CloudUser.cs" />
     <Compile Include="ServiceCore\ICloudConnection.cs" />
     <Compile Include="ServiceCore\CloudHttpHelper.cs" />
     <Compile Include="ServiceCore\CloudMan.cs" />
