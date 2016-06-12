@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="da9f01ee-d51c-49a3-b1a1-7dcf3aa6bf5b" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CloudMusic.UWP</DisplayName>
-    <PublisherDisplayName>gamov</PublisherDisplayName>
+    <PublisherDisplayName>gamover</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>

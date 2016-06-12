@@ -26,5 +26,13 @@ namespace CloudMusic.UWP.Views
             this.InitializeComponent();
             //_vm = new ServiceSettingViewModel()
         }
+
+        private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+            {
+                VM.TryLogin();
+            }
+        }
     }
 }

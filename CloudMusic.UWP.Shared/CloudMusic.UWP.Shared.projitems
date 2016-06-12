@@ -42,6 +42,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\AppSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Converters\VisibilityConverters.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Converters\ObjectToTracklist.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PlaylistsCollection.cs" />

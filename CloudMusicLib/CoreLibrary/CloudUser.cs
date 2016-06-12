@@ -22,8 +22,8 @@ namespace CloudMusicLib.CoreLibrary
             {
                 return data;
             }
-            data = $"{data}({FirstName} {LastName}";
-            return base.ToString();
+            data = $"{data}({FirstName} {LastName})";
+            return data;
         }
     }
 }

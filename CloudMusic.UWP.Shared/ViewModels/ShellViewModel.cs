@@ -36,8 +36,8 @@ namespace CloudMusic.UWP.ViewModels
             CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Init,
                                                           "109f016fa8b98246e0e5156074389ff1",
                                                           "08b584be83dd9825488004bcee50e3b6");
-            CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Authorization,
-                                                         "gamover-90@hotmail.com", "gam2106");
+            //CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Authorization,
+            //                                             "gamover-90@hotmail.com", "gam2106");
             
             //var tracklist = CloudMan.SearchTracks("Seceqtrique");
 //            var tracklist = CloudMan.SearchTracks("Numb");
