@@ -20,7 +20,7 @@ namespace Test
             BinaryStringEncoding encoding = BinaryStringEncoding.Utf8;
             DataProtectionProvider Provider = new DataProtectionProvider(strDescriptor);
             IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(message, encoding);
-            IBuffer buffProtected = await Provider.ProtectAsync(buffMsg);
+           // IBuffer buffProtected = await Provider.ProtectAsync(buffMsg);
         }
 
     }

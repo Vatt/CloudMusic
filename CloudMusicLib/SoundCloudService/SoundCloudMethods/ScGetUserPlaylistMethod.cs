@@ -20,7 +20,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var owner = ScApi.ScService;
             if (!ownerCon.IsConnected()) { return new ServiceResult<TOutType>(owner.ServiceName,ResultType.Err,null); }           
             string urlStr = ScApi.ApiDictionary[ScApiEnum.MePlaylists];
-            string url = String.Format(urlStr, ownerCon.GetId(), owner.ClientId);
+            string url = String.Format(urlStr, owner.User.Id, owner.ClientId);
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
@@ -35,7 +35,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var owner = ScApi.ScService;
             if (!ownerCon.IsConnected()) { return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, null); }           
             string urlStr = ScApi.ApiDictionary[ScApiEnum.MePlaylists];
-            string url = String.Format(urlStr, ownerCon.GetId(),owner.ClientId);
+            string url = String.Format(urlStr, owner.User.Id, owner.ClientId);
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);

@@ -24,6 +24,7 @@ namespace CloudMusic.UWP.ViewModels
             }
             set {
                 SetProperty(ref _login, value);
+                _login = value;
             }
         }
         public string Password {
@@ -99,22 +100,23 @@ namespace CloudMusic.UWP.ViewModels
         }
         public async void TryLogin()
         {
-            ServiceResult<DummyOutType> result = await CloudMan.InvokeCommandAsync<DummyOutType, string>
-                                                (_service.ServiceName, ServiceCommands.Authorization, _login, _password);
-            if(result.Type==ResultType.Err)
-            {
-                var dialog = new ContentDialog();
-                dialog.Title = "Ошибка";
-                dialog.Content = new TextBlock { Text = result.Text, };
-                dialog.IsPrimaryButtonEnabled = true;
-                dialog.PrimaryButtonText = "Ok";
-                await dialog.ShowAsync();
-            }
-            else
-            {
-                IsAuthorized = true;
-                AppConfig.SaveLoginInfo(_service.ServiceName,_login, _password);
-            }
+            AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
+            //ServiceResult<DummyOutType> result = await CloudMan.InvokeCommandAsync<DummyOutType, string>
+            //                                    (_service.ServiceName, ServiceCommands.Authorization, _login, _password);
+            //if (result.Type == ResultType.Err)
+            //{
+            //    var dialog = new ContentDialog();
+            //    dialog.Title = "Ошибка";
+            //    dialog.Content = new TextBlock { Text = result.Text, };
+            //    dialog.IsPrimaryButtonEnabled = true;
+            //    dialog.PrimaryButtonText = "Ok";
+            //    await dialog.ShowAsync();
+            //}
+            //else
+            //{
+            //    IsAuthorized = true;
+            //    AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
+            //}
         }
     
             

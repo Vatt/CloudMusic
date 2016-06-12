@@ -2,9 +2,14 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Security.Cryptography;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage;
+using Windows.Storage.Streams;
 
 namespace CloudMusic.UWP.Common
 {
@@ -16,7 +21,33 @@ namespace CloudMusic.UWP.Common
         public string ServiceLoginPropertyname = "Login";
         public string ServicePasswordPropertyName = "Password";
     }
-    class AppConfig
+    class LocalEncryptDecryptHeper
+    {
+
+        public static async Task<string> EncryptAsync(string toEncrypt)
+        {
+            DataProtectionProvider Provider = new DataProtectionProvider("LOCAL=user");
+            var encoding = BinaryStringEncoding.Utf8;
+            IBuffer buffMsg = CryptographicBuffer.ConvertStringToBinary(toEncrypt, encoding);
+            IBuffer buffProtected = await Provider.ProtectAsync(buffMsg);
+            return CryptographicBuffer.EncodeToBase64String(buffProtected);
+        }
+        public static async Task<string> DecryptAsync(string toDecrypt)
+        {
+            DataProtectionProvider Provider = new DataProtectionProvider();
+            var encoding = BinaryStringEncoding.Utf8;
+            var buffer = CryptographicBuffer.DecodeFromBase64String(toDecrypt);
+            IBuffer buffUnprotected = await Provider.UnprotectAsync(buffer);
+            return  CryptographicBuffer.ConvertBinaryToString(encoding, buffUnprotected);
+        }
+    }
+    public class LoginInfo
+    {
+        public string User { get; set; }
+        public string Password { get; set; }
+        public string LastConnectedTime { get; set; }
+    }
+    public class AppConfig
     {
         private static  ApplicationDataContainer _localSettings;
         private static ApplicationDataContainer _roamingSettings;
@@ -52,7 +83,8 @@ namespace CloudMusic.UWP.Common
         }
         private static async Task CreateServicesConfig()
         {
-            _servicesConfig = await _roamingFolder.CreateFileAsync(_defines.ServicesConfFileName, CreationCollisionOption.ReplaceExisting);
+            var task =  _roamingFolder.CreateFileAsync(_defines.ServicesConfFileName, CreationCollisionOption.ReplaceExisting);
+            _servicesConfig = task.AsTask().Result;
             JObject configs = new JObject();
             foreach(var service in CloudMan.Services())
             {
@@ -80,13 +112,32 @@ namespace CloudMusic.UWP.Common
                 configs[service] = CreateEmptyServiceConf();
                 serviceConf = configs[service];
             }
+            var encryptedUser = await LocalEncryptDecryptHeper.EncryptAsync(user);
+            var encryptedPassword = await LocalEncryptDecryptHeper.EncryptAsync(password);
             serviceConf[_defines.ServiceLoginInfoGroupName] = new JObject
             {
-                {_defines.ServiceLoginPropertyname,user },
-                {_defines.ServicePasswordPropertyName,password }
+                {_defines.ServiceLoginPropertyname, encryptedUser},
+                {_defines.ServicePasswordPropertyName,encryptedPassword }
             };
             await FileIO.WriteTextAsync(_servicesConfig, configs.ToString());
         }
-
+        public static async Task<LoginInfo> GetLoginInfo(string service)
+        {
+            JObject configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
+            JToken serviceConf;
+            if (!configs.TryGetValue(service, out serviceConf))
+            {
+                return null;
+            }
+            var loginInfoJson = serviceConf[_defines.ServiceLoginInfoGroupName];
+            var user = await LocalEncryptDecryptHeper.DecryptAsync(loginInfoJson[_defines.ServiceLoginPropertyname].ToString());
+            var password = await LocalEncryptDecryptHeper.DecryptAsync(loginInfoJson[_defines.ServicePasswordPropertyName].ToString());
+            return new LoginInfo
+            {
+                User = user,
+                Password = password,
+                LastConnectedTime="",
+            };
+        }
     }
 }

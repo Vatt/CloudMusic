@@ -12,6 +12,7 @@ namespace CloudMusicLib.CoreLibrary
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string Id;
         public CloudUser(string login)
         {
             Login = login;

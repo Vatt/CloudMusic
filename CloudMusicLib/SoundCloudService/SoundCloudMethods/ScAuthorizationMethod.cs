@@ -48,8 +48,9 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             }
             owner.SetUser(user);
             idConn = (string)jsonMe["id"];
-            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn, idConn);
-            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, default(TOutType));
+            user.Id = idConn;
+            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn);
+            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, user as TOutType);
             return result;
         }
 
@@ -68,7 +69,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             JToken errorValue;
             if (jsonAuth.TryGetValue("error", out errorValue))
             {
-                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, $"Error: {errorValue.ToString()}", default(TOutType));
+                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, $"Error: {errorValue.ToString()}", null);
             }
             accessTok = (string) jsonAuth["access_token"];
             refreshTok = (string) jsonAuth["refresh_token"];
@@ -88,8 +89,9 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             }
             owner.SetUser(user);
             idConn = (string) jsonMe["id"];
-            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn, idConn);
-            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, default(TOutType));
+            user.Id = idConn;
+            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn);
+            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, user as TOutType);
             return result;
         }
     }
