@@ -8,16 +8,28 @@ namespace CloudMusicLib.CoreLibrary
 {
     public class CloudUser
     {
+        public string Login { get; set; }
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public CloudUser()
+        public CloudUser(string login)
         {
-            UserName = "";FirstName = "";LastName = "";
+            Login = login;
+            UserName = "";
+            FirstName = "";
+            LastName = "";
         }
         public override string ToString()
         {
-            string data = $"{UserName}";
+            string data = "";
+            if (UserName.Length >0 )
+            {
+                data = $"{UserName}";
+            }
+            else
+            {
+                data = $"{Login}";
+            }
             if (FirstName.Length==0 && LastName.Length==0)
             {
                 return data;

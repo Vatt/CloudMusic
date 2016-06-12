@@ -36,7 +36,7 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             refreshTok = (string)jsonAuth["refresh_token"];
             expiresIn = (int)jsonAuth["expires_in"];            
             JObject jsonMe = JObject.Parse(ScApi.GetMeInfoJson(accessTok));
-            CloudUser user = new CloudUser();
+            CloudUser user = new CloudUser(args[0] as string);
             user.UserName = (string)jsonMe["username"];
             if ((string)jsonMe["first_name"] != null)
             {
@@ -75,7 +75,8 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             expiresIn = (int) jsonAuth["expires_in"];
 
             JObject jsonMe = JObject.Parse(await ScApi.GetMeInfoJsonAsync(accessTok));
-            CloudUser user = new CloudUser();
+            CloudUser user = new CloudUser(args[0] as string);
+            user.Login = args[0] as string;
             user.UserName = (string)jsonMe["username"];
             if ((string)jsonMe["first_name"] != null)
             {

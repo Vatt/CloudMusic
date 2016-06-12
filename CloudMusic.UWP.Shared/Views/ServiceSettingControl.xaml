@@ -13,7 +13,8 @@
                             Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}">
                 <TextBox x:Name="UserTextBlock" Text="{x:Bind VM.Login, Mode=TwoWay}" PlaceholderText="Логин"/>
                 <PasswordBox x:Name="PasswordTextBlock" Password="{x:Bind VM.Password, Mode=TwoWay}" PlaceholderText="Пароль"/>
-                <TextBlock Text="{x:Bind VM.AdditionalMessage, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"/>
+                <TextBlock Text="{x:Bind VM.AdditionalMessage, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"
+                           Visibility="{x:Bind VM.AdditionalMessageVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
                 <Button Content="Регистрация" Click="{x:Bind VM.Register}" Height="40" Width="auto"/>
             </StackPanel>
             <StackPanel x:Name="IfAuthorizedPane" Orientation="Horizontal" Height="auto" Width="auto" 

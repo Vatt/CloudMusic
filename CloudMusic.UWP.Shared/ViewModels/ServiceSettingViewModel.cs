@@ -1,4 +1,5 @@
-﻿using CloudMusic.UWP.Models;
+﻿using CloudMusic.UWP.Common;
+using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels.Base;
 using CloudMusicLib.ServiceCore;
 using System;
@@ -82,7 +83,14 @@ namespace CloudMusic.UWP.ViewModels
         {
             get
             {
-                return _service.AdditionalMessage;
+                return _service.RegisterLoginMessage;
+            }
+        }
+        public bool AdditionalMessageVisible
+        {
+            get
+            {
+                return AdditionalMessage.Length > 0;
             }
         }
         public async void Register()
@@ -105,6 +113,7 @@ namespace CloudMusic.UWP.ViewModels
             else
             {
                 IsAuthorized = true;
+                AppConfig.SaveLoginInfo(_service.ServiceName,_login, _password);
             }
         }
     

@@ -11,7 +11,7 @@ namespace CloudMusicLib.ServiceCore
         public Uri ServiceIcon { get; protected set; }
         public Uri RegisterUri { get; protected set; }
         public bool IsAuthorizationRequired{ get; }
-        public string AdditionalMessage { get; protected set; }
+        public string RegisterLoginMessage { get; protected set; }
         public Dictionary<ServiceCommands, ServiceMethod> _commands;
         
         protected CloudService(string name, bool isAuthorizationRequired)
