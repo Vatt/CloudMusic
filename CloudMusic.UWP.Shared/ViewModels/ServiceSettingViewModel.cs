@@ -1,6 +1,7 @@
 ﻿using CloudMusic.UWP.Common;
 using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels.Base;
+using CloudMusicLib.CoreLibrary;
 using CloudMusicLib.ServiceCore;
 using System;
 using System.Collections.Generic;
@@ -100,25 +101,26 @@ namespace CloudMusic.UWP.ViewModels
         }
         public async void TryLogin()
         {
-            AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
-            //ServiceResult<DummyOutType> result = await CloudMan.InvokeCommandAsync<DummyOutType, string>
-            //                                    (_service.ServiceName, ServiceCommands.Authorization, _login, _password);
-            //if (result.Type == ResultType.Err)
-            //{
-            //    var dialog = new ContentDialog();
-            //    dialog.Title = "Ошибка";
-            //    dialog.Content = new TextBlock { Text = result.Text, };
-            //    dialog.IsPrimaryButtonEnabled = true;
-            //    dialog.PrimaryButtonText = "Ok";
-            //    await dialog.ShowAsync();
-            //}
-            //else
-            //{
-            //    IsAuthorized = true;
-            //    AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
-            //}
+            //AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
+            ServiceResult<CloudUser> result = await CloudMan.InvokeCommandAsync<CloudUser, string>
+                                                (_service.ServiceName, ServiceCommands.Authorization, _login, _password);
+            if (result.Type == ResultType.Err)
+            {
+                var dialog = new ContentDialog();
+                dialog.Title = "Ошибка";
+                dialog.Content = new TextBlock { Text = result.Text, };
+                dialog.IsPrimaryButtonEnabled = true;
+                dialog.PrimaryButtonText = "Ok";
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                IsAuthorized = true;
+                await AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
+                await AppConfig.SaveServiceInfo(_service);
+            }
         }
-    
-            
+
+
     }
 }

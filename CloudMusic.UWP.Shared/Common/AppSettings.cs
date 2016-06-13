@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using Windows.Security.Cryptography.DataProtection;
@@ -15,11 +16,16 @@ namespace CloudMusic.UWP.Common
 {
     class ConfigDefines
     {
-        public string ServicesConfFileName = "ServicesConfig.json";
-        public string ServiceLoginInfoGroupName = "LoginInfo";
-        public string ServiceAdditionalGroupName = "AdditionalInfo";
-        public string ServiceLoginPropertyname = "Login";
-        public string ServicePasswordPropertyName = "Password";
+        public readonly string ServicesConfFileName = "ServicesConfig.json";
+        public readonly string ServiceLoginInfoGroupName = "LoginInfo";
+        public readonly string ServiceConnectInfoGroupName = "ConnectInfo";
+        public readonly string ServiceAdditionalGroupName = "AdditionalInfo";
+        public readonly string ServiceLoginPropertyname = "Login";
+        public readonly string ServicePasswordPropertyName = "Password";
+        public readonly string ServiceAccessTokenPropertyName = "access_token";
+        public readonly string ServiceRefreshTokenPropertyName = "refresh_token";
+        public readonly string ServiceExpiredInPropertyName = "expired_in";
+
     }
     class LocalEncryptDecryptHeper
     {
@@ -70,7 +76,16 @@ namespace CloudMusic.UWP.Common
 
 
         }
-        private static async void ServicesConfigInit()
+        private static JObject CreateEmptyServiceConf()
+        {
+            return new JObject
+            {
+                { _defines.ServiceLoginInfoGroupName,   new JObject() },
+                { _defines.ServiceConnectInfoGroupName, new JObject() },
+                { _defines.ServiceAdditionalGroupName,  new JObject() }
+            };
+        }
+        private static async Task ServicesConfigInit()
         {
             try
             {
@@ -93,17 +108,10 @@ namespace CloudMusic.UWP.Common
             await FileIO.WriteTextAsync(_servicesConfig, configs.ToString());
             
         }
-        private static JObject CreateEmptyServiceConf()
-        {
-            return new JObject
-            {
-                { _defines.ServiceLoginInfoGroupName, new JObject() },
-                { _defines.ServiceAdditionalGroupName, new JObject()}
-            };
-        }
 
 
-        public static async void SaveLoginInfo(string service,string user,string password)
+
+        public static async Task SaveLoginInfo(string service,string user,string password)
         {
             JObject configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
             JToken serviceConf;
@@ -119,7 +127,7 @@ namespace CloudMusic.UWP.Common
                 {_defines.ServiceLoginPropertyname, encryptedUser},
                 {_defines.ServicePasswordPropertyName,encryptedPassword }
             };
-            await FileIO.WriteTextAsync(_servicesConfig, configs.ToString());
+            await FileIO.WriteTextAsync(_servicesConfig, configs.ToString()).AsTask();
         }
         public static async Task<LoginInfo> GetLoginInfo(string service)
         {
@@ -138,6 +146,38 @@ namespace CloudMusic.UWP.Common
                 Password = password,
                 LastConnectedTime="",
             };
+        }
+        public static async Task SaveServiceInfo(CloudService service)
+        {
+            string serviceName = service.ServiceName;
+            JObject connectInfo = JObject.Parse(service.Connection.ToJsonString());
+            JObject configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
+            JToken serviceConf;
+            if (!configs.TryGetValue(serviceName, out serviceConf))
+            {
+                configs[service] = CreateEmptyServiceConf();
+                serviceConf = configs[service];
+            }
+            serviceConf[_defines.ServiceConnectInfoGroupName] = connectInfo;
+            await FileIO.WriteTextAsync(_servicesConfig, configs.ToString()).AsTask();
+        }
+        public static async Task<bool> TryLoadServiceConnection(CloudService service)
+        {
+            string serviceName = service.ServiceName;
+            JObject configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
+            JToken serviceConfJTok;  JObject serviceConf;
+            JToken connectInfo;
+            if (!configs.TryGetValue(serviceName, out serviceConfJTok))
+            {
+                return false;
+            }
+            serviceConf = (JObject)serviceConfJTok;
+            if (!serviceConf.TryGetValue(_defines.ServiceConnectInfoGroupName, out connectInfo))
+            {
+                return false;
+            }
+            service.Connection.FromJsonString(connectInfo.ToString());
+            return true;
         }
     }
 }

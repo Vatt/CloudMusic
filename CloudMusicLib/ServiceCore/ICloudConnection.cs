@@ -1,29 +1,33 @@
 ﻿using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace CloudMusicLib.ServiceCore
 {
     public interface ICloudConnection
     {
+        bool Connect<T>(params T[] args);
         bool IsConnected();
         CloudService OwnerService();
-        string ToJsonString();  
+        string ToJsonString();
+        void FromJsonString(string jsonString);
     }
     public abstract class OAuth2Connection : ICloudConnection
     {
-        private string _accessToken;
-        private string _refreshToken;
-        private int _expiresIn;
+        protected string _accessToken;
+        protected string _refreshToken;
+        protected int _expiresIn;
         private CloudService _service;
         public CloudService OwnerService() =>_service;
+
+        abstract public bool Connect<T>(params T[] args);
+        abstract public bool IsConnected();
+        abstract public bool Refresh();
+
         public OAuth2Connection(CloudService service)
         {
             _service = service;
         }
+
         public void FillConnectionData(string accessTok, string refreshTok, int expiresIn)
         {
             _accessToken = accessTok;
@@ -38,9 +42,8 @@ namespace CloudMusicLib.ServiceCore
                           "\tExpiresIn: " + _expiresIn + "\n";
             return data;
         }
-        abstract public bool IsConnected();        
-        abstract public void Refresh();
-        public void FromJsonString(string jsonString)
+
+        public  void FromJsonString(string jsonString)
         {
             JObject json = JObject.Parse(jsonString);
             _accessToken = (string)json["access_token"];
@@ -56,5 +59,6 @@ namespace CloudMusicLib.ServiceCore
             json["expires_in"] = _expiresIn;
             return json.ToString();
         }
+
     }
 }

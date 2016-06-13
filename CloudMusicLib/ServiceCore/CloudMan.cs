@@ -1,5 +1,5 @@
 ﻿using CloudMusicLib.CoreLibrary;
-using CloudMusicLib.SoundCloudService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,15 +9,12 @@ namespace CloudMusicLib.ServiceCore
     public class CloudMan
     {
         private static Dictionary<string,CloudService> _services;
-        private static ServiceCommands[] SearchCommandsGroup = {ServiceCommands.SearchByAlbums,
-                                                                ServiceCommands.SearchByArtists,
-                                                                ServiceCommands.SearchByTracks,
-                                                                ServiceCommands.SearchByPlaylists};
 
         static CloudMan()
         {
             _services = new Dictionary<string, CloudService>();
             RegisterService(new SoundCloudService.SoundCloudService());
+            VerifyServices();
         }
         public static void RegisterService(CloudService service)
         {
@@ -28,7 +25,16 @@ namespace CloudMusicLib.ServiceCore
         {
             return _services.Values.ToList();
         }
-        //TODO: вернуть словарь - имя сервиса:результат
+        private static void VerifyServices()
+        {
+            foreach(var service in _services.Values)
+            {
+                if (service.Connection==null)
+                {
+                    throw new NullReferenceException($"In {nameof(service)} connection in null");
+                }
+            }
+        }
         public async static Task<Dictionary<string, ServiceResult<TOutType>>> InvokeCommandAsync<TOutType, TArgType>(ServiceCommands command, params TArgType[] args) where TOutType : class
         {
             var data = new Dictionary<string, ServiceResult<TOutType>>();
