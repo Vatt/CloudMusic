@@ -12,6 +12,7 @@ namespace CloudMusic.UWP.Common
             {
                 //TODO: Вот это возвращает bool
                 await AppConfig.TryLoadServiceConnection(service);
+                await AppConfig.TryLoadUserInfo(service);
             }
         }
     }

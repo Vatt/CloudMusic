@@ -19,38 +19,12 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
         {
             var owner = ScApi.ScService;
             var ownerConnection = ScApi.GetServiceConnection();
-            string accessTok; string refreshTok;
-            int expiresIn; string idConn;
-            if (ownerConnection == null)
+            if(!ownerConnection.ConnectAsync(args[0], args[1]).Result)
             {
-                ownerConnection = new ScConnection(owner);
-            }
-            string jsonStr = ScApi.GetAuthDataJsonAsync(args[0], args[1]).Result;
-            JObject jsonAuth = JObject.Parse(jsonStr);
-            JToken errorValue;
-            if (jsonAuth.TryGetValue("error",out errorValue))
-            {
-                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err,$"Error: {errorValue.ToString()}", default(TOutType));
-            }
-            accessTok = (string)jsonAuth["access_token"];
-            refreshTok = (string)jsonAuth["refresh_token"];
-            expiresIn = (int)jsonAuth["expires_in"];            
-            JObject jsonMe = JObject.Parse(ScApi.GetMeInfoJson(accessTok));
-            CloudUser user = new CloudUser(args[0] as string);
-            user.UserName = (string)jsonMe["username"];
-            if ((string)jsonMe["first_name"] != null)
-            {
-                user.FirstName = (string)jsonMe["first_name"];
-            }
-            if ((string)jsonMe["last_name"] != null)
-            {
-                user.LastName = (string)jsonMe["last_name"];
-            }
-            owner.SetUser(user);
-            idConn = (string)jsonMe["id"];
-            user.Id = idConn;
-            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn);
-            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, user as TOutType);
+                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, "Авторизация не выполненна", null);
+            }       
+
+            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, owner.User as TOutType);
             return result;
         }
 
@@ -58,40 +32,12 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
         {
             var owner = ScApi.ScService;
             var ownerConnection = ScApi.GetServiceConnection();
-            string accessTok; string refreshTok;
-            int    expiresIn; string idConn;
-            if (ownerConnection == null)
+            if (! await ownerConnection.ConnectAsync(args[0], args[1]))
             {
-                ownerConnection = new ScConnection(owner);
+                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, "Авторизация не выполненна", null);
             }
-            string jsonStr = await ScApi.GetAuthDataJsonAsync(args[0], args[1]);
-            JObject jsonAuth = JObject.Parse(jsonStr);
-            JToken errorValue;
-            if (jsonAuth.TryGetValue("error", out errorValue))
-            {
-                return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, $"Error: {errorValue.ToString()}", null);
-            }
-            accessTok = (string) jsonAuth["access_token"];
-            refreshTok = (string) jsonAuth["refresh_token"];
-            expiresIn = (int) jsonAuth["expires_in"];
 
-            JObject jsonMe = JObject.Parse(await ScApi.GetMeInfoJsonAsync(accessTok));
-            CloudUser user = new CloudUser(args[0] as string);
-            user.Login = args[0] as string;
-            user.UserName = (string)jsonMe["username"];
-            if ((string)jsonMe["first_name"] != null)
-            {
-                user.FirstName = (string)jsonMe["first_name"];
-            }
-            if ((string)jsonMe["last_name"] != null)
-            {
-                user.LastName = (string)jsonMe["last_name"];
-            }
-            owner.SetUser(user);
-            idConn = (string) jsonMe["id"];
-            user.Id = idConn;
-            ownerConnection.FillConnectionData(accessTok, refreshTok, expiresIn);
-            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, user as TOutType);
+            var result = new ServiceResult<TOutType>(owner.ServiceName, ResultType.Ok, owner.User as TOutType);
             return result;
         }
     }

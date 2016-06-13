@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Text;
 using Windows.UI.Xaml.Data;
 
-namespace CloudMusic.UWP.Models.Converters
+namespace CloudMusic.UWP.Common.Converters
 {
-    internal class ObjectToTracklist : IValueConverter
+    class DecryptConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return value;
+            throw new NotImplementedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            if (value == null) return value;
-            return (TracklistCollection) value;
+            throw new NotImplementedException();
         }
     }
 }

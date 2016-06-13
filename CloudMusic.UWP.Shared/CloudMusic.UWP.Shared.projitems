@@ -44,8 +44,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Common\AppHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\AppSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Converters\VisibilityConverters.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Models\Converters\ObjectToTracklist.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\DecryptConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\Converters\VisibilityConverters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\EncryptDecryptHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\PlaylistsCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\ServicesCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\TracklistCollection.cs" />

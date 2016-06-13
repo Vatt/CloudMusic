@@ -12,13 +12,14 @@ namespace CloudMusicLib.CoreLibrary
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Id;
+        public string Id { get; set; }
         public CloudUser(string login)
         {
             Login = login;
             UserName = "";
             FirstName = "";
             LastName = "";
+            Id = "";
         }
         public override string ToString()
         {

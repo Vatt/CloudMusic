@@ -116,8 +116,10 @@ namespace CloudMusic.UWP.ViewModels
             else
             {
                 IsAuthorized = true;
+                
                 await AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
                 await AppConfig.SaveServiceInfo(_service);
+                await AppConfig.SaveUserInfo(_service);
             }
         }
 

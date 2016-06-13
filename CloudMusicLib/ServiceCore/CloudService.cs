@@ -27,7 +27,9 @@ namespace CloudMusicLib.ServiceCore
         public bool IsSupportedCommand(ServiceCommands inCommand) => _commands.ContainsKey(inCommand);
 
         public bool IsConnected() => Connection.IsConnected();
-
+        ///<summary>
+        //Для создания пользователя снаружи, например из приложения ранее сохранившего пользователя
+        ///</summary>
         public void SetUser(CloudUser user) => User = user;
 
     }

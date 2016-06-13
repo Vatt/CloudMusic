@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json.Linq;
-
+using System;
+using System.Threading.Tasks;
 
 namespace CloudMusicLib.ServiceCore
 {
     public interface ICloudConnection
     {
-        bool Connect<T>(params T[] args);
+        Task<bool> ConnectAsync<T>(params T[] args);
         bool IsConnected();
         CloudService OwnerService();
         string ToJsonString();
@@ -13,27 +14,25 @@ namespace CloudMusicLib.ServiceCore
     }
     public abstract class OAuth2Connection : ICloudConnection
     {
-        protected string _accessToken;
-        protected string _refreshToken;
-        protected int _expiresIn;
+        public string _accessToken { get; protected set; }
+        public string _refreshToken { get; protected set; }
+        public int _expiresIn { get; protected set; }
         private CloudService _service;
         public CloudService OwnerService() =>_service;
 
-        abstract public bool Connect<T>(params T[] args);
+        abstract public Task<bool> ConnectAsync<T>(params T[] args);
         abstract public bool IsConnected();
         abstract public bool Refresh();
 
         public OAuth2Connection(CloudService service)
         {
             _service = service;
+            _accessToken = "";
+            _refreshToken = "";
+            _expiresIn = 0;
         }
 
-        public void FillConnectionData(string accessTok, string refreshTok, int expiresIn)
-        {
-            _accessToken = accessTok;
-            _refreshToken = refreshTok;
-            _expiresIn = expiresIn;
-        }
+
         public override string ToString()
         {
             string data = "OAuth2Connection info: \n" +
@@ -43,7 +42,7 @@ namespace CloudMusicLib.ServiceCore
             return data;
         }
 
-        public  void FromJsonString(string jsonString)
+        public virtual void FromJsonString(string jsonString)
         {
             JObject json = JObject.Parse(jsonString);
             _accessToken = (string)json["access_token"];
@@ -51,7 +50,7 @@ namespace CloudMusicLib.ServiceCore
             _expiresIn = (int)json["expires_in"];
 
         }
-        public string ToJsonString()
+        public virtual string ToJsonString()
         {
             JObject json = new JObject();
             json["access_token"] = _accessToken;

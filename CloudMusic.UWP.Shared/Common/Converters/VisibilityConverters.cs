@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml;
-namespace CloudMusic.UWP.Models.Converters
+namespace CloudMusic.UWP.Common.Converters
 {
     public  class BoolToVisibilityConverter : IValueConverter
     {

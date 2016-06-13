@@ -3,11 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CloudMusic.UWP"
-    xmlns:converters="using:CloudMusic.UWP.Models.Converters"
+    xmlns:converters="using:CloudMusic.UWP.Common.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
         <converters:BoolToVisibilityConverter x:Key="VisibilityConverter"/>
         <converters:InvertBoolToVisibilityConverter x:Key="InvertVisibilityConverter"/>
+        <converters:DecryptConverter x:Key="DecryptConverter"/>
     </Application.Resources>
 </Application>
