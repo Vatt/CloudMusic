@@ -20,7 +20,7 @@
             <StackPanel x:Name="IfAuthorizedPane" Orientation="Horizontal" Height="auto" Width="auto" 
                         Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
                 <StackPanel Orientation="Horizontal" Height="auto">
-                    <AppBarButton Icon="Clear" Width="40" Height="40"  
+                    <AppBarButton Icon="Clear" Width="40" Height="40"  Click="{x:Bind VM.Logout}"
                                       VerticalAlignment="Center" HorizontalAlignment="Center" 
                                       VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
                     <TextBlock Text="{x:Bind VM.MessageIfAuthorized, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"/>

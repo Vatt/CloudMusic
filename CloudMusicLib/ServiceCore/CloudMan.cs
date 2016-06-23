@@ -54,7 +54,11 @@ namespace CloudMusicLib.ServiceCore
             {
                 if (service.IsSupportedCommand(command))
                 {
-                    data.Add(service.ServiceName,service._commands[command].Invoke<TOutType, TArgType>(args));
+                    var result = service._commands[command].Invoke<TOutType, TArgType>(args);
+                    if (result.Type == ResultType.Ok)
+                    {
+                        data.Add(service.ServiceName, result);
+                    }
                 }
             }
             return data;

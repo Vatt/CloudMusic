@@ -14,5 +14,10 @@ namespace CloudMusicLib.CoreLibrary
         public CloudPlaylistList(CloudListMode mode, Dictionary<string, ServiceResultCollection<CloudPlaylist>> servicesData) 
             : base(mode, servicesData)
         {}
+        public void RemoveServicePlaylists(string serviceName)
+        {
+            _serviceResultData.Remove(serviceName);
+            ListData.RemoveAll((CloudPlaylist pl) => pl.ServiceSource.Equals(serviceName));
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace CloudMusicLib.CoreLibrary
         {
             if (Mode == CloudListMode.Dynamic)
             {
-                throw new Exception("CloudGenericList<" + typeof(T) + "> MergeOther(string , List) расширяется напрямую имея динамический режим");
+                throw new Exception("CloudGenericList<" + typeof(T) + ">.MergeOther(string , List) расширяется напрямую имея динамический режим");
             }
             if (_serviceResultData.ContainsKey(serviceName))
             {
@@ -112,5 +112,6 @@ namespace CloudMusicLib.CoreLibrary
             }
             return items;
         }   
+
     }
 }

@@ -8,8 +8,10 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot x:Name="UserDataPivot">
-
+        <Pivot x:Name="UserDataPivot" >
+            <PivotItem Header="Плейлисты">
+                <local:PlaylistsControl Playlists="{x:Bind VM.UserPlaylists}"/>
+            </PivotItem>
         </Pivot>
     </Grid>
 </Page>

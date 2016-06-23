@@ -1,28 +1,38 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using CloudMusicLib.Common;
+using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace CloudMusicLib.ServiceCore
 {
-    public interface ICloudConnection
+
+    public abstract class CloudConnection
     {
-        Task<bool> ConnectAsync<T>(params T[] args);
-        bool IsConnected();
-        CloudService OwnerService();
-        string ToJsonString();
-        void FromJsonString(string jsonString);
+        protected  ConnectionChangeEventHandler ConnectionChangeHandler;
+        public event ConnectionChangeEventHandler OnConnectionChanged;
+        protected void InvokeConnectionChange(CloudConnection connection)
+        {
+            OnConnectionChanged?.Invoke(connection);
+        }
+        protected CloudService _service;
+
+        public abstract Task<bool> ConnectAsync<T>(params T[] args);
+        public abstract void Disconnect();
+        public abstract bool IsConnected();
+        public CloudService OwnerService() => _service;
+        public abstract string ToJsonString();
+        public abstract void FromJsonString(string jsonString);
     }
-    public abstract class OAuth2Connection : ICloudConnection
+    public abstract class OAuth2Connection : CloudConnection
     {
         public string _accessToken { get; protected set; }
         public string _refreshToken { get; protected set; }
         public int _expiresIn { get; protected set; }
-        private CloudService _service;
-        public CloudService OwnerService() =>_service;
 
-        abstract public Task<bool> ConnectAsync<T>(params T[] args);
-        abstract public bool IsConnected();
-        abstract public bool Refresh();
+
+        abstract override public Task<bool> ConnectAsync<T>(params T[] args);
+        abstract override public bool IsConnected();
+        abstract public Task<bool> RefreshAsync();
 
         public OAuth2Connection(CloudService service)
         {
@@ -42,7 +52,7 @@ namespace CloudMusicLib.ServiceCore
             return data;
         }
 
-        public virtual void FromJsonString(string jsonString)
+        public override void FromJsonString(string jsonString)
         {
             JObject json = JObject.Parse(jsonString);
             _accessToken = (string)json["access_token"];
@@ -50,13 +60,19 @@ namespace CloudMusicLib.ServiceCore
             _expiresIn = (int)json["expires_in"];
 
         }
-        public virtual string ToJsonString()
+        public override string ToJsonString()
         {
             JObject json = new JObject();
             json["access_token"] = _accessToken;
             json["refresh_token"] = _refreshToken;
             json["expires_in"] = _expiresIn;
             return json.ToString();
+        }
+        public override void Disconnect()
+        {
+            _accessToken = "";
+            _refreshToken = "";
+            _expiresIn = 0;
         }
 
     }

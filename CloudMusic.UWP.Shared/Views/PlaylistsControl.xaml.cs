@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels;
+using CloudMusicLib.CoreLibrary;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -27,7 +28,7 @@ namespace CloudMusic.UWP.Views
     {
         public static readonly DependencyProperty PlaylistsProperty =
             DependencyProperty.Register("Playlists", typeof(PlaylistsCollection), typeof(PlaylistsCollection),
-                                        new PropertyMetadata(new PlaylistsCollection()));
+                                        new PropertyMetadata(new PlaylistsCollection(CloudListMode.Dynamic)));
 
         public PlaylistsCollection Playlists
         {

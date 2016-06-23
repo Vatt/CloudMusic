@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Common\Delegates.cs" />
     <Compile Include="CoreLibrary\CloudAlbum.cs" />
     <Compile Include="CoreLibrary\CloudArtist.cs" />
     <Compile Include="CoreLibrary\CloudGenericList.cs" />

@@ -31,6 +31,7 @@ namespace CloudMusic.UWP.ViewModels
 
                
         }
+        public string OwnerService()=> _original.ServiceSource;
         public async Task<TracklistCollection> GetTracklistAsync()
         {
             tracklist = new TracklistCollection(await _original.GetTrackListDataAsync());

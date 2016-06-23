@@ -1,6 +1,8 @@
-﻿using CloudMusic.UWP.ViewModels;
+﻿using CloudMusic.UWP.Common;
+using CloudMusic.UWP.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,11 +25,19 @@ namespace CloudMusic.UWP.Views
     /// </summary>
     public sealed partial class UserData : Page
     {
-        private UserDataViewModel _vm;
+        
+  
+        private UserDataViewModel VM;
         public UserData()
         {
             this.InitializeComponent();
-            _vm = new UserDataViewModel(this.UserDataPivot);
+            VM = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+            if(VM==null)
+            {
+                AppStaticData.AddToCache("UserDataViewModel", new UserDataViewModel());
+                VM = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+            }
+            
         }
     }
 }

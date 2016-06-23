@@ -16,9 +16,9 @@ namespace CloudMusic.UWP.Models
     public class PlaylistsCollection:ObservableCollection<PlaylistViewModel>, ISupportIncrementalLoading
     {
         public CloudPlaylistList _original;
-        public PlaylistsCollection() : base()
+        public PlaylistsCollection(CloudListMode mode) : base()
         {
-            //_original = new CloudPlaylistList(CloudListMode.Constant);
+            _original = new CloudPlaylistList(mode);
         }
         public PlaylistsCollection(CloudPlaylistList lists)
         {

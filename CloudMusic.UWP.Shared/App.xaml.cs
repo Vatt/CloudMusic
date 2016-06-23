@@ -25,6 +25,8 @@ namespace CloudMusic.UWP
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             AppHelper.CloudManInit();
+            AppHelper.GlobalEventsInit();
+            AppHelper.AppInit();
         }
 
         /// <summary>

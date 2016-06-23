@@ -25,7 +25,22 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = CloudHttpHelper.Send(req);
             var jsonStr = response.Content.ReadAsStringAsync().Result;
-            var playlists = ScParser.ParsePlaylistsJsonDirect(JObject.Parse(jsonStr));
+            var json = JObject.Parse(jsonStr);
+            JToken error;
+            if (json.TryGetValue("error",out error))
+            {
+                if(ownerCon.RefreshAsync().Result)
+                {
+                    url = String.Format(urlStr, owner.User.Id, owner.ClientId);
+                    req = new HttpRequestMessage(HttpMethod.Get, url);
+                    req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    response = CloudHttpHelper.Send(req);
+                    jsonStr = response.Content.ReadAsStringAsync().Result;
+                    json = JObject.Parse(jsonStr);
+                    if (json.TryGetValue("error", out error)) { return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, null); }
+                }
+            }
+            var playlists = ScParser.ParsePlaylistsJsonDirect(json);
             return playlists.ToServiceResult() as ServiceResult<TOutType>;
         }
 
@@ -39,7 +54,23 @@ namespace CloudMusicLib.SoundCloudService.SoundCloudMethods
             var req = new HttpRequestMessage(HttpMethod.Get, url);
             req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             var response = await CloudHttpHelper.SendAsync(req);
-            var playlists = ScParser.ParsePlaylistsJsonDirect(JObject.Parse(await response.Content.ReadAsStringAsync()));
+            var jsonStr = await response.Content.ReadAsStringAsync();
+            var json = JObject.Parse(jsonStr);
+            JToken error;
+            if (json.TryGetValue("error", out error))
+            {
+                if (await ownerCon.RefreshAsync())
+                {
+                    url = String.Format(urlStr, owner.User.Id, owner.ClientId);
+                    req = new HttpRequestMessage(HttpMethod.Get, url);
+                    req.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    response = CloudHttpHelper.Send(req);
+                    jsonStr = await response.Content.ReadAsStringAsync();
+                    json = JObject.Parse(jsonStr);
+                    if (json.TryGetValue("error", out error)) { return new ServiceResult<TOutType>(owner.ServiceName, ResultType.Err, null); }
+                }
+            }
+            var playlists = ScParser.ParsePlaylistsJsonDirect(json);
             return playlists.ToServiceResult() as ServiceResult<TOutType>;
         }
     }

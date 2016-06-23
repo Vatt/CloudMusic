@@ -1,4 +1,5 @@
-﻿using CloudMusic.UWP.Models;
+﻿using CloudMusic.UWP.Common;
+using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels.Base;
 using CloudMusic.UWP.Views;
 using CloudMusicLib.CoreLibrary;
@@ -6,40 +7,72 @@ using CloudMusicLib.ServiceCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 using Windows.UI.Xaml.Controls;
 
 namespace CloudMusic.UWP.ViewModels
 {
+    
     public class UserDataViewModel : NotificationBase
     {
-        PlaylistsCollection UserPlaylists { get; set; }
-        Pivot _pivot;
-        public UserDataViewModel(Pivot pivot)
-        {
-            _pivot = pivot;
-            //UserPlaylists = new PlaylistsCollection(CloudMan.GetUserPlaylists());
-            if (UserPlaylists != null)
+        private PlaylistsCollection _userPlaylists;
+ 
+        public PlaylistsCollection UserPlaylists {
+            get
             {
-                MakePlaylistsPivotItem();
+                if (_userPlaylists == null)
+                {
+                    _userPlaylists = new PlaylistsCollection(CloudListMode.Dynamic);
+                }
+                return _userPlaylists;
+            }
+            set
+            {
+                SetProperty(ref _userPlaylists, value);
+                _userPlaylists = value;
             }
         }
-        //public void MakeTracksPivotItem()
-        //{
-        //    PivotItem newItem = new PivotItem();
-        //    TracklistControl newControl = new TracklistControl();
-        //    newControl.TrackListData =  Пользовательские треки сюда сунуть я должен;
-        //    newItem.Header = "Треки";
-        //    newItem.Content = newControl;
-        //    _pivot.Items.Add(newItem);
-        //}
-        public void MakePlaylistsPivotItem()
+        public UserDataViewModel()
         {
-            PivotItem newItem = new PivotItem();
-            PlaylistsControl newControl = new PlaylistsControl();
-            newControl.Playlists = UserPlaylists;
-            newItem.Header = "Плейлисты";
-            newItem.Content = newControl;
-            _pivot.Items.Add(newItem);
+            _userPlaylists = new PlaylistsCollection(CloudListMode.Dynamic);
+        }
+        public async void Refresh()
+        {
+            UserPlaylists = new PlaylistsCollection(await CloudMan.GetUserPlaylistsAsync());
+        }
+        public void RemoveServiceData(string name)
+        {
+            RemovePlaylisrServiceData(name);
+        }
+        public void AddServiceData(string name)
+        {
+            AddPlaylistServiceData(name);
+        }
+        private void RemovePlaylisrServiceData(string name)
+        {
+            if (_userPlaylists == null) { return; }
+            UserPlaylists.Remove((PlaylistViewModel pl) => pl.OwnerService().Equals(name));
+        }
+        private async void AddPlaylistServiceData(string name)
+        {
+            var result = await CloudMan.InvokeCommandAsync<List<CloudPlaylist>, DummyArgType>(name, ServiceCommands.GetUserPlaylists);
+            Dictionary<string, ServiceResultCollection<CloudPlaylist>> data = new Dictionary<string, ServiceResultCollection<CloudPlaylist>>();
+            data.Add(name, result as ServiceResultCollection<CloudPlaylist>);
+            PlaylistsCollection collections;
+            if (_userPlaylists == null) {
+
+                var playlists = new CloudPlaylistList(CloudListMode.Dynamic);
+                playlists.MergeOther(data);
+                collections = new PlaylistsCollection(playlists);
+                SetProperty(ref _userPlaylists, collections);
+            } else
+            {
+                _userPlaylists._original.MergeOther(data);
+                /*TODO: как добавлю дизер проверить вот этот кусок*/
+                UserPlaylists = new PlaylistsCollection(_userPlaylists._original);
+            }
+            //RaisePropertyChanged(nameof(UserPlaylists));
+            
         }
     }
 }

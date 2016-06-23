@@ -7,7 +7,7 @@ namespace CloudMusicLib.ServiceCore
     {
         public readonly string ServiceName;
         public CloudUser User { get; protected set; }
-        public ICloudConnection Connection;
+        public CloudConnection Connection;
         public Uri ServiceIcon { get; protected set; }
         public Uri RegisterUri { get; protected set; }
         public bool IsAuthorizationRequired{ get; }

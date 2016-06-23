@@ -79,7 +79,6 @@ namespace CloudMusic.UWP.ViewModels
                 _messageIfAuthorized = "";
                 _isAuthorized = false;
             }
-
         }
         public string AdditionalMessage
         {
@@ -101,7 +100,6 @@ namespace CloudMusic.UWP.ViewModels
         }
         public async void TryLogin()
         {
-            //AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
             ServiceResult<CloudUser> result = await CloudMan.InvokeCommandAsync<CloudUser, string>
                                                 (_service.ServiceName, ServiceCommands.Authorization, _login, _password);
             if (result.Type == ResultType.Err)
@@ -116,13 +114,22 @@ namespace CloudMusic.UWP.ViewModels
             else
             {
                 IsAuthorized = true;
-                
+                _service.SetUser(result.Result);
                 await AppConfig.SaveLoginInfo(_service.ServiceName, _login, _password);
                 await AppConfig.SaveServiceInfo(_service);
                 await AppConfig.SaveUserInfo(_service);
+                GlobalEventSet.Raise("Login", _service.ServiceName);
             }
         }
+        public async void Logout()
+        {
+            await AppConfig.RemoveLoginSettings(_service);
+            _service.SetUser(null);
+            _service.Connection.Disconnect();
+            IsAuthorized = false;
+            GlobalEventSet.Raise<string>("Logout", _service.ServiceName);
 
+        }
 
     }
 }

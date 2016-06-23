@@ -62,7 +62,6 @@ namespace CloudMusic.UWP.Common
         private static StorageFolder _roamingFolder;
 
         private static StorageFile _servicesConfig;
-
         private static ConfigDefines _defines;
 
         static AppConfig()
@@ -253,6 +252,27 @@ namespace CloudMusic.UWP.Common
             if ((string)connectInfo[_defines.ServiceExpiredInPropertyName] == null) return false;
             service.Connection.FromJsonString(connectInfo.ToString());
             return true;
+        }
+        public static async Task RemoveLoginSettings(CloudService service)
+        {
+            JObject configs;
+            string serviceName = service.ServiceName;
+            if (_servicesConfig == null)
+            {
+                return;
+            }
+            try
+            {
+                configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
+            }
+            catch (Exception)
+            {
+                return;
+            }
+            var serviceConf = configs[serviceName];
+            if (serviceConf.IsNullOrEmpty()) { return; }
+            configs[serviceName] = CreateEmptyServiceConf();
+            await FileIO.WriteTextAsync(_servicesConfig, configs.ToString()).AsTask();
         }
     }
 }
