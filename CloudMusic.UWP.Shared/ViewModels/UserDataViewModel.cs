@@ -34,11 +34,12 @@ namespace CloudMusic.UWP.ViewModels
         }
         public UserDataViewModel()
         {
-            _userPlaylists = new PlaylistsCollection(CloudListMode.Dynamic);
+            //_userPlaylists = new PlaylistsCollection(CloudListMode.Dynamic);
+            Refresh();
         }
         public async void Refresh()
         {
-            UserPlaylists = new PlaylistsCollection(await CloudMan.GetUserPlaylistsAsync());
+            UserPlaylists = new PlaylistsCollection(CloudMan.GetUserPlaylists());
         }
         public void RemoveServiceData(string name)
         {
@@ -70,9 +71,7 @@ namespace CloudMusic.UWP.ViewModels
                 _userPlaylists._original.MergeOther(data);
                 /*TODO: как добавлю дизер проверить вот этот кусок*/
                 UserPlaylists = new PlaylistsCollection(_userPlaylists._original);
-            }
-            //RaisePropertyChanged(nameof(UserPlaylists));
-            
+            }            
         }
     }
 }
