@@ -59,7 +59,7 @@ namespace CloudMusic.UWP.Models
                     );
                     return new LoadMoreItemsResult { Count = (uint)Length };
                 }
-                catch(Exception)
+                catch(Exception e)
                 {
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadFailed);
                     return new LoadMoreItemsResult { Count= 0 };

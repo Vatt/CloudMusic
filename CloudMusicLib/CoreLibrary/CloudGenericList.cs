@@ -30,10 +30,11 @@ namespace CloudMusicLib.CoreLibrary
         }
         public  void MergeOther(string serviceName, List<T> others)
         {
-            if (Mode == CloudListMode.Dynamic)
-            {
-                throw new Exception("CloudGenericList<" + typeof(T) + ">.MergeOther(string , List) расширяется напрямую имея динамический режим");
-            }
+            //HACK: опасность
+            //if (Mode == CloudListMode.Dynamic)
+            //{
+            //    throw new Exception("CloudGenericList<" + typeof(T) + ">.MergeOther(string , List) расширяется напрямую имея динамический режим");
+            //}
             if (_serviceResultData.ContainsKey(serviceName))
             {
                 _serviceResultData[serviceName].Result.AddRange(others);

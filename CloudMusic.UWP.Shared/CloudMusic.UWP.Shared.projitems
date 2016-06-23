@@ -9,6 +9,10 @@
     <Import_RootNamespace>CloudMusic.UWP</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\PlayerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\PlaylistsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -63,6 +67,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TrackViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlaylistViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\UserDataViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PlayerControl.xaml.cs">
+      <DependentUpon>PlayerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\PlaylistsControl.xaml.cs">
       <DependentUpon>PlaylistsControl.xaml</DependentUpon>
     </Compile>

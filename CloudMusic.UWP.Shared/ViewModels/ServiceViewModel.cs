@@ -17,6 +17,7 @@ namespace CloudMusic.UWP.ViewModels
             _service = service;
             ServiceName = service.ServiceName;
             ServiceIcon = service.ServiceIcon;
+            //TODO: взять из настроек
             IsEnable = true;
         }
     }
