@@ -91,4 +91,16 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Views\PlaylistsControl.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\Search.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\ServiceSettingControl.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\SettingsView.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\Shell.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\TracklistControl.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)Views\UserData.xaml" />
+    <None Include="$(MSBuildThisFileDirectory)App.xaml" />
+  </ItemGroup>
+
 </Project>
