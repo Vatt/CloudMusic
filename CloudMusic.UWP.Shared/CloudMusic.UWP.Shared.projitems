@@ -59,6 +59,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\TracklistCollection.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\Command.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\Base\NotificationBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PlayerControlViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SearchViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ServiceViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ServiceSettingViewModel.cs" />

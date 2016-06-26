@@ -17,6 +17,7 @@ using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels;
 using CloudMusicLib.CoreLibrary;
 using CloudMusicLib.ServiceCore;
+using CloudMusic.UWP.Common;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -72,6 +73,8 @@ namespace CloudMusic.UWP.Views
         {
             var track = (TrackViewModel)e.ClickedItem;
             this.SelectedTrack = track;
+            AppStaticData.Player.ActiveTrack = track;
+            
         }
     }
 }

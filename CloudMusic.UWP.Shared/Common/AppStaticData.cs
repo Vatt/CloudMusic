@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudMusic.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,10 +7,12 @@ namespace CloudMusic.UWP.Common
 {
     class AppStaticData
     {
+        public static PlayerControlViewModel Player;
         private static Dictionary<string, object> _cache;
         static AppStaticData()
         {
             _cache = new Dictionary<string, object>();
+            Player = new PlayerControlViewModel();
         }
         public static void AddToCache(string name,object value)
         {

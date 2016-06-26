@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CloudMusic.UWP.Common;
+using CloudMusic.UWP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,11 +21,20 @@ namespace CloudMusic.UWP.Views
 {
     public sealed partial class PlayerControl : UserControl
     {
+        private PlayerControlViewModel _vm;
+
         public PlayerControl()
         {
+            _vm = AppStaticData.Player;
             this.InitializeComponent();
-            PlayerElement.TransportControls.IsFullWindowButtonVisible = false;
-            //PlayerElement.TransportControls.Button
+
+            //PlayerElement.TransportControls.IsFullWindowButtonVisible = false;
+            //PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
+            //PlayerElement.TransportControls.IsZoomButtonVisible = false;
+            //PlayerElement.TransportControls.IsCompact = true;
+            //PlayerElement.TransportControls.IsEnabled = true;
+            //PlayerElement.TransportControls.IsPlaybackRateButtonVisible = true;
+            //       PlayerElement.TransportControls.Height = 48;
         }
     }
 }

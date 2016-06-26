@@ -38,7 +38,7 @@ namespace CloudMusic.UWP.Common
         }
         public static void AppInit()
         {
-            
+            AppStaticData.AddToCache("PlayerControlViewModel", new PlayerControlViewModel());
         }
         
     }

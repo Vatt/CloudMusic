@@ -51,6 +51,16 @@ namespace CloudMusic.UWP.Common
                 d.DynamicInvoke(arg);
             }
         }
+        public static void Raise(string key, params object[] args)
+        {
+            Delegate d;
+            _table.TryGetValue(key, out d);
+            if (d != null)
+            {
+                d.DynamicInvoke(args);
+            }
+        }
+
     }
 
 } 

@@ -9,12 +9,14 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
     
-    <Grid x:Name="PlayerMainGrid" Height="50">
+    <Grid x:Name="PlayerMainGrid" Height="auto">
         <StackPanel Orientation="Horizontal">
             <!--<Image />
             <Slider Orientation="Horizontal" />-->
-            <MediaElement x:Name="PlayerElement" AreTransportControlsEnabled="True"
-                          >
+            <MediaElement x:Name="PlayerElement" 
+                          Height="auto" Source="{x:Bind _vm.ActiveTrack.SourceData}" 
+                          AutoPlay="True"
+                          />
         </StackPanel>
         
     </Grid>

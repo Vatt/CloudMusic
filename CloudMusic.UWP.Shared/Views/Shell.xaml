@@ -53,11 +53,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <Frame x:Name="WorkflowFrame"   Grid.Column="0"                
-                           Width="auto"
-                           Height="auto"
-                           HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Frame x:Name="WorkflowFrame"   Grid.Column="0" Grid.Row="0"                
+                       Width="auto"
+                       Height="auto"
+                       HorizontalAlignment="Left" 
+                       VerticalAlignment="Top">
                 </Frame>
+                <local:PlayerControl  Height="400" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"/>
             </Grid>
         </SplitView.Content>
         </SplitView>

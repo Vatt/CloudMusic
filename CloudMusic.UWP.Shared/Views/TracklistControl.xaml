@@ -45,7 +45,7 @@
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
-        <MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" />
+        <!--<MediaElement x:Name="Player" Source="{x:Bind SelectedTrack.SourceData, Mode=OneWay}" />-->
         <!--AreTransportControlsEnabled="True" Height="130"-->
     </Grid>
 </UserControl>
