@@ -31,11 +31,11 @@ namespace CloudMusic.UWP.Views
         public UserData()
         {
             this.InitializeComponent();
-            VM = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+            VM = (UserDataViewModel)AppData.Get("UserDataViewModel");
             if(VM==null)
             {
-                AppStaticData.AddToCache("UserDataViewModel", new UserDataViewModel());
-                VM = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+                AppData.Add("UserDataViewModel", new UserDataViewModel());
+                VM = (UserDataViewModel)AppData.Get("UserDataViewModel");
             }
             
         }

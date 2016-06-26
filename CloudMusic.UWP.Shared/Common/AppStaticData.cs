@@ -5,21 +5,19 @@ using System.Text;
 
 namespace CloudMusic.UWP.Common
 {
-    class AppStaticData
+    class AppData
     {
-        public static PlayerControlViewModel Player;
         private static Dictionary<string, object> _cache;
-        static AppStaticData()
+        static AppData()
         {
             _cache = new Dictionary<string, object>();
-            Player = new PlayerControlViewModel();
         }
-        public static void AddToCache(string name,object value)
+        public static void Add(string name,object value)
         {
             
             _cache.Add(name, value);
         }
-        public static object GetFromCache(string name)
+        public static object Get(string name)
         {
             if (_cache.ContainsKey(name))
             {
@@ -30,7 +28,7 @@ namespace CloudMusic.UWP.Common
                 return null;
             }
         }
-        public static void RemoveFromCache(string name)
+        public static void Remove(string name)
         {
             if(_cache.ContainsKey(name))
             {

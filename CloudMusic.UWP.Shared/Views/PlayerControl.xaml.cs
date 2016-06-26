@@ -25,16 +25,28 @@ namespace CloudMusic.UWP.Views
 
         public PlayerControl()
         {
-            _vm = AppStaticData.Player;
             this.InitializeComponent();
+            _vm = (PlayerControlViewModel)AppData.Get("PlayerControlViewModel");
+            if(_vm==null)
+            {
+                AppData.Add("PlayerControlViewModel", new PlayerControlViewModel());
+                _vm = (PlayerControlViewModel)AppData.Get("PlayerControlViewModel");
+            }
+            
+            
+            PlayerElement.TransportControls.IsSeekBarVisible = true;
 
-            //PlayerElement.TransportControls.IsFullWindowButtonVisible = false;
-            //PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
-            //PlayerElement.TransportControls.IsZoomButtonVisible = false;
-            //PlayerElement.TransportControls.IsCompact = true;
-            //PlayerElement.TransportControls.IsEnabled = true;
-            //PlayerElement.TransportControls.IsPlaybackRateButtonVisible = true;
-            //       PlayerElement.TransportControls.Height = 48;
+            PlayerElement.TransportControls.IsCompact = true;
+            PlayerElement.TransportControls.IsEnabled = true;
+            PlayerElement.TransportControls.IsFullWindowButtonVisible = false;
+            PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
+            PlayerElement.TransportControls.IsZoomButtonVisible = false;
+            PlayerElement.TransportControls.IsPlaybackRateButtonVisible = false;
+            PlayerElement.TransportControls.IsStopButtonVisible = false;
+            PlayerElement.TransportControls.IsPlaybackRateButtonVisible = false;
+            PlayerElement.TransportControls.IsVolumeButtonVisible = false;
+            PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
+            
         }
     }
 }

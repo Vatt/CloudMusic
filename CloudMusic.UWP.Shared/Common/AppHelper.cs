@@ -28,17 +28,18 @@ namespace CloudMusic.UWP.Common
         {
 
             GlobalEventSet.RegisterOrAdd("Logout", new Action<string>((string name) => {
-                var vm = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+                var vm = (UserDataViewModel)AppData.Get("UserDataViewModel");
                 vm.RemoveServiceData(name);
             }));
             GlobalEventSet.RegisterOrAdd("Login", new Action<string>((string name) => {
-                var vm = (UserDataViewModel)AppStaticData.GetFromCache("UserDataViewModel");
+                var vm = (UserDataViewModel)AppData.Get("UserDataViewModel");
                 vm.AddServiceData(name);
             }));
+
         }
         public static void AppInit()
         {
-            AppStaticData.AddToCache("PlayerControlViewModel", new PlayerControlViewModel());
+            AppData.Add("PlayerControlViewModel", new PlayerControlViewModel());
         }
         
     }

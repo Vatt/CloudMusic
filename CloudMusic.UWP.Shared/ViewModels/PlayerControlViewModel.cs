@@ -24,10 +24,12 @@ namespace CloudMusic.UWP.ViewModels
 
             }
         }
-        public static TracklistCollection ActiveTracklist { get; set; }
+        public TracklistCollection ActiveTracklist { get; set; }
         public PlayerControlViewModel()
         {
-
+            GlobalEventSet.RegisterOrAdd("ActiveTrackChange", new Action<TrackViewModel>((track) => {
+                ActiveTrack = track;
+            }));
         }
     }
 }

@@ -73,7 +73,7 @@ namespace CloudMusic.UWP.Views
         {
             var track = (TrackViewModel)e.ClickedItem;
             this.SelectedTrack = track;
-            AppStaticData.Player.ActiveTrack = track;
+            GlobalEventSet.Raise("ActiveTrackChange", track);
             
         }
     }

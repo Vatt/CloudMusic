@@ -10,7 +10,10 @@ namespace CloudMusic.UWP.Common
     {
         public static Dictionary<string, Delegate> _table = new Dictionary<string, Delegate>();
 
-
+        public static void TryGet(string key,out Delegate handler)
+        {
+            _table.TryGetValue(key, out handler);
+        }
         public static void RegisterOrAdd(string key, Delegate handler)
         {
             Delegate d;
