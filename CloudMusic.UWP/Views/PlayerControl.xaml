@@ -6,16 +6,18 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    
-    <Grid x:Name="PlayerMainGrid" Height="auto">
-        <!--<StackPanel Orientation="Horizontal" Height="48" HorizontalAlignment="Stretch">
-            <Image Source="_vm.ActiveTrack.TrackImage" Height="48" Width="48"/>
-            <Slider Orientation="Horizontal" />            
-        </StackPanel>-->
+
+    <Grid x:Name="PlayerMainGrid" Height="60">
         <MediaElement x:Name="PlayerElement"  
                           Height="auto"  Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" 
-                          AutoPlay="True" AreTransportControlsEnabled="True"
-                          />
+                          AutoPlay="True" AreTransportControlsEnabled="True"/>
+        <!--<MediaElement x:Name="PlayerElement" AutoPlay="True" Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="False"/>
+        <StackPanel Orientation="Horizontal" Height="60" HorizontalAlignment="Stretch">
+            <Image Source =  "{x:Bind _vm.ActiveTrack.TrackImage.AbsoluteUri, Mode=OneWay}" Width="48" Height="48" VerticalAlignment="Center"/>
+            <Slider Orientation="Horizontal" HorizontalAlignment="Stretch"/>
+        </StackPanel>-->
+
+
     </Grid>
 </UserControl>
 

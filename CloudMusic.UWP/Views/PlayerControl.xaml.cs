@@ -32,8 +32,8 @@ namespace CloudMusic.UWP.Views
                 AppData.Add("PlayerControlViewModel", new PlayerControlViewModel());
                 _vm = (PlayerControlViewModel)AppData.Get("PlayerControlViewModel");
             }
-            
-            
+
+
             PlayerElement.TransportControls.IsSeekBarVisible = true;
 
             PlayerElement.TransportControls.IsCompact = true;
@@ -46,7 +46,7 @@ namespace CloudMusic.UWP.Views
             PlayerElement.TransportControls.IsPlaybackRateButtonVisible = false;
             PlayerElement.TransportControls.IsVolumeButtonVisible = false;
             PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
-            
+
         }
     }
 }

@@ -63,7 +63,7 @@
                        HorizontalAlignment="Left" 
                        VerticalAlignment="Top">
                 </Frame>
-                <local:PlayerControl Height ="48" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"/>
+                <local:PlayerControl Height ="auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"/>
             </Grid>
         </SplitView.Content>
         </SplitView>

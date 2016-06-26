@@ -7,18 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMusicLib", "CloudMusic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{547307AD-A7EE-484B-8927-B015AF73DD9F}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "CloudMusic.UWP.Shared", "CloudMusic.UWP.Shared\CloudMusic.UWP.Shared.shproj", "{B0F7E8FA-9CC4-4C45-A00A-B22867959075}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMusic.UWP", "CloudMusic.UWP\CloudMusic.UWP.csproj", "{82615A80-F677-46F3-A989-27CBB4BA1071}"
 	ProjectSection(ProjectDependencies) = postProject
 		{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57} = {169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		CloudMusic.UWP.Shared\CloudMusic.UWP.Shared.projitems*{b0f7e8fa-9cc4-4c45-a00a-b22867959075}*SharedItemsImports = 13
-		CloudMusic.UWP.Shared\CloudMusic.UWP.Shared.projitems*{82615a80-f677-46f3-a989-27cbb4ba1071}*SharedItemsImports = 4
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
