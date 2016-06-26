@@ -8,19 +8,19 @@
     xmlns:viewModels ="using:CloudMusic.UWP.ViewModels"
     NavigationCacheMode="Enabled"
     mc:Ignorable="d">
+    
     <Page.Transitions>
         <TransitionCollection>
             <NavigationThemeTransition />
         </TransitionCollection>
     </Page.Transitions>
     
-    
-    
     <Page.Resources>
         <DataTemplate x:Name="ServiceDataTemplate" x:DataType="viewModels:ServiceViewModel">
             <Image  Source="{x:Bind ServiceIcon.AbsoluteUri}" Width="48" Height="48" Stretch="Fill"/>
         </DataTemplate>    
     </Page.Resources>
+    
     <SplitView x:Name="SplitView" IsPaneOpen="{x:Bind ShellWM.IsServicesSplitViewPaneOpened, Mode=TwoWay}"
                OpenPaneLength="48" DisplayMode="Inline"> 
         <SplitView.Pane>
@@ -50,20 +50,14 @@
         </SplitView.Pane>
         <SplitView.Content>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <Frame x:Name="WorkflowFrame"   Grid.Column="0" Grid.Row="0"                
-                       Width="auto"
-                       Height="auto"
-                       HorizontalAlignment="Left" 
-                       VerticalAlignment="Top">
-                </Frame>
-                <local:PlayerControl Height ="auto" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom"/>
+                <Frame x:Name="WorkflowFrame"
+                       Grid.Row="0"
+                       HorizontalAlignment="Left"/>
+                <local:PlayerControl Grid.Row="1"/>
             </Grid>
         </SplitView.Content>
         </SplitView>

@@ -11,33 +11,29 @@
         <SplitView.Pane>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.RowDefinitions>
-                    <RowDefinition x:Name="SearchBox" Height="auto"/>
-                    <RowDefinition x:Name="SearchOptionBox" Height="auto"/>
+                    <RowDefinition x:Name="SearchBox" Height="Auto"/>
+                    <RowDefinition x:Name="SearchOptionBox" Height="Auto"/>
                 </Grid.RowDefinitions>
                 <TextBox x:Name="SearchTextBox" Grid.Row="0" PlaceholderText="Поиск..." 
-                         KeyUp="SearchTextBox_KeyDown"
-                         />
-                <!--Text="{x:Bind SearchVm.SearchTemplate, Mode=TwoWay}"-->         
+                         KeyUp="SearchTextBox_KeyDown"/>
+                <!--Text="{x:Bind SearchVm.SearchTemplate, Mode=TwoWay}"-->
                 <!--KeyDown="SearchTextBox_KeyDown"-->
-                         
-                <ListView x:Name="SearchOptionsView" Grid.Row="1" 
-                          IsItemClickEnabled="False" Width="auto"
+
+                <ListView x:Name="SearchOptionsView" 
+                          Grid.Row="1" 
+                          IsItemClickEnabled="False" 
                           HorizontalAlignment="Left">
                     <ListView.Items>
-                        <ToggleSwitch Header="Поиск по трекам"       VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByTracks, Mode=TwoWay}"/>
-                        <ToggleSwitch Header="Поиск по исполнителям" VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByArtists, Mode=TwoWay}"/>
-                        <ToggleSwitch Header="Поиск по альбомам"     VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByAlbums, Mode=TwoWay}"/>
-                        <ToggleSwitch Header="Поиск по плейлистам"   VerticalAlignment="Top"  IsOn="{x:Bind SearchVm.SearchByPlaylists, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по трекам"       IsOn="{x:Bind SearchVm.SearchByTracks, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по исполнителям" IsOn="{x:Bind SearchVm.SearchByArtists, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по альбомам"     IsOn="{x:Bind SearchVm.SearchByAlbums, Mode=TwoWay}"/>
+                        <ToggleSwitch Header="Поиск по плейлистам"   IsOn="{x:Bind SearchVm.SearchByPlaylists, Mode=TwoWay}"/>
                     </ListView.Items>
                 </ListView>
             </Grid>
         </SplitView.Pane>
         <SplitView.Content>
-            <Grid>
-                <Pivot x:Name="SearchResultPivot">
-     
-                </Pivot>
-            </Grid>
+            <Pivot x:Name="SearchResultPivot"/>
         </SplitView.Content>
     </SplitView>
 </Page>

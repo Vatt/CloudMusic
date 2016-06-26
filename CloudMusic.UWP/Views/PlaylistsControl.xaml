@@ -10,21 +10,19 @@
     <Page x:Name="PlaylistPage">
         <Page.Resources>
             <DataTemplate x:Name="PlaylistNamesDataTemplate" x:DataType="viewModels:PlaylistViewModel">
-                <StackPanel Orientation="Horizontal" Padding="5">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="48"/>
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Image   Source="{x:Bind PlaylistImage.AbsoluteUri}" Grid.Column="0"/>
-                        <TextBlock Text="{x:Bind PlaylistName}" Padding="2"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Grid>
-                </StackPanel>
+                <Grid Padding="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="48"/>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image   Source="{x:Bind PlaylistImage.AbsoluteUri}" Grid.Column="0"/>
+                    <TextBlock Text="{x:Bind PlaylistName}" Padding="2"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                </Grid>
             </DataTemplate>
         </Page.Resources>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="PlaylistNames" Width="400"/>
+                <ColumnDefinition x:Name="PlaylistNames" Width="Auto"/>
                 <ColumnDefinition x:Name="PlaylistTracks"/>
             </Grid.ColumnDefinitions>
 
@@ -33,18 +31,16 @@
                       ItemsSource="{x:Bind Playlists}"
                       ItemClick="OnPlayListNameClick"
                       IsItemClickEnabled="True"
-                      Width="auto"
                       HorizontalAlignment="Left">
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         <Setter Property="Padding" Value="0" />
                         <Setter Property="Height" Value="48"/>
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <local:TracklistControl x:Name ="PlaylistData" Width="auto" Height="auto" Grid.Column="1"  
-                                    HorizontalAlignment="Left"/>
+            <local:TracklistControl x:Name ="PlaylistData" Grid.Column="1" HorizontalAlignment="Left"/>
         </Grid>
     </Page>
 </UserControl>

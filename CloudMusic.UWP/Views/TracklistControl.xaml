@@ -16,21 +16,17 @@
                   ItemClick="OnTrackClick">
             <ListView.Resources>
                 <DataTemplate x:Name="TrackListDataTemplate" x:DataType="viewModels:TrackViewModel">
-                    <StackPanel Orientation="Horizontal" Padding="5">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="48"/>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Source =  "{x:Bind TrackImage.AbsoluteUri}" Grid.Column="0"/>
-                            <TextBlock Text= "{x:Bind TrackName}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                            <TextBlock Text= "{x:Bind Track.ServiceSource}" Grid.Column="2" VerticalAlignment="Bottom" 
+                    <Grid Padding="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="48"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Image Source =  "{x:Bind TrackImage.AbsoluteUri}" Grid.Column="0"/>
+                        <TextBlock Text= "{x:Bind TrackName}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBlock Text= "{x:Bind Track.ServiceSource}" Grid.Column="2" VerticalAlignment="Bottom" 
                                        FontSize="10" />
-                           
-                        </Grid>
-                        
-                    </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </ListView.Resources>
             <ListView.Name>TracklistView</ListView.Name>

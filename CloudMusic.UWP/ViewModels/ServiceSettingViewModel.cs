@@ -62,7 +62,7 @@ namespace CloudMusic.UWP.ViewModels
                 _isAuthorized = value;
                 if (_service.User != null)
                 {
-                    MessageIfAuthorized = $"Вы авторизованны:\n{_service.User.ToString()}";
+                    MessageIfAuthorized = $"Вы авторизованы:\n{_service.User.ToString()}";
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace CloudMusic.UWP.ViewModels
             _service = service;
             if (_service.User != null)
             {
-                _messageIfAuthorized = $"Вы авторизованны:\n{_service.User.ToString()}";
+                _messageIfAuthorized = $"Вы авторизованы:\n{_service.User.ToString()}";
                 _isAuthorized = true;
             }
             else

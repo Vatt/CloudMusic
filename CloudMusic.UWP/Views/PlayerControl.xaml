@@ -8,20 +8,15 @@
     mc:Ignorable="d">
 
     <Grid x:Name="PlayerMainGrid" Height="60">
-        <MediaElement x:Name="PlayerElement"  
-                          Height="auto"  Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" 
-                          AutoPlay="True" AreTransportControlsEnabled="True"/>
-        <!--<MediaElement x:Name="PlayerElement" AutoPlay="True" Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="False"/>
-        <StackPanel Orientation="Horizontal" Height="60" HorizontalAlignment="Stretch">
-            <Image Source =  "{x:Bind _vm.ActiveTrack.TrackImage.AbsoluteUri, Mode=OneWay}" Width="48" Height="48" VerticalAlignment="Center"/>
-            <Slider Orientation="Horizontal" HorizontalAlignment="Stretch"/>
-        </StackPanel>-->
-
-
+        <!--<MediaElement x:Name="PlayerElement"  
+Height="auto"  Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" 
+AutoPlay="True" AreTransportControlsEnabled="True"/>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <MediaElement x:Name="PlayerElement" AutoPlay="True" Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="False"/>
+        <Image Source ="{x:Bind _vm.ActiveTrack.TrackImage.AbsoluteUri, Mode=OneWay}" Width="48" Height="48" VerticalAlignment="Center"/>
+        <Slider Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch"/>
     </Grid>
 </UserControl>
-
-<!--<MediaElement x:Name="PlayerElement"  
-                          Height="auto"  Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" 
-                          AutoPlay="True" AreTransportControlsEnabled="True"
-                          />-->

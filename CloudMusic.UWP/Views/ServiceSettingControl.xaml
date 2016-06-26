@@ -7,27 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     mc:Ignorable="d">
 
-    <Grid Width="400" HorizontalAlignment="Left" KeyUp="Grid_KeyUp">
+    <Grid HorizontalAlignment="Left" KeyUp="Grid_KeyUp">
         <StackPanel Orientation="Vertical">
-            <StackPanel x:Name="UserPasswordPanel" Orientation="Vertical" Height="auto" Width="auto" 
-                            Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}">
-                <TextBox x:Name="UserTextBlock" Text="{x:Bind VM.Login, Mode=TwoWay}" PlaceholderText="Логин"/>
-                <PasswordBox x:Name="PasswordTextBlock" Password="{x:Bind VM.Password, Mode=TwoWay}" PlaceholderText="Пароль"/>
-                <TextBlock Text="{x:Bind VM.AdditionalMessage, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"
+            <StackPanel x:Name="UserPasswordPanel"
+                        Orientation="Vertical"
+                        Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}">
+                <TextBox x:Name="UserTextBlock" 
+                         Text="{x:Bind VM.Login, Mode=TwoWay}" 
+                         PlaceholderText="Логин"/>
+                <PasswordBox x:Name="PasswordTextBlock" 
+                             Password="{x:Bind VM.Password, Mode=TwoWay}" 
+                             PlaceholderText="Пароль"/>
+                <TextBlock Text="{x:Bind VM.AdditionalMessage, Mode=OneWay}" 
+                           TextTrimming="Clip"
                            Visibility="{x:Bind VM.AdditionalMessageVisible, Mode=OneWay, Converter={StaticResource VisibilityConverter}}"/>
-                <Button Content="Регистрация" Click="{x:Bind VM.Register}" Height="40" Width="auto"/>
+                <Button Content="Регистрация" 
+                        Click="{x:Bind VM.Register}" 
+                        Height="40" />
             </StackPanel>
-            <StackPanel x:Name="IfAuthorizedPane" Orientation="Horizontal" Height="auto" Width="auto" 
+            <StackPanel x:Name="IfAuthorizedPane" 
+                        Orientation="Horizontal" 
                         Visibility="{x:Bind VM.IsAuthorized, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
-                <StackPanel Orientation="Horizontal" Height="auto">
-                    <AppBarButton Icon="Clear" Width="40" Height="40"  Click="{x:Bind VM.Logout}"
-                                      VerticalAlignment="Center" HorizontalAlignment="Center" 
-                                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
-                    <TextBlock Text="{x:Bind VM.MessageIfAuthorized, Mode=OneWay}" Width="auto" Height="auto" TextTrimming="Clip"/>
+                <StackPanel Orientation="Horizontal">
+                    <AppBarButton Icon="Clear" 
+                                  Width="40" 
+                                  Height="40" 
+                                  Click="{x:Bind VM.Logout}"
+                                  VerticalAlignment="Center" 
+                                  HorizontalAlignment="Center" 
+                                  VerticalContentAlignment="Center" 
+                                  HorizontalContentAlignment="Center"/>
+                    <TextBlock Text="{x:Bind VM.MessageIfAuthorized, Mode=OneWay}" 
+                               TextTrimming="Clip"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
     </Grid>
-
-
 </UserControl>
