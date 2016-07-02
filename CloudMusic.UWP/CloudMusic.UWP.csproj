@@ -92,7 +92,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\IconFonts\SongGlyphs.ttf" />
+    <Content Include="Assets\IconFonts\Glyphs.ttf" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +164,10 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CloudMusic.UWP.BackgroundTasks\CloudMusic.UWP.BackgroundTasks.csproj">
+      <Project>{3f9abff5-9d32-45af-8eca-7574545bf5d3}</Project>
+      <Name>CloudMusic.UWP.BackgroundTasks</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CloudMusicLib\CloudMusicLib.csproj">
       <Project>{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}</Project>
       <Name>CloudMusicLib</Name>

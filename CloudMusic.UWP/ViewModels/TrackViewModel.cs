@@ -29,6 +29,10 @@ namespace CloudMusic.UWP.ViewModels
                 NoTrackImage = false;
                 TrackImage = Track.TrackImage;
             }
+            if(inTrack.ArtistName==null||inTrack.ArtistName.Length==0)
+            {
+                ArtistName = "Unknown Artist";
+            }
             Index = index;
         }
         public string TrackName { get; }

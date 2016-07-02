@@ -25,7 +25,7 @@
                         <Image Source =  "{x:Bind TrackImage.AbsoluteUri}" Grid.Column="0" 
                                Visibility="{x:Bind NoTrackImage,Converter={StaticResource InvertVisibilityConverter}}"/>
                         <FontIcon Visibility="{x:Bind NoTrackImage, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
-                                  Width="38" Height="38" FontFamily="ms-appx:/Assets/IconFonts/SongGlyphs.ttf#untitled-font-1"  Glyph="a"
+                                  Width="38" Height="38" FontFamily="ms-appx:/Assets/IconFonts/Glyphs.ttf#glyphs"  Glyph="a"
                                   FontSize="38"/>
                         <TextBlock Text= "{x:Bind TrackName}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
                         <TextBlock Text= "{x:Bind Track.ServiceSource}" Grid.Column="2" VerticalAlignment="Bottom" 

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Media.Playback;
+using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,8 +25,10 @@ namespace CloudMusic.UWP.Views
     public sealed partial class PlayerControl : UserControl
     {
         private PlayerControlViewModel _vm;
-        static private SymbolIcon _pauseIcon = new SymbolIcon(Symbol.Pause);
+        private static SymbolIcon _pauseIcon = new SymbolIcon(Symbol.Pause);
         private static SymbolIcon _playIcon = new SymbolIcon(Symbol.Play);
+        private static SolidColorBrush _onColor = new SolidColorBrush(Color.FromArgb(255, 130, 140, 152));
+        private static SolidColorBrush _offColor = new SolidColorBrush(Color.FromArgb(0, 255, 255,255));
         public PlayerControl()
         {
             this.InitializeComponent();
@@ -48,20 +53,51 @@ namespace CloudMusic.UWP.Views
             PlayerElement.TransportControls.IsVolumeButtonVisible = false;
             PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
 
-            GlobalEventSet.RegisterOrAdd("ActiveTrackChange", new Action<TrackViewModel>((track) => PlayPauseButton.Icon = _playIcon));
+            GlobalEventSet.RegisterOrAdd("ActiveTrackChange", new Action<TrackViewModel>((track) => PlayPauseButton.Icon = _pauseIcon));
+            this.Loaded += async (sender, args) =>
+            {
+                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    BackgroundMediaPlayer.SendMessageToBackground(new ValueSet());
+                });
+            };
         }
         private void PlayerElementPlayPause()
         {
+            if(_vm.ActiveTrack == null) { return; }
             _vm.SwitchPlayPause();
             if(_vm.IsPaused)
             {
                 PlayerElement.Pause();
-                PlayPauseButton.Icon = _pauseIcon;
+                PlayPauseButton.Icon = _playIcon; 
             }
             else
             {
                 PlayerElement.Play();
-                PlayPauseButton.Icon = _playIcon;
+                PlayPauseButton.Icon = _pauseIcon;
+            }
+        }
+        private void PlayerElementRepeate()
+        {
+            _vm.SwitchRepeateMode();
+            if(_vm.IsRepeated)
+            {
+                RepeateOnOff.Background = _onColor;
+            }else
+            {
+                RepeateOnOff.Background = _offColor;
+            }
+        }
+        private void PlayerElementShuffle()
+        {
+            _vm.SwitchShuffleMode();
+            if (_vm.IsShuffled)
+            {
+                ShuffleOnOff.Background = _onColor;
+            }
+            else
+            {
+                ShuffleOnOff.Background = _offColor;
             }
         }
     }

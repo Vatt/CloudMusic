@@ -122,7 +122,14 @@ namespace CloudMusic.UWP.ViewModels
         {
             IsPaused = !IsPaused;
         }
-
+        public void SwitchRepeateMode()
+        {
+            IsRepeated = !IsRepeated;
+        }
+        public void SwitchShuffleMode()
+        {
+            IsShuffled = !IsShuffled;
+        }
         private void RandomNextTrack()
         {
             Random rnd = new Random();
@@ -148,6 +155,7 @@ namespace CloudMusic.UWP.ViewModels
             var nextTrack = _activeTracklist.ElementAt(next);
             GlobalEventSet.Raise("ActiveTrackChange", nextTrack);
         }
+
 
     }
 }
