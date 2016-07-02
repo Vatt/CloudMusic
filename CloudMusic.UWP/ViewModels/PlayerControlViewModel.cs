@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace CloudMusic.UWP.ViewModels
 {
@@ -47,10 +47,11 @@ namespace CloudMusic.UWP.ViewModels
         public PlayerControlViewModel()
         {
             GlobalEventSet.RegisterOrAdd("ActiveTrackChange", new Action<TrackViewModel>((track) => {
-                /*
+                if(ActiveTrack == track) { return; }
+                 /*
                  * Если это первый клик в плейлисте в историю подается кликнутый трек,
                  * иначе подается прошлый активный
-                 */
+                 */             
                 if (ActiveTrack == null)
                 {
                     _history.Push(track.Index);
@@ -77,7 +78,7 @@ namespace CloudMusic.UWP.ViewModels
             _history = new Stack<int>();
 
         }
-        public void NextTrack()
+        public async void NextTrack()
         {
             if (_activeTracklist == null) {  return; }
             _tracklistLength = ActiveTracklist.Count;
@@ -88,15 +89,11 @@ namespace CloudMusic.UWP.ViewModels
             }
             if (IsShuffled&&!IsRepeated)
             {
-                Random rnd = new Random();
-                int next = rnd.Next(_tracklistLength);
-                _history.Push(_activeTrack.Index);
-                ActiveTrack = _activeTracklist.ElementAt(next);
-            }else if (!IsShuffled && !IsRepeated)
+                RandomNextTrack();
+            }
+            else if (!IsShuffled && !IsRepeated)
             {
-                int next = _activeTrack.Index + 1;
-                _history.Push(_activeTrack.Index);
-                ActiveTrack = _activeTracklist.ElementAt(next);
+                await LinearNextTrack();
             }
             
         }
@@ -106,26 +103,11 @@ namespace CloudMusic.UWP.ViewModels
             _tracklistLength = ActiveTracklist.Count;
             if (IsShuffled)
             {
-                Random rnd = new Random();
-                int next = rnd.Next(_tracklistLength);
-                _history.Push(_activeTrack.Index);
-                ActiveTrack = _activeTracklist.ElementAt(next);
+                RandomNextTrack();
             }
             else
             {
-                int next = _activeTrack.Index + 1;
-                if (next >= _tracklistLength)
-                {
-                    //любое число, аргумент не используется в функции
-                    await _activeTracklist.LoadMoreItemsAsync(0);
-                    _tracklistLength = _activeTracklist.Count;
-                    if (next >= _tracklistLength)
-                    {
-                        next = 0;
-                    }
-                }
-                _history.Push(_activeTrack.Index);
-                ActiveTrack = _activeTracklist.ElementAt(next);
+                await LinearNextTrack();
             }
 
         }
@@ -139,6 +121,32 @@ namespace CloudMusic.UWP.ViewModels
         public void SwitchPlayPause()
         {
             IsPaused = !IsPaused;
+        }
+
+        private void RandomNextTrack()
+        {
+            Random rnd = new Random();
+            int next = rnd.Next(_tracklistLength);
+            _history.Push(_activeTrack.Index);
+            var nextTrack = _activeTracklist.ElementAt(next);
+            GlobalEventSet.Raise("ActiveTrackChange", nextTrack);
+        }
+        private async Task LinearNextTrack()
+        {
+            int next = _activeTrack.Index + 1;
+            if (next >= _tracklistLength)
+            {
+                //любое число, аргумент не используется в функции
+                await _activeTracklist.LoadMoreItemsAsync(0);
+                _tracklistLength = _activeTracklist.Count;
+                if (next >= _tracklistLength)
+                {
+                    next = 0;
+                }
+            }
+            _history.Push(_activeTrack.Index);
+            var nextTrack = _activeTracklist.ElementAt(next);
+            GlobalEventSet.Raise("ActiveTrackChange", nextTrack);
         }
 
     }
