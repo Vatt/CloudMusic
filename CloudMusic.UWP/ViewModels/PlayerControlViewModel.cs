@@ -134,6 +134,10 @@ namespace CloudMusic.UWP.ViewModels
         {
             Random rnd = new Random();
             int next = rnd.Next(_tracklistLength);
+            while(next== _activeTrack.Index)
+            {
+                next = rnd.Next(_tracklistLength);
+            }
             _history.Push(_activeTrack.Index);
             var nextTrack = _activeTracklist.ElementAt(next);
             GlobalEventSet.Raise("ActiveTrackChange", nextTrack);
