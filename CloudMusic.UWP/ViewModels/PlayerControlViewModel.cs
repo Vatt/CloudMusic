@@ -60,6 +60,7 @@ namespace CloudMusic.UWP.ViewModels
                     _history.Push(ActiveTrack.Index);
                 }
                 ActiveTrack = track;
+                IsPaused = false;
             }));
             GlobalEventSet.RegisterOrAdd("ActiveTracklistChange", new Action<TracklistCollection>((tracklist) =>
             {               

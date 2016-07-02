@@ -28,7 +28,7 @@ namespace CloudMusic.UWP.Views
         {
             this.InitializeComponent();
             _vm = (PlayerControlViewModel)AppData.Get("PlayerControlViewModel");
-            if(_vm==null)
+            if (_vm == null)
             {
                 AppData.Add("PlayerControlViewModel", new PlayerControlViewModel());
                 _vm = (PlayerControlViewModel)AppData.Get("PlayerControlViewModel");
@@ -48,6 +48,7 @@ namespace CloudMusic.UWP.Views
             PlayerElement.TransportControls.IsVolumeButtonVisible = false;
             PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
 
+            GlobalEventSet.RegisterOrAdd("ActiveTrackChange", new Action<TrackViewModel>((track) => PlayPauseButton.Icon = _playIcon));
         }
         private void PlayerElementPlayPause()
         {
