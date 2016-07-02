@@ -22,7 +22,8 @@ namespace CloudMusic.UWP.Views
     public sealed partial class PlayerControl : UserControl
     {
         private PlayerControlViewModel _vm;
-
+        static private SymbolIcon _pauseIcon = new SymbolIcon(Symbol.Pause);
+        private static SymbolIcon _playIcon = new SymbolIcon(Symbol.Play);
         public PlayerControl()
         {
             this.InitializeComponent();
@@ -47,6 +48,20 @@ namespace CloudMusic.UWP.Views
             PlayerElement.TransportControls.IsVolumeButtonVisible = false;
             PlayerElement.TransportControls.IsFastRewindButtonVisible = false;
 
+        }
+        private void PlayerElementPlayPause()
+        {
+            _vm.SwitchPlayPause();
+            if(_vm.IsPaused)
+            {
+                PlayerElement.Pause();
+                PlayPauseButton.Icon = _pauseIcon;
+            }
+            else
+            {
+                PlayerElement.Play();
+                PlayPauseButton.Icon = _playIcon;
+            }
         }
     }
 }

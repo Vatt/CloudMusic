@@ -37,7 +37,6 @@ namespace CloudMusic.UWP.Models
                 return _original.HaveMore();
             }
         }
-
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
             var dispatcher = Window.Current.Dispatcher;            

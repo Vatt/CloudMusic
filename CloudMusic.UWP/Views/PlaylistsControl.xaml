@@ -23,7 +23,7 @@
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="PlaylistNames" Width="Auto"/>
-                <ColumnDefinition x:Name="PlaylistTracks"/>
+                <ColumnDefinition x:Name="PlaylistTracks" Width="*"/>
             </Grid.ColumnDefinitions>
 
             <ListView Grid.Column="0"
@@ -40,7 +40,7 @@
                     </Style>
                 </ListView.ItemContainerStyle>
             </ListView>
-            <local:TracklistControl x:Name ="PlaylistData" Grid.Column="1" HorizontalAlignment="Left"/>
+            <local:TracklistControl x:Name ="PlaylistData" Grid.Column="1" HorizontalAlignment="Stretch"/>
         </Grid>
     </Page>
 </UserControl>

@@ -36,7 +36,6 @@ namespace CloudMusic.UWP.ViewModels
         {
             tracklist = new TracklistCollection(await _original.GetTrackListDataAsync());
             return tracklist;
-
-        }
+        }       
     }
 }

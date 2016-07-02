@@ -11,7 +11,7 @@ namespace CloudMusic.UWP.ViewModels
     {
         public CloudTrack Track;
         public bool NoTrackImage;
-        public TrackViewModel(CloudTrack inTrack)
+        public TrackViewModel(CloudTrack inTrack,int index)
         {
             if (inTrack == null) return;
             Track = inTrack;
@@ -29,6 +29,7 @@ namespace CloudMusic.UWP.ViewModels
                 NoTrackImage = false;
                 TrackImage = Track.TrackImage;
             }
+            Index = index;
         }
         public string TrackName { get; }
         public string ArtistName { get; }
@@ -36,5 +37,6 @@ namespace CloudMusic.UWP.ViewModels
         public Uri TrackImage { get; }
         public Uri SourceData { get; }
         public bool IsPlaying { get; set; }
+        public int Index { get; set; }
     }
 }

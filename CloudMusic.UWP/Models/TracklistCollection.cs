@@ -14,17 +14,20 @@ namespace CloudMusic.UWP.Models
     public class TracklistCollection : ObservableCollection<TrackViewModel>, ISupportIncrementalLoading
     {
         private CloudTracklist _original;
-
+        private int Index;
         public TracklistCollection() : base()
         {
+            Index = 0;
         }
 
         public TracklistCollection(CloudTracklist list)
         {
+            Index = 0;
             _original = list;
             foreach (var track in _original.ListData)
             {
-                base.Add(new TrackViewModel(track));
+                base.Add(new TrackViewModel(track,Index));
+                Index++;
             }
         }
 
@@ -49,10 +52,12 @@ namespace CloudMusic.UWP.Models
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadStarted);
                     await dispatcher.RunAsync(CoreDispatcherPriority.Normal,
                         () =>
-                        {                            
+                        {
+                                    
                             foreach (var item in items)
                             {
-                                base.Add(new TrackViewModel(item));
+                                base.Add(new TrackViewModel(item,Index));
+                                Index++;
                             }
                             Length = (uint)items.Count;
                         }

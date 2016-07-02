@@ -364,7 +364,8 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                             <Border x:Name="ControlPanel_ControlPanelVisibilityStates_Border">
-                                <Grid x:Name="ControlPanelGrid" Background="{ThemeResource SystemControlBackgroundChromeMediumBrush}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom">
+                                <!--цвет фона контрола-->
+                                <Grid x:Name="ControlPanelGrid" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Bottom">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
                                         <ColumnDefinition Width="*"/>
@@ -478,11 +479,36 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid x:Name="PlayerMainGrid" Height="60">
-        <MediaElement x:Name="PlayerElement" AutoPlay="True" Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" AreTransportControlsEnabled="True">
+    <Grid x:Name="PlayerMainGrid" Height="60" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Image Source ="{x:Bind _vm.ActiveTrack.TrackImage.AbsoluteUri, Mode=OneWay}" 
+               Width="48" Height="48" 
+               VerticalAlignment="Center" Grid.Column="0"
+               Visibility="{x:Bind _vm.ActiveTrack.NoTrackImage, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}" />
+        <FontIcon Visibility="{x:Bind _vm.ActiveTrack.NoTrackImage, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
+                  Width="48" Height="48" FontFamily="ms-appx:/Assets/IconFonts/SongGlyphs.ttf#untitled-font-1"  Glyph="a"
+                  FontSize="48"/>
+        <MediaElement x:Name="PlayerElement" AutoPlay="True" Source="{x:Bind _vm.ActiveTrack.SourceData, Mode=OneWay}" 
+                      AreTransportControlsEnabled="True" Grid.Column="1" HorizontalAlignment="Stretch" Height="34" VerticalAlignment="Center" 
+                      MediaEnded="{x:Bind _vm.NextTrack}"
+                      IsMuted=   "{x:Bind _vm.IsMuted}"
+                      >
             <MediaElement.TransportControls>
-                <MediaTransportControls Style="{StaticResource MyMediaTransportControlsStyle}"/>
+                <MediaTransportControls Style="{StaticResource MyMediaTransportControlsStyle}" IsSeekBarVisible="True"/>
             </MediaElement.TransportControls>
         </MediaElement>
+        <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <AppBarButton Icon="Previous" Click="{x:Bind _vm.PrevTrack}" Width="48" Height="48" VerticalAlignment="Center"
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <AppBarButton x:Name="PlayPauseButton" Icon="Play" Click="{x:Bind PlayerElementPlayPause}" 
+                          Width="48" Height="48" VerticalAlignment="Center"
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+            <AppBarButton Icon="Next" Click="{x:Bind _vm.ForcedNextTrack}" Width="48" Height="48" VerticalAlignment="Center"
+                          />
+        </StackPanel>
     </Grid>
 </UserControl>

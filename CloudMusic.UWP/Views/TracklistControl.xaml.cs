@@ -48,7 +48,7 @@ namespace CloudMusic.UWP.Views
 
         public static readonly DependencyProperty SelectedTrackProperty =
             DependencyProperty.Register("SelectedTrack", typeof(TrackViewModel), typeof(TracklistControl),
-                                        new PropertyMetadata(new TrackViewModel(null)));
+                                        new PropertyMetadata(new TrackViewModel(null,0)));
 
         public TrackViewModel SelectedTrack
         {
@@ -74,6 +74,7 @@ namespace CloudMusic.UWP.Views
             var track = (TrackViewModel)e.ClickedItem;
             this.SelectedTrack = track;
             GlobalEventSet.Raise("ActiveTrackChange", track);
+            GlobalEventSet.Raise("ActiveTracklistChange", TrackListData);
             
         }
     }

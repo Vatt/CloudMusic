@@ -17,6 +17,12 @@ namespace CloudMusic.UWP.ViewModels.Base
             RaisePropertyChanged(property);
             return true;
         }
+        protected bool ForcedSetProperty<T>(ref T field, T value, [CallerMemberName] String property = null)
+        {           
+            field = value;
+            RaisePropertyChanged(property);
+            return true;
+        }
         protected void RaisePropertyChanged(string property)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
