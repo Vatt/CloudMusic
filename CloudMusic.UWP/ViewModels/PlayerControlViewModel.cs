@@ -132,6 +132,11 @@ namespace CloudMusic.UWP.ViewModels
         }
         private void RandomNextTrack()
         {
+            if (_tracklistLength == 1)
+            {
+                ActiveTrack = ActiveTrack;
+                return;
+            }
             Random rnd = new Random();
             int next = rnd.Next(_tracklistLength);
             while(next== _activeTrack.Index)

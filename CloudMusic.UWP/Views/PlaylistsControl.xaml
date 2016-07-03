@@ -10,19 +10,23 @@
     <Page x:Name="PlaylistPage">
         <Page.Resources>
             <DataTemplate x:Name="PlaylistNamesDataTemplate" x:DataType="viewModels:PlaylistViewModel">
-                <Grid Padding="5">
+                <Grid Padding="5" Width="400">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="48"/>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Image   Source="{x:Bind PlaylistImage.AbsoluteUri}" Grid.Column="0"/>
+                    <Image   Source="{x:Bind PlaylistImage.AbsoluteUri}" Grid.Column="0"
+                             Visibility="{x:Bind NoPlaylistImage,Converter={StaticResource InvertVisibilityConverter}}"/>
+                    <FontIcon Visibility="{x:Bind NoPlaylistImage, Mode=OneWay, Converter={StaticResource VisibilityConverter}}" 
+                              Width="38" Height="38" Glyph="&#xE90B;"  
+                              FontSize="38"/>
                     <TextBlock Text="{x:Bind PlaylistName}" Padding="2"  Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"/>
                 </Grid>
             </DataTemplate>
         </Page.Resources>
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition x:Name="PlaylistNames" Width="Auto"/>
+                <ColumnDefinition x:Name="PlaylistNames" Width="400"/>
                 <ColumnDefinition x:Name="PlaylistTracks" Width="*"/>
             </Grid.ColumnDefinitions>
 
