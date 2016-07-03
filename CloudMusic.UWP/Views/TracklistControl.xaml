@@ -20,6 +20,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="48"/>
                             <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Image Source =  "{x:Bind TrackImage.AbsoluteUri}" Grid.Column="0" 
@@ -28,7 +30,9 @@
                                   Grid.Column="0"  Width="38" Height="38"
                                   FontFamily="ms-appx:/Assets/IconFonts/Glyphs.ttf#glyphs"  Glyph="a" FontSize="38"/>
                         <TextBlock Text= "{x:Bind TrackName}" Grid.Column="1"  VerticalAlignment="Center" HorizontalAlignment="Left"/>
-                        <TextBlock Text= "{x:Bind Track.ServiceSource}" Grid.Column="2" VerticalAlignment="Bottom" FontSize="10" />
+                        <TextBlock Text="{x:Bind ArtistName}" Grid.Column="2"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"/>
+                        <TextBlock Text="{x:Bind Duration}" Grid.Column="3"  VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12"/>
+                        <TextBlock Text= "{x:Bind Track.ServiceSource}" Grid.Column="4" VerticalAlignment="Bottom" FontSize="10" />
                     </Grid>
                 </DataTemplate>
             </ListView.Resources>

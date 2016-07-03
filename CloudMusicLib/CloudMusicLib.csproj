@@ -41,6 +41,7 @@
     <Compile Include="CoreLibrary\CloudPlaylist.cs" />
     <Compile Include="CoreLibrary\CloudPlaylistList.cs" />
     <Compile Include="CoreLibrary\CloudUser.cs" />
+    <Compile Include="DeezerService\DeezerService.cs" />
     <Compile Include="ServiceCore\ICloudConnection.cs" />
     <Compile Include="ServiceCore\CloudHttpHelper.cs" />
     <Compile Include="ServiceCore\CloudMan.cs" />
@@ -75,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DeezerService\DeezerMethods\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

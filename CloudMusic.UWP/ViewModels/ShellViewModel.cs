@@ -24,25 +24,9 @@ namespace CloudMusic.UWP.ViewModels
 
             IsServicesSplitViewPaneOpened = true;
             Services = new ServicesCollection();
-            ShellInit();
             WorkflowFrame = workflow;
             ToggleFavorites();
            
-        }
-
-        public async void ShellInit()
-        {
-
-            CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Init,
-                                                          "109f016fa8b98246e0e5156074389ff1",
-                                                          "08b584be83dd9825488004bcee50e3b6");
-            //CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Authorization,
-            //                                             "gamover-90@hotmail.com", "gam2106");
-            
-            //var tracklist = CloudMan.SearchTracks("Seceqtrique");
-//            var tracklist = CloudMan.SearchTracks("Numb");
-            //Debug.WriteLine(tracklist.ToString());
-
         }
         public void ToggleSearch()
         {

@@ -13,6 +13,7 @@ using Windows.Security.Cryptography.Core;
 using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage;
 using Windows.Storage.Streams;
+using Windows.UI.Xaml.Media;
 
 namespace CloudMusic.UWP.Common
 {
@@ -27,7 +28,7 @@ namespace CloudMusic.UWP.Common
                    (token.Type == JTokenType.Null);
         }
     }
-    class ConfigDefines
+    class ConfigJsonDefines
     {
         public readonly string ServicesConfFileName = "ServicesConfig.json";
         public readonly string ServiceLoginInfoGroupName = "LoginInfo";
@@ -62,7 +63,7 @@ namespace CloudMusic.UWP.Common
         private static StorageFolder _roamingFolder;
 
         private static StorageFile _servicesConfig;
-        private static ConfigDefines _defines;
+        private static ConfigJsonDefines _defines;
 
         static AppConfig()
         {
@@ -70,7 +71,7 @@ namespace CloudMusic.UWP.Common
             _roamingSettings = ApplicationData.Current.RoamingSettings;
             _localFolder = ApplicationData.Current.LocalFolder;
             _roamingFolder = ApplicationData.Current.RoamingFolder;
-            _defines = new ConfigDefines();
+            _defines = new ConfigJsonDefines();
             ServicesConfigInit();
 
 

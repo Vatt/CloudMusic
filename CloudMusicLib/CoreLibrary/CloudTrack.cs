@@ -9,6 +9,7 @@ namespace CloudMusicLib.CoreLibrary
         public string TrackName { get; set; }
         public string ArtistName { get; set; }
         public string AlbumName { get; set; }
+        public DateTime Duration { get; set; }
         public CloudAlbum  Album { get; set; }
         public CloudArtist Artist { get; set; }
         public Uri TrackImage { get; set; }

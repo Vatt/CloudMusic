@@ -17,7 +17,8 @@
     
     <Page.Resources>
         <DataTemplate x:Name="ServiceDataTemplate" x:DataType="viewModels:ServiceViewModel">
-            <Image  Source="{x:Bind ServiceIcon.AbsoluteUri}" Width="48" Height="48" Stretch="Fill"/>
+            <FontIcon Width="48" Height="48" FontFamily="{x:Bind ServiceFontFamily}"  Glyph="{x:Bind ServiceGlyph}"
+                      FontSize="{x:Bind ServiceFontSize}"/>
         </DataTemplate>    
     </Page.Resources>
     

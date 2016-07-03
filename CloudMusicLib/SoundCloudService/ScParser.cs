@@ -35,7 +35,10 @@ namespace CloudMusicLib.SoundCloudService
             if (imageStr!=null)
             {
                 image = new Uri(imageStr.Replace("large", "badge"));
-            }           
+            }
+            double duration_mc = (Int64)json["duration"];
+            DateTime duration = new DateTime();
+            duration =  duration.AddMilliseconds(duration_mc);
             CloudTrack track = new CloudTrack
             {
                 ServiceSource = service,
@@ -43,6 +46,7 @@ namespace CloudMusicLib.SoundCloudService
                 ArtistName = artist,
                 SourceData = source,
                 TrackImage = image,
+                Duration = duration,
             };
             return track;
         }

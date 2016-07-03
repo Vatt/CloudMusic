@@ -93,6 +93,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\IconFonts\Glyphs.ttf" />
+    <Content Include="Assets\IconFonts\fontawesome.ttf" />
+    <Content Include="Assets\IconFonts\deezer.ttf" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
