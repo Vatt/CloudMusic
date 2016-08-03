@@ -8,6 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot x:Name="SettingsPivot"/>
+        <Pivot x:Name="SettingsPivot">
+            <PivotItem x:Name="ScSettings" Header="SoundCloud">
+                <local:ScSettingControl></local:ScSettingControl>
+            </PivotItem>
+            <PivotItem x:Name="DzSettings" Header="Deezer">
+                <local:DzSettingsControl></local:DzSettingsControl>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>

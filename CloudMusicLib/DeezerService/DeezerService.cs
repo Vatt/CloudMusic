@@ -14,7 +14,6 @@ namespace CloudMusicLib.DeezerService
         public string SecretId;
         public DeezerService() : base("Deezer", true)
         {
-            base.WebBasedLogin = true;
             base.RegisterLoginMessage = "Регистрация обязательна";
             base.RegisterUri = new Uri("http://www.deezer.com/register");
             base.Connection = new DzConnection(this);
