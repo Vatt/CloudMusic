@@ -21,6 +21,7 @@ namespace CloudMusic.UWP.ViewModels
                 ServiceSettingViewModel model = new ServiceSettingViewModel(service);
                 var control = new SettingControl();
                 control.VM = model;
+                
                 newItem.Header = service.ServiceName;
                 newItem.Content = control;
                 _pivot.Items.Add(newItem);

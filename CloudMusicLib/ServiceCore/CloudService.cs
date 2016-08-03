@@ -12,12 +12,13 @@ namespace CloudMusicLib.ServiceCore
         public bool IsAuthorizationRequired{ get; }
         public string RegisterLoginMessage { get; protected set; }
         public Dictionary<ServiceCommands, ServiceMethod> _commands;
-        
+        public bool WebBasedLogin;
         protected CloudService(string name, bool isAuthorizationRequired)
         {
             _commands = new Dictionary<ServiceCommands, ServiceMethod>();
             ServiceName = name;
             IsAuthorizationRequired = isAuthorizationRequired;
+            WebBasedLogin = false;
         }
         protected void AddMethod(ServiceMethod inMethod)
         {

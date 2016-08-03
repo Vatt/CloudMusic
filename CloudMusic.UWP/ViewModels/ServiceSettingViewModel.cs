@@ -2,9 +2,11 @@
 using CloudMusic.UWP.Models;
 using CloudMusic.UWP.ViewModels.Base;
 using CloudMusicLib.CoreLibrary;
+using CloudMusicLib.DeezerService;
 using CloudMusicLib.ServiceCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
@@ -13,7 +15,10 @@ namespace CloudMusic.UWP.ViewModels
 {
     public class ServiceSettingViewModel : NotificationBase
     {
-        private CloudService _service { get; }
+        public CloudService _service { get; }
+
+        public Uri LoginUri;
+        public WebView webView;
         private string _login;
         private string _password;
         private string _messageIfAuthorized;
@@ -73,13 +78,21 @@ namespace CloudMusic.UWP.ViewModels
             {
                 _messageIfAuthorized = $"Вы авторизованы:\n{_service.User.ToString()}";
                 _isAuthorized = true;
+                return;
             }
             else
             {
                 _messageIfAuthorized = "";
                 _isAuthorized = false;
             }
+            if (service.WebBasedLogin)
+            { 
+                var con = _service.Connection as WebBasedLoginInterface;
+                LoginUri = new Uri(con.LoginUrlString);
+            }
         }
+
+
         public string AdditionalMessage
         {
             get
@@ -128,6 +141,28 @@ namespace CloudMusic.UWP.ViewModels
             _service.Connection.Disconnect();
             IsAuthorized = false;
             GlobalEventSet.Raise<string>("Logout", _service.ServiceName);
+
+        }
+
+        public void TryLoginWebViewBased()
+        {
+            WebView webView = new WebView();
+            webView.Visibility = Windows.UI.Xaml.Visibility.Collapsed;       
+            webView.Navigate(LoginUri);
+            webView.DOMContentLoaded += async (w, args) =>
+            {
+                await w.InvokeScriptAsync("eval", (_service.Connection as WebBasedLoginInterface).GetJSCallbacks(Login, Password));
+               /* foreach (var callback in (_service.Connection as WebBasedLoginInterface).GetJSCallbacks(Login,Password)) {
+                    await w.InvokeScriptAsync("eval", (_service.Connection as WebBasedLoginInterface).GetJSCallbacks(Login, Password));
+                }*/                
+            };
+            webView.NavigationCompleted += (s, a) =>
+              {
+                  var conn = (_service.Connection as WebBasedLoginInterface);
+                  conn.Response(webView.Source.AbsoluteUri);
+              };
+            
+
 
         }
 

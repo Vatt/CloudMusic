@@ -1,6 +1,8 @@
 ﻿using CloudMusic.UWP.ViewModels;
+using CloudMusicLib.ServiceCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -22,17 +24,26 @@ namespace CloudMusic.UWP.Views
     {
         public  ServiceSettingViewModel VM { get; set; }
         public SettingControl()
-        {
-            this.InitializeComponent();
-            //_vm = new ServiceSettingViewModel()
+        {       
+            this.InitializeComponent();           
         }
 
         private void Grid_KeyUp(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter)
             {
-                VM.TryLogin();
+                if (VM._service.WebBasedLogin)
+                {
+                    VM.TryLoginWebViewBased();
+                }
+                else
+                {
+                    VM.TryLogin();
+                }
             }
         }
+
+
+
     }
 }

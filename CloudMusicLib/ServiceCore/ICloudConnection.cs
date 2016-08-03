@@ -23,6 +23,7 @@ namespace CloudMusicLib.ServiceCore
         public abstract string ToJsonString();
         public abstract void FromJsonString(string jsonString);
     }
+
     public abstract class OAuth2Connection : CloudConnection
     {
         public string _accessToken { get; protected set; }
@@ -74,6 +75,13 @@ namespace CloudMusicLib.ServiceCore
             _refreshToken = "";
             _expiresIn = 0;
         }
-
     }
+    public interface WebBasedLoginInterface
+    {
+        string[] GetJSCallbacks(string login,string password);
+        string LoginUrlString { get; }
+        void Response(string response);
+        
+    }
+
 }
