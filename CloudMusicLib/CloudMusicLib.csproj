@@ -44,7 +44,6 @@
     <Compile Include="DeezerService\DeezerCore\DzApi.cs" />
     <Compile Include="DeezerService\DeezerCore\DzApiEnum.cs" />
     <Compile Include="DeezerService\DeezerCore\DzParser.cs" />
-    <Compile Include="DeezerService\DeezerMethods\DzAuthorizationMethod.cs" />
     <Compile Include="DeezerService\DeezerMethods\DzInitMethod.cs" />
     <Compile Include="DeezerService\DeezerService.cs" />
     <Compile Include="DeezerService\DzConnection.cs" />

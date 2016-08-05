@@ -35,7 +35,7 @@ namespace CloudMusicLib.SoundCloudService
             _expiresIn = (int)jsonAuth["expires_in"];
       
             JObject jsonMe = JObject.Parse(ScApi.GetMeInfoJson(_accessToken));
-            CloudUser user = new CloudUser(args[0] as string);
+            CloudUser user = new CloudUser(ScApi.ScService,args[0] as string);
             user.UserName = (string)jsonMe["username"];
             if ((string)jsonMe["first_name"] != null)
             {
@@ -46,7 +46,7 @@ namespace CloudMusicLib.SoundCloudService
                 user.LastName = (string)jsonMe["last_name"];
             }
             user.Id = (string)jsonMe["id"];
-            OwnerService().SetUser(user);
+            _service.SetUser(user);
             
  
             return true;
@@ -88,8 +88,7 @@ namespace CloudMusicLib.SoundCloudService
             _expiresIn = (int)json["expires_in"];
 
             base.InvokeConnectionChange(this);
-            
-            return false;
+            return true;
         }
     }
 }

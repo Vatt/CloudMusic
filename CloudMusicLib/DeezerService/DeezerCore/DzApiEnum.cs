@@ -8,6 +8,7 @@ namespace CloudMusicLib.DeezerService.DeezerCore
 {
     enum DzApiEnum
     {
-        Authorization,
+        LoginUrlString,
+        MeInfo,
     }
 }

@@ -59,9 +59,11 @@ namespace CloudMusic.UWP.ViewModels.ServiceViewModels
         }
         public override async void Logout()
         {
+            var connection = _service.Connection as OAuth2Connection;
             await AppConfig.RemoveLoginSettings(_service);
             _service.SetUser(null);
-            _service.Connection.Disconnect();
+
+            connection.Disconnect();
             IsAuthorized = false;
             GlobalEventSet.Raise<string>("Logout", _service.ServiceName);
 

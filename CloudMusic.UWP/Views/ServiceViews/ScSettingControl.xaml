@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="CloudMusic.UWP.Views.ScSettingControl"
+    x:Class="CloudMusic.UWP.Views.ServiceViews.ScSettingControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CloudMusic.UWP.Views"

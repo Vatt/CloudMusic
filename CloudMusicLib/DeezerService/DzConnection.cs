@@ -1,62 +1,73 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using CloudMusicLib.ServiceCore;
 using System.Diagnostics;
+using CloudMusicLib.DeezerService.DeezerCore;
+using CloudMusicLib.Common;
 
 namespace CloudMusicLib.DeezerService
 {
-    public class DzConnection : OAuth2Connection, WebBasedLoginInterface
+    public class DzConnection : OAuth2ConnectionBase, WebBasedConnectInterface
     {
-        public string _jsCallback;
-        public DeezerService service;
-        public DzConnection(DeezerService service) : base(service)
+        public ConnectionChangeEventHandler ConnectionChangeHandler { get; set; }
+        public event ConnectionChangeEventHandler OnConnectionChanged;
+        public void InvokeConnectionChange(ConnectBaseInterface connection)
         {
-            this.service = service;
+            OnConnectionChanged?.Invoke(connection);
         }
-
-        string[] WebBasedLoginInterface.GetJSCallbacks(string login, string password)
+        public DzConnection(DeezerService service):base(service)
         {
-            return new [] {
-                        $"document.getElementById('login_mail').value = '{login}';",
-                        $"document.getElementById('login_password').value ='{password}';",
-                        $"document.getElementById('login_form_submit').click();"
-            };
-        }
 
-        string WebBasedLoginInterface.LoginUrlString
+        }
+        string WebBasedConnectInterface.LoginUrlString
         {
             get
             {
-                return $"http://connect.deezer.com/oauth/auth.php?app_id={service.ClientId}&redirect_uri=https://connect.deezer.com/&response_type=token&perms=basic_access";
-            }
-
-  
+                return DzApi.GetLoginUrlString();
+            }  
         }
 
-        public override Task<bool> ConnectAsync<T>(params T[] args)
+        bool ConnectBaseInterface.IsConnected()
         {
-            throw new NotImplementedException();
-        }
-
-        public override bool IsConnected()
-        {
-            if (_expiresIn == 0 || _accessToken.Length == 0 || _refreshToken.Length == 0)
+            if (_expiresIn == 0 || _accessToken.Length == 0)
             {
                 return false;
             }
             return true;
         }
-        public override Task<bool> RefreshAsync()
+
+
+        void WebBasedConnectInterface.Response(string response)
         {
-            throw new NotImplementedException();
+            throw new  NotImplementedException();
         }
 
-        public void Response(string response)
+        async void WebBasedConnectInterface.Response(Uri uri)
         {
-            Debug.WriteLine(response);
+            if (uri.Fragment.Length > 0)
+            {
+                string[] parsed = DzParser.ParseFragment(uri.Fragment);
+                _accessToken = parsed[0];
+                _expiresIn = Int32.Parse(parsed[1]);
+                _refreshToken = "";
+                var userJson = await DzApi.GetUserInfoJson(_accessToken);
+                var user = DzParser.ParserUserInfo(userJson);
+                _service.SetUser(user);
+                _service.InvokeUserChange();
+                InvokeConnectionChange(this);
+            }
+            
+
+        }
+
+        public override async Task<bool> RefreshAsync()
+        {
+            bool result = await DzApi.RefreshTokenAsync();
+            if (!result)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -39,6 +39,7 @@ namespace CloudMusic.UWP.Common
         public readonly string ServiceFirstnameProperty = "FirstName";
         public readonly string ServiceLastnameProperty = "LastName";
         public readonly string ServiceUserNamePropertry = "Username";
+        public readonly string ServiceUserLoginInfoProperty = "LoginInfo";
 
         public readonly string ServiceLoginPropertyname = "Login";
         public readonly string ServicePasswordPropertyName = "Password";
@@ -166,17 +167,18 @@ namespace CloudMusic.UWP.Common
             }
             var userInfoJson = serviceConf[_defines.ServiceUserInfoGroupName];
             var loginInfo = await  GetLoginInfo(service.ServiceName);
-            if (loginInfo==null)
-            {
-                return false;
-            }
-            var login = loginInfo.User;
+            //wtf: быть может надо выпилить вообще Login Info как группу 
+            //if (loginInfo==null)
+            //{
+            //    return false;
+            //}
+            //var login = loginInfo.User;
             var id = (string)userInfoJson[_defines.ServiceIdPropertyName];
             var username = (string)userInfoJson[_defines.ServiceUserNamePropertry];
             var first_name = (string)userInfoJson[_defines.ServiceFirstnameProperty];
             var last_name = (string)userInfoJson[_defines.ServiceLastnameProperty];
-
-            var user = new CloudUser(login);
+            var login = (string)userInfoJson[_defines.ServiceUserLoginInfoProperty];
+            var user = new CloudUser(service,login);
             user.Login = login;
             user.UserName = username;
             user.FirstName = first_name;

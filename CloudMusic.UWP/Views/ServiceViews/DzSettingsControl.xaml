@@ -1,0 +1,21 @@
+﻿<UserControl
+    x:Class="CloudMusic.UWP.Views.ServiceViews.DzSettingsControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CloudMusic.UWP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="auto" Width="auto"
+          KeyUp="Grid_KeyUp">
+        <WebView x:Name="DeezerLoginWebView" HorizontalAlignment="Stretch" Width="auto" Height="auto"
+                 Visibility="{x:Bind VM.IsConnected, Mode=OneWay, Converter={StaticResource InvertVisibilityConverter}}">
+            
+        </WebView>
+        <StackPanel x:Name="IfAuthorizedPane" 
+                        Orientation="Horizontal" 
+                        Visibility="{x:Bind VM.IsConnected, Mode=OneWay, Converter={StaticResource VisibilityConverter}}">
+            <TextBlock Text="{x:Bind VM.MessageIfAuthorized, Mode=OneWay}" TextTrimming="Clip"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

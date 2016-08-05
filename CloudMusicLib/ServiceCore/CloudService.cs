@@ -1,13 +1,20 @@
-﻿using CloudMusicLib.CoreLibrary;
+﻿using CloudMusicLib.Common;
+using CloudMusicLib.CoreLibrary;
 using System;
 using System.Collections.Generic;
 namespace CloudMusicLib.ServiceCore
 {
     public abstract class CloudService
     {
+        public UserChangeEventHandler UserChangeHandler { get; set; }
+        public event UserChangeEventHandler OnUserChanged;
+        public void InvokeUserChange()
+        {
+            OnUserChanged?.Invoke(this);
+        }
         public readonly string ServiceName;
         public CloudUser User { get; protected set; }
-        public CloudConnection Connection;
+        public ConnectBaseInterface Connection;
         public Uri RegisterUri { get; protected set; }
         public bool IsAuthorizationRequired{ get; }
         public string RegisterLoginMessage { get; protected set; }
