@@ -11,8 +11,29 @@ namespace CloudMusic.UWP.ViewModels.ServiceViewModels
 {
     class DzSettingsViewModel : ServiceSettingsViewModelBase
     {
-        public bool IsConnected { get; set; }
-        public bool IsUserCreated { get; set; }
+        bool _isConnected;
+        bool _isUserCreated;
+        public bool IsConnected {
+            get
+            {
+                return _isConnected;
+            }
+            set
+            {
+                SetProperty(ref _isConnected, value);
+            }
+        }
+        public bool IsUserCreated
+        {
+            get
+            {
+                return _isUserCreated;
+            }
+            set
+            {
+                SetProperty(ref _isUserCreated, value);
+            }
+        }
         public Uri LoginUrl
         {
             get

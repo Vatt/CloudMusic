@@ -10,5 +10,6 @@ namespace CloudMusicLib.DeezerService.DeezerCore
     {
         LoginUrlString,
         MeInfo,
+        TracksSearch,
     }
 }

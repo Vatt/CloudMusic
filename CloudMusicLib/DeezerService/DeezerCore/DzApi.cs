@@ -16,7 +16,8 @@ namespace CloudMusicLib.DeezerService.DeezerCore
         public static Dictionary<DzApiEnum, string> ApiDictionary = new Dictionary<DzApiEnum, string>
         {
             {   DzApiEnum.LoginUrlString, "http://connect.deezer.com/oauth/auth.php?app_id={0}&redirect_uri={1}&response_type=token&perms=basic_access,email " },
-            {   DzApiEnum.MeInfo,"http://api.deezer.com/user/me&access_token={0}" },
+            {   DzApiEnum.MeInfo,         "http://api.deezer.com/user/me&access_token={0}" },
+            {   DzApiEnum.TracksSearch,   "http://api.deezer.com/search/track?q={0}&access_token={1}"}
         };
         public static DzConnection GetServiceConnection() => service.Connection as DzConnection;
         public static string GetLoginUrlString()

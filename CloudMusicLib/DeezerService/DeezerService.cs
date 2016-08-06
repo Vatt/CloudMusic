@@ -22,7 +22,7 @@ namespace CloudMusicLib.DeezerService
 
            // base.AddMethod(new DzAuthorizationMethod(this));
             base.AddMethod(new DzInitMethod(this));
-
+            base.AddMethod(new DzTracksSearchMethod(this));
             DzApi.Init(this);
         }
     }

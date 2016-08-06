@@ -45,6 +45,7 @@
     <Compile Include="DeezerService\DeezerCore\DzApiEnum.cs" />
     <Compile Include="DeezerService\DeezerCore\DzParser.cs" />
     <Compile Include="DeezerService\DeezerMethods\DzInitMethod.cs" />
+    <Compile Include="DeezerService\DeezerMethods\DzTracksSearchMethod.cs" />
     <Compile Include="DeezerService\DeezerService.cs" />
     <Compile Include="DeezerService\DzConnection.cs" />
     <Compile Include="ServiceCore\ICloudConnection.cs" />
