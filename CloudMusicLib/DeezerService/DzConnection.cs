@@ -37,9 +37,20 @@ namespace CloudMusicLib.DeezerService
         }
 
 
-        void WebBasedConnectInterface.Response(string response)
+        async void WebBasedConnectInterface.Response(string response)
         {
-            throw new  NotImplementedException();
+            if (response.Length > 0)
+            {
+                string[] parsed = DzParser.ParseFragment(response);
+                _accessToken = parsed[0];
+                _expiresIn = Int32.Parse(parsed[1]);
+                _refreshToken = "";
+                var userJson = await DzApi.GetUserInfoJson(_accessToken);
+                var user = DzParser.ParserUserInfo(userJson);
+                _service.SetUser(user);
+                _service.InvokeUserChange();
+                InvokeConnectionChange(this);
+            }
         }
 
         async void WebBasedConnectInterface.Response(Uri uri)

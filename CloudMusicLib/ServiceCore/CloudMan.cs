@@ -14,7 +14,8 @@ namespace CloudMusicLib.ServiceCore
         {
             _services = new Dictionary<string, CloudService>();
             RegisterService(new SoundCloudService.SoundCloudService());
-            RegisterService(new DeezerService.DeezerService());
+            // FUCK YOU, DEEZER
+            //   RegisterService(new DeezerService.DeezerService());
             VerifyServices();
         }
         public static void RegisterService(CloudService service)

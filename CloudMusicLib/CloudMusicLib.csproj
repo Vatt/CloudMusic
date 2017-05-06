@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.props" Condition="Exists('..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.props')" />
+  <Import Project="..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.props" Condition="Exists('..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
@@ -15,6 +17,8 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,18 +77,31 @@
     <Compile Include="SoundCloudService\SoundCloudMethods\ScPlaylistsSearchMethod.cs" />
     <Compile Include="SoundCloudService\SoundCloudMethods\ScTracksSearch.cs" />
     <Compile Include="SoundCloudService\SoundCloudService.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\portable-net40+sl5+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Compile Include="SpotifyService\SpotifyService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SpotifyService\SpotifyMethods\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\portable-net45+win8+wpa81+wp8\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.props'))" />
+    <Error Condition="!Exists('..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.targets'))" />
+    <Error Condition="!Exists('..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.props'))" />
+    <Error Condition="!Exists('..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.targets'))" />
+  </Target>
+  <Import Project="..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.targets" Condition="Exists('..\packages\WinObjC.Logging.0.2.170408-dev-20170504235959\build\WinObjC.Logging.targets')" />
+  <Import Project="..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.targets" Condition="Exists('..\packages\WinObjC.Language.0.2.170408-dev-20170504235959\build\WinObjC.Language.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMusicLib", "CloudMusicLib\CloudMusicLib.csproj", "{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{547307AD-A7EE-484B-8927-B015AF73DD9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudMusic.UWP", "CloudMusic.UWP\CloudMusic.UWP.csproj", "{82615A80-F677-46F3-A989-27CBB4BA1071}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -42,22 +40,6 @@ Global
 		{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}.Release|x64.Build.0 = Release|Any CPU
 		{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}.Release|x86.ActiveCfg = Release|Any CPU
 		{169FA6F4-B3E6-4FB2-A32A-0E5D7B4D2F57}.Release|x86.Build.0 = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|ARM.Build.0 = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|x64.Build.0 = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Debug|x86.Build.0 = Debug|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|ARM.ActiveCfg = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|ARM.Build.0 = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|x64.ActiveCfg = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|x64.Build.0 = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|x86.ActiveCfg = Release|Any CPU
-		{547307AD-A7EE-484B-8927-B015AF73DD9F}.Release|x86.Build.0 = Release|Any CPU
 		{82615A80-F677-46F3-A989-27CBB4BA1071}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{82615A80-F677-46F3-A989-27CBB4BA1071}.Debug|ARM.ActiveCfg = Debug|ARM
 		{82615A80-F677-46F3-A989-27CBB4BA1071}.Debug|ARM.Build.0 = Debug|ARM

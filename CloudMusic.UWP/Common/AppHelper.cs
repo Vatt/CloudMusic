@@ -43,10 +43,10 @@ namespace CloudMusic.UWP.Common
             CloudMan.InvokeCommand<DummyOutType, string>("SoundCloud", ServiceCommands.Init,
                                                           "109f016fa8b98246e0e5156074389ff1",
                                                           "08b584be83dd9825488004bcee50e3b6");
-            CloudMan.InvokeCommand<DummyOutType, string>("Deezer", ServiceCommands.Init, "184342",
+            // FUCK YOU, DEEZER
+            /*CloudMan.InvokeCommand<DummyOutType, string>("Deezer", ServiceCommands.Init, "184342",
                                                          "3051aef8c1554a4ce5a062e31d117179", 
-                                                         "https://connect.deezer.com/");
-
+                                                         "https://connect.deezer.com/");*/
         }
         public static void GlobalEventsInit()
         {

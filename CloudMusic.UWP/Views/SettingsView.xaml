@@ -12,9 +12,9 @@
             <PivotItem x:Name="ScSettings" Header="SoundCloud">
                 <local:ScSettingControl></local:ScSettingControl>
             </PivotItem>
-            <PivotItem x:Name="DzSettings" Header="Deezer">
-                <local:DzSettingsControl></local:DzSettingsControl>
-            </PivotItem>
+            <!--            <PivotItem x:Name="DzSettings" Header="Deezer">
+                 <local:DzSettingsControl></local:DzSettingsControl>
+            </PivotItem> -->
         </Pivot>
     </Grid>
 </Page>
