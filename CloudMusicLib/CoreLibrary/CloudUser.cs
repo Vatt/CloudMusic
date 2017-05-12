@@ -32,7 +32,7 @@ namespace CloudMusicLib.CoreLibrary
         public override string ToString()
         {
             string data = "";
-            if (UserName.Length >0 )
+            if (UserName?.Length >0 )
             {
                 data = $"{UserName}";
             }
@@ -40,7 +40,7 @@ namespace CloudMusicLib.CoreLibrary
             {
                 data = $"{Login}";
             }
-            if (FirstName.Length==0 && LastName.Length==0)
+            if (FirstName?.Length==0 && LastName?.Length==0)
             {
                 return data;
             }
