@@ -29,6 +29,10 @@ namespace CloudMusicLib.CoreLibrary
         //    LastName = "";
         //    Id = "";
         //}
+        public bool isEmpty()
+        {
+            return Login==null;
+        }
         public override string ToString()
         {
             string data = "";

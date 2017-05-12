@@ -58,7 +58,7 @@ namespace CloudMusic.UWP.Common
      }
     public class AppConfig
     {
-        private static  ApplicationDataContainer _localSettings;
+        private static ApplicationDataContainer _localSettings;
         private static ApplicationDataContainer _roamingSettings;
         private static StorageFolder _localFolder;
         private static StorageFolder _roamingFolder;
@@ -100,20 +100,20 @@ namespace CloudMusic.UWP.Common
         }
         private static async Task CreateServicesConfig()
         {
-            var task =  _roamingFolder.CreateFileAsync(_defines.ServicesConfFileName, CreationCollisionOption.ReplaceExisting);
+            var task = _roamingFolder.CreateFileAsync(_defines.ServicesConfFileName, CreationCollisionOption.ReplaceExisting);
             _servicesConfig = task.AsTask().Result;
             JObject configs = new JObject();
-            foreach(var service in CloudMan.Services())
+            foreach (var service in CloudMan.Services())
             {
                 configs[service.ServiceName] = CreateEmptyServiceConf();
             }
             await FileIO.WriteTextAsync(_servicesConfig, configs.ToString());
-            
+
         }
 
 
 
-        public static async Task SaveLoginInfo(string service,string user,string password)
+        public static async Task SaveLoginInfo(string service, string user, string password)
         {
             JObject configs = JObject.Parse(await FileIO.ReadTextAsync(_servicesConfig));
             JToken serviceConf;
@@ -155,7 +155,7 @@ namespace CloudMusic.UWP.Common
 
         public static async Task<bool> TryLoadUserInfo(CloudService service)
         {
-            if (_servicesConfig==null)
+            if (_servicesConfig == null)
             {
                 return false;
             }
@@ -166,7 +166,7 @@ namespace CloudMusic.UWP.Common
                 return false;
             }
             var userInfoJson = serviceConf[_defines.ServiceUserInfoGroupName];
-            var loginInfo = await  GetLoginInfo(service.ServiceName);
+            var loginInfo = await GetLoginInfo(service.ServiceName);
             //wtf: быть может надо выпилить вообще Login Info как группу 
             //if (loginInfo==null)
             //{
@@ -178,14 +178,18 @@ namespace CloudMusic.UWP.Common
             var first_name = (string)userInfoJson[_defines.ServiceFirstnameProperty];
             var last_name = (string)userInfoJson[_defines.ServiceLastnameProperty];
             var login = (string)userInfoJson[_defines.ServiceUserLoginInfoProperty];
+            if (login == null)
+            {
+                return false;
+            }
             var user = new CloudUser(service,login);
-            user.Login = login;
-            user.UserName = username;
-            user.FirstName = first_name;
+            user.Login  = login;
+            user.UserName  = username;
+            user.FirstName  = first_name;
             user.LastName = last_name;
             user.Id = id;
             service.SetUser(user);
-            return true;
+            return !user.isEmpty();
         }
         public static async Task SaveUserInfo(CloudService service)
         {
