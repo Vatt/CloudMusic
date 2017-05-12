@@ -13,7 +13,7 @@ using Windows.UI.Core;
 
 namespace CloudMusic.UWP.Models
 {
-    public class PlaylistsCollection:ObservableCollection<PlaylistViewModel>, ISupportIncrementalLoading
+    public class PlaylistsCollection : ObservableCollection<PlaylistViewModel>, ISupportIncrementalLoading
     {
         public CloudPlaylistList _original;
         public PlaylistsCollection(CloudListMode mode) : base()
@@ -39,37 +39,35 @@ namespace CloudMusic.UWP.Models
         }
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            var dispatcher = Window.Current.Dispatcher;            
-            return Task.Run(async () =>
+            return LoadMoreAsync(count).AsAsyncOperation();
+        }
+
+        public async Task<LoadMoreItemsResult> LoadMoreAsync(uint count)
+        {
+            var items = await _original.LoadMoreIfPossibleAsync();
+            try
             {
-                var items = await _original.LoadMoreIfPossibleAsync();
-                try
+                uint Length = 0;
+
+                InvokeLoadStarted();
+
+                foreach (var item in items)
                 {
-                    uint Length = 0;
-                    
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadStarted);
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                        () =>
-                        {
-                            foreach (var item in items)
-                            {
-                                base.Add(new PlaylistViewModel(item));
-                            }
-                            Length = (uint)items.Count;
-                        }
-                    );
-                    return new LoadMoreItemsResult { Count = (uint)Length };
+                    base.Add(new PlaylistViewModel(item));
                 }
-                catch (Exception)
-                {
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadFailed);
-                    return new LoadMoreItemsResult { Count = 0 };
-                }
-                finally
-                {
-                    await dispatcher.RunAsync(CoreDispatcherPriority.Normal, InvokeLoadCompleted);
-                }
-            }).AsAsyncOperation();
+                Length = (uint)items.Count;
+
+                return new LoadMoreItemsResult { Count = (uint)Length };
+            }
+            catch (Exception)
+            {
+                InvokeLoadFailed();
+                return new LoadMoreItemsResult { Count = 0 };
+            }
+            finally
+            {
+                InvokeLoadCompleted();
+            }
         }
 
         public override string ToString()
